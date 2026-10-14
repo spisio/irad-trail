@@ -556,7 +556,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 5250 DS(I) = K : SD(I) = 6 + INT ( RND (1) * 8)
 5255 M1$ = N$(I) + " HAS " + D$(K) + "." : GOSUB 7600 : RETURN
 5300 HL(I) = 0 : DS(I) = 0 : IF I = 1 THEN EN = 1 : DC$ = D$(K) : RETURN
-5305 M1$ = N$(I) + " HAS DIED OF " + D$(K) + "." : M2$ = "THE FAMILY BURIES THEM BESIDE THE ROAD." : M3$ = "THE RIDING HORSE IS LED BEHIND THE BIER."
+5305 M1$ = N$(I) + " HAS DIED OF " + D$(K) + "." : M2$ = "THE FAMILY BURIES THEM BESIDE THE ROAD." : M3$ = "THEIR HORSE FOLLOWS, SADDLE EMPTY."
 5310 GOSUB 7600 : RETURN
 5400 QA = 1 : IF H < 3 THEN RETURN
 5405 HOME : PRINT "THE FOOD IS GONE. A COUSIN LOOKS AT THE" : PRINT "LAME GREY MARE AND SAYS NOTHING." : PRINT "SLAUGHTER THE MARE? (Y/N) ";
@@ -678,8 +678,8 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 7500 VTAB 24 : HTAB 1 : PRINT "      PRESS RETURN TO CONTINUE";
 7505 GET K$ : IF K$ < > CHR$ (13) AND K$ < > " " THEN 7505
 7510 RETURN
-7600 HOME : PRINT M1$ : IF M2$ < > "" THEN PRINT M2$
-7605 IF M3$ < > "" THEN PRINT M3$
+7600 HOME : PRINT LEFT$ (M1$,39) : IF M2$ < > "" THEN PRINT LEFT$ (M2$,39)
+7605 IF M3$ < > "" THEN PRINT LEFT$ (M3$,39)
 7610 M1$ = "" : M2$ = "" : M3$ = ""
 7615 VTAB 24 : HTAB 1 : PRINT "PRESS RETURN";
 7620 GET K$ : IF K$ < > CHR$ (13) AND K$ < > " " THEN 7620
