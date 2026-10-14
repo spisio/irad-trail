@@ -2,3 +2,4 @@
 *.prg binary
 *.dsk binary
 *.bin binary
+IRAD.BAS -text

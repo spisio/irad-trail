@@ -131,13 +131,13 @@ for ($pg = 0; $pg -lt $pages; $pg++) {
   $n = [math]::Min(256, $prog.Length - $pg * 256)
   [Array]::Copy($prog, $pg * 256, $dsk, $off, $n)
 }
-[IO.File]::WriteAllBytes((Join-Path $root 'irad-trail.dsk'), $dsk)
+[IO.File]::WriteAllBytes((Join-Path $here 'irad-trail.dsk'), $dsk)
 [IO.File]::WriteAllBytes((Join-Path $here 'irad.bin'), $prog)
 
 # --- HTML ---
 $tpl = Get-Content -Raw -Encoding UTF8 -Path (Join-Path $here 'page.template.html')
 $head = "<!doctype html>`n<html lang=`"en`">`n<meta charset=`"utf-8`">`n<meta name=`"viewport`" content=`"width=device-width, initial-scale=1, viewport-fit=cover`">`n"
 $html = $head + $tpl.Replace('%%BASIC_SOURCE%%', $src.TrimEnd())
-[IO.File]::WriteAllText((Join-Path $root 'index.html'), $html, (New-Object Text.UTF8Encoding $false))
+[IO.File]::WriteAllText((Join-Path $here 'index.html'), $html, (New-Object Text.UTF8Encoding $false))
 
 "Program: $($prog.Length) bytes ($pages pages, $ntracks tracks), VARTAB=`$$('{0:X4}' -f $vartab), $($lines.Count) lines"
