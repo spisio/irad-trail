@@ -8,7 +8,7 @@ There are three editions, each in the style of a different era:
 
 | Edition | Style | Browser | File for an emulator |
 |---|---|---|---|
-| **MS-DOS** (main) | 1990 style: 16-color EGA scenes, hunting on foot, rafting the Naryn, Top Ten and graves | [play](https://spisio.github.io/irad-trail/) | [`IRAD.BAS`](IRAD.BAS) (GW-BASIC) |
+| **MS-DOS** (main) | 1990 style: 16-color EGA scenes, eagle hunting on foot, rafting the Naryn, Top Ten and graves | [play](https://spisio.github.io/irad-trail/) | [`IRAD.BAS`](IRAD.BAS) (GW-BASIC) |
 | **Apple II** | 1985 style: hi-res pictures, named family, eagle hunting | [play](https://spisio.github.io/irad-trail/apple2/) | [`apple2/irad-trail.dsk`](apple2/irad-trail.dsk) |
 | **Commodore 64** | 1978 style: text game | [play](https://spisio.github.io/irad-trail/c64/) | [`c64/irad-trail.d64`](c64/irad-trail.d64) |
 
@@ -16,7 +16,7 @@ There are three editions, each in the style of a different era:
 
 Choose who you are (a biy's son, a felt merchant or a herder), name your family of five, pick a month to leave, and shop at Osmon's shop by the Chu ford. On the road, press Enter to size up the situation: change the pace and rations, rest, trade, talk to people, look at the map, or hunt.
 
-- **Hunting:** walk the field with the arrow keys (Home, PgUp, End and PgDn for diagonals) and shoot with the space bar. Hares, marmots, roe deer and arkhar. You can carry only 100 funt back.
+- **Hunting:** walk the field with the arrow keys (Home, PgUp, End and PgDn for diagonals) and loose your golden eagle with the space bar. Each flight costs her a meal of eagle food, bought at the shops; she will not fly hungry. Hares, marmots, roe deer and arkhar. You can carry only 100 funt back.
 - **Rivers:** ford, float the packs on a goatskin raft, pay the rivermen, or wait a day.
 - **The Naryn gorge:** raft the last 70 versts to Iyık Janyl and steer around the rocks, or pay the herders for the mountain road.
 - **Top Ten and graves:** the best scores are saved in `IRADTOP.DAT`. When a caravan leader dies, the grave and its epitaph are saved in `IRADGRV.DAT` and appear beside the road for the next player.

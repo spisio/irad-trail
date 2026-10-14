@@ -74,7 +74,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
   <header>
     <div class="kicker">MS-DOS edition &middot; GW-BASIC &middot; EGA &middot; 1990</div>
     <h1>The Irad Trail</h1>
-    <p class="lede"><strong>Spring 1877.</strong> Lead your family 690 versts by horse caravan from the Chu to Iyık Janyl. Stock up at Osmon's shop, ford the rivers, cross the high passes, hunt on foot, and raft the Naryn gorge to Cathedral Hill. The best scores go on the Top Ten. Your grave stays on the road for the next player.</p>
+    <p class="lede"><strong>Spring 1877.</strong> Lead your family 690 versts by horse caravan from the Chu to Iyık Janyl. Stock up at Osmon's shop, ford the rivers, cross the high passes, hunt with your golden eagle, and raft the Naryn gorge to Cathedral Hill. The best scores go on the Top Ten. Your grave stays on the road for the next player.</p>
     <p class="editions">Other editions: <a href="apple2/">Apple II (1985 style)</a> &middot; <a href="c64/">Commodore 64 (1978 style)</a></p>
   </header>
 
@@ -89,7 +89,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
       <div class="badge"><span>Irad Personal Computer &middot; EGA</span><span class="led" aria-hidden="true"></span></div>
     </div>
     <div class="controls">
-      <p class="hint">Click the screen and use your keyboard. Press Enter on the road to size up the situation. Hunting: arrow keys move and aim, Space shoots. Rafting: left and right arrows steer. On a phone, use the keys below.</p>
+      <p class="hint">Click the screen and use your keyboard. Press Enter on the road to size up the situation. Hunting: arrow keys walk and aim, Space looses your eagle. Rafting: left and right arrows steer. On a phone, use the keys below.</p>
       <div class="keys" id="keys">
         <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
         <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
@@ -112,7 +112,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
     <h2>New in this edition</h2>
     <ul class="feat">
       <li><b>16-color EGA scenes</b><span>Painted landmarks, a travel strip with your caravan and a status panel.</span></li>
-      <li><b>Hunting on foot</b><span>Walk the field with the arrow keys, aim in eight directions, shoot hares, marmots, roe deer and arkhar. Carry home 100 funt at most.</span></li>
+      <li><b>Hunting with a berkut</b><span>Walk the field, aim in eight directions and loose your golden eagle at hares, marmots, roe deer and arkhar. Every flight costs a meal of eagle food. Carry home 100 funt at most.</span></li>
       <li><b>Rafting the Naryn</b><span>At the gorge, raft to Iyık Janyl and steer around rocks, or pay the herders for the mountain road.</span></li>
       <li><b>Top Ten and graves</b><span>High scores are saved. When a leader dies, the grave and epitaph wait by the road for the next caravan.</span></li>
     </ul>
@@ -170,10 +170,10 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 305 S$="In 1876 the Russian army took/Kokand. Settlers followed, and many/Iradi clans lost their pastures on/the Chu./ /Your family will ride 690 versts"
 306 S$=S$+"/south, over three high passes and/four rivers, to settle below the/Church of St. Janyl at Iyik Janyl./ /A verst is about two-thirds of a/mile. A funt is about a pound.":GOSUB 7700
 310 GOSUB 7500:CLS:GOSUB 7100:LOCATE 3,4:COLOR 14:PRINT "How to play":COLOR 15:LOCATE 5,1
-315 S$="Buy horses, food, felt coats, powder/and spare tack at Osmon's shop. You/can buy more at Rabat-i-Safed, the/Talas fort and Ketmen-Tobo./ "
+315 S$="Buy horses, food, felt coats, eagle/food and spare tack at Osmon's shop./You can buy more at Rabat-i-Safed,/the Talas fort and Ketmen-Tobo./ "
 316 S$=S$+"/On the road, press ENTER to size up/the situation. Change the pace and/rations, rest, trade, talk to people/or hunt.":GOSUB 7700
 320 GOSUB 7500:CLS:GOSUB 7100:LOCATE 3,4:COLOR 14:PRINT "Hunting and the Naryn":COLOR 15:LOCATE 5,1
-325 S$="To hunt, move with the arrow keys/and shoot with the space bar. You/can carry only 100 funt back to the/caravan./ /At the Naryn gorge you may raft down"
+325 S$="To hunt, walk with the arrow keys/and loose your berkut with the space/bar. Each flight costs her a meal of/eagle food. You can carry only 100/funt back to the caravan./ /At the Naryn gorge you may raft down"
 326 S$=S$+"/the river to Iyik Janyl. Steer with/the left and right arrow keys./ /Arrive by the Feast of St. Janyl, 24/August, for a bonus.":GOSUB 7700
 330 GOSUB 7500:GOTO 200
 400 GOSUB 410:GOTO 200
@@ -197,7 +197,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 630 IF OCC=4 THEN GOSUB 2800:GOTO 600
 635 IF OCC<1 OR OCC>3 THEN 600
 640 MONEY=800:IF OCC=2 THEN MONEY=500 ELSE IF OCC=3 THEN MONEY=300
-645 HORSES=0:FOOD=0:FELTS=0:SHOTS=0:SHOES=0:SADDLES=0:VERSTS=0:NXTMARK=1:PACE=1:RATIONS=1:HP=0:CURSE=0:MAREEATEN=0:OVER=0:ATLAND=0:MAREASKED=0:RESTING=0
+645 HORSES=0:FOOD=0:FELTS=0:BAIT=0:SHOES=0:SADDLES=0:VERSTS=0:NXTMARK=1:PACE=1:RATIONS=1:HP=0:CURSE=0:MAREEATEN=0:OVER=0:ATLAND=0:MAREASKED=0:RESTING=0
 650 FOR I=1 TO 5:ALIVE(I)=1:SICK(I)=0:SICKDAYS(I)=0:NEXT
 660 CLS:GOSUB 7100:LOCATE 3,4:PRINT "What is the first name of the":LOCATE 4,4:PRINT "caravan leader?"
 665 LOCATE 6,5:LINE INPUT "> ";A$:IF A$="" THEN A$=STDNAME$(1)
@@ -215,7 +215,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 730 DAYNUM=MONTHSTART(K+2)+1
 735 CLS:GOSUB 7100:LOCATE 3,4:PRINT "Before leaving, visit Osmon's shop":LOCATE 4,4:PRINT "by the Chu ford. You have";MONEY;"rubles."
 740 LOCATE 6,1:S$="You will need:/ - horses to ride and to carry the/   yurt. Six or more is wise./ - food for the road/ - felt coats and furs for the/   passes"
-741 S$=S$+"/ - powder and shot for hunting, and/   for wolves and raiders/ - spare horseshoes and pack saddles":GOSUB 7700
+741 S$=S$+"/ - food for your berkut. She will/   not hunt hungry./ - spare horseshoes and pack saddles":GOSUB 7700
 745 GOSUB 7500:PF=1:SHOP$="Osmon's shop at the Chu ford":GOSUB 800
 750 IF HORSES>=2 THEN 900
 755 CLS:GOSUB 7100:LOCATE 5,4:PRINT "You cannot leave with fewer than two":LOCATE 6,4:PRINT "horses.":GOSUB 7500:GOSUB 800:GOTO 750
@@ -229,7 +229,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 835 GOSUB 7400:IF K$=" " OR K$=CHR$(13)THEN 860
 840 K=VAL(K$):IF K<1 OR K>6 THEN 835
 845 GOSUB 870:GOTO 805
-860 MONEY=MONEY-BILL:HORSES=HORSES+BUY(1):FOOD=FOOD+10*BUY(2):FELTS=FELTS+BUY(3):SHOTS=SHOTS+20*BUY(4):SHOES=SHOES+BUY(5):SADDLES=SADDLES+BUY(6):RETURN
+860 MONEY=MONEY-BILL:HORSES=HORSES+BUY(1):FOOD=FOOD+10*BUY(2):FELTS=FELTS+BUY(3):BAIT=BAIT+10*BUY(4):SHOES=SHOES+BUY(5):SADDLES=SADDLES+BUY(6):RETURN
 870 T=INT(PRICE(K)*PF+.5):CLS:GOSUB 7100:COLOR 14:LOCATE 3,4:PRINT SHOP$:COLOR 15:LOCATE 5,1
 875 S$=ADVICE$(K):GOSUB 7700
 880 LOCATE 13,4:PRINT ITEM$(K):LOCATE 14,4:PRINT "cost";T;"rubles each."
@@ -273,7 +273,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 1600 ATLAND=0:GOTO 1000
 1650 CLS:GOSUB 7100:COLOR 14:LOCATE 3,4:PRINT "Your supplies":COLOR 15
 1655 LOCATE 5,5:PRINT "Horses";TAB(30);HORSES:LOCATE 6,5:PRINT "Food (funt)";TAB(30);INT(FOOD):LOCATE 7,5:PRINT "Felt coats";TAB(30);FELTS
-1660 LOCATE 8,5:PRINT "Shots of powder";TAB(30);SHOTS:LOCATE 9,5:PRINT "Spare horseshoes";TAB(30);SHOES:LOCATE 10,5:PRINT "Pack saddles";TAB(30);SADDLES:LOCATE 11,5:PRINT "Rubles";TAB(30);INT(MONEY)
+1660 LOCATE 8,5:PRINT "Eagle food (meals)";TAB(30);BAIT:LOCATE 9,5:PRINT "Spare horseshoes";TAB(30);SHOES:LOCATE 10,5:PRINT "Pack saddles";TAB(30);SADDLES:LOCATE 11,5:PRINT "Rubles";TAB(30);INT(MONEY)
 1665 COLOR 14:LOCATE 13,4:PRINT "Your family":COLOR 15
 1670 FOR I=1 TO 5:S$="well":IF SICK(I)THEN S$=DISEASE$(SICK(I))
 1675 IF ALIVE(I)=0 THEN S$="dead"
@@ -297,8 +297,8 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 1910 PRINT "A herder will trade you a horse":LOCATE 6,4:PRINT "for 100 funt of food.":IF FOOD<100 THEN LOCATE 8,4:PRINT "You do not have enough food.":RETURN
 1911 GOSUB 1945:IF K$="Y" OR K$="y" THEN HORSES=HORSES+1:FOOD=FOOD-100
 1912 RETURN
-1915 PRINT "A smith wants 40 shots of powder":LOCATE 6,4:PRINT "for 3 spare horseshoes.":IF SHOTS<40 THEN LOCATE 8,4:PRINT "You do not have enough powder.":RETURN
-1916 GOSUB 1945:IF K$="Y" OR K$="y" THEN SHOTS=SHOTS-40:SHOES=SHOES+3
+1915 PRINT "A smith will make 3 spare horseshoes":LOCATE 6,4:PRINT "for 6 rubles.":IF MONEY<6 THEN LOCATE 8,4:PRINT "You do not have enough silver.":RETURN
+1916 GOSUB 1945:IF K$="Y" OR K$="y" THEN MONEY=MONEY-6:SHOES=SHOES+3
 1917 RETURN
 1920 PRINT "A feltmaker offers 2 felt coats":LOCATE 6,4:PRINT "for 30 rubles.":IF MONEY<30 THEN LOCATE 8,4:PRINT "You do not have enough silver.":RETURN
 1921 GOSUB 1945:IF K$="Y" OR K$="y" THEN MONEY=MONEY-30:FELTS=FELTS+2
@@ -306,8 +306,8 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 1925 PRINT "A kinsman needs a horse. He offers":LOCATE 6,4:PRINT "150 funt of food for one.":IF HORSES<3 THEN LOCATE 8,4:PRINT "You cannot spare a horse.":RETURN
 1926 GOSUB 1945:IF K$="Y" OR K$="y" THEN HORSES=HORSES-1:FOOD=FOOD+150
 1927 RETURN
-1930 PRINT "A saddler offers a pack saddle":LOCATE 6,4:PRINT "for 40 shots of powder.":IF SHOTS<40 THEN LOCATE 8,4:PRINT "You do not have enough powder.":RETURN
-1931 GOSUB 1945:IF K$="Y" OR K$="y" THEN SHOTS=SHOTS-40:SADDLES=SADDLES+1
+1930 PRINT "A hunter will trade 20 meals of":LOCATE 6,4:PRINT "eagle food for 40 funt of flour.":IF FOOD<40 THEN LOCATE 8,4:PRINT "You do not have enough food.":RETURN
+1931 GOSUB 1945:IF K$="Y" OR K$="y" THEN FOOD=FOOD-40:BAIT=BAIT+20
 1932 RETURN
 1935 PRINT "A herder will sell you a horse":LOCATE 6,4:PRINT "for 40 rubles.":IF MONEY<40 THEN LOCATE 8,4:PRINT "You do not have enough silver.":RETURN
 1936 GOSUB 1945:IF K$="Y" OR K$="y" THEN MONEY=MONEY-40:HORSES=HORSES+1
@@ -329,8 +329,8 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 2035 FOOD=FOOD-50:M1$="A pack saddle breaks. You leave 50":M2$="funt of food beside the road.":GOTO 2190
 2040 IF RND<.3 THEN HORSES=HORSES-1:M1$="A horse strays in the night.":M2$="You never find her.":GOTO 2190
 2045 M1$="A horse strays. You lose a day":M2$="searching for her.":GOSUB 7600:GOTO 1200
-2050 IF SHOTS>=5 THEN SHOTS=SHOTS-5:M1$="Wolves circle the herd at night.":M2$="Your shots drive them off.":GOTO 2190
-2055 HORSES=HORSES-1:M1$="Wolves circle the herd. With no":M2$="powder, you lose a horse.":GOTO 2190
+2050 IF RND<.6 THEN M1$="Wolves circle the herd at night.":M2$="Dogs and fires drive them off.":GOTO 2190
+2055 HORSES=HORSES-1:M1$="Wolves circle the herd and pull":M2$="down a horse before dawn.":GOTO 2190
 2060 GOTO 2500
 2070 GOTO 2600
 2080 I=INT(RND*5)+1:IF ALIVE(I)=0 OR SICK(I)>0 THEN RETURN
@@ -363,13 +363,13 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 2525 ON K GOTO 2530,2540,2550,2560
 2530 FOOD=FOOD-30:M1$="You run. Packs are lost in the chase.":IF RND<.4 THEN HORSES=HORSES-1:M2$="They cut out one horse."
 2535 GOTO 2190
-2540 IF SHOTS<10 THEN HORSES=HORSES-2:M1$="You have no powder! They take":M2$="two horses.":GOTO 2190
-2545 SHOTS=SHOTS-10:IF RND<.6 THEN M1$="Your shots scatter them.":GOTO 2190
+2540 IF RND<.55 THEN M1$="Whips and sabres drive them off.":GOTO 2190
+2545 REM
 2547 I=INT(RND*5)+1:IF ALIVE(I)=0 THEN 2547
 2548 HORSES=HORSES-1:IF HORSES<0 THEN HORSES=0
 2549 M1$="They take a horse, and there is":M2$="blood.":GOSUB 7600:K=10:GOTO 5250
-2550 IF SHOTS<10 THEN HORSES=HORSES-2:M1$="No powder. They take two horses.":GOTO 2190
-2555 SHOTS=SHOTS-10:IF RND<.75 THEN M1$="The ring holds. They ride away.":GOTO 2190
+2550 IF RND<.75 THEN M1$="The ring holds. They ride away.":GOTO 2190
+2555 REM
 2557 HORSES=HORSES-1:M1$="They break the ring and take a horse.":GOTO 2190
 2560 IF MONEY>=15 THEN MONEY=MONEY-15:M1$="You offer tea, kurut and silver.":M2$="They take 15 rubles and ride off.":GOTO 2190
 2565 HORSES=HORSES-1:M1$="You have little to give. They take":M2$="a horse instead.":GOTO 2190
@@ -439,7 +439,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 4000 REM
 4002 CLS:LINE(0,0)-(319,175),2,BF:FOR I=1 TO 9:X=I*34-20:LINE(X+3,10)-(X+5,22),6,BF:CIRCLE(X+4,8),8,10:PAINT(X+4,8),10,10:NEXT
 4005 FOR I=1 TO 40:X=INT(RND*316)+1:Y=INT(RND*145)+28:LINE(X,Y)-(X+2,Y-2),10:NEXT
-4010 LOCATE 24,2:PRINT "Arrows move, SPACE shoots, ESC stops";:HUX=150:HUY=140:FACE=1:DX=0:DY=-1:BON=0:MEAT=0
+4010 LOCATE 24,2:PRINT "Arrows walk, SPACE looses the eagle";:HUX=150:HUY=140:FACE=1:DX=0:DY=-1:BON=0:MEAT=0
 4015 FOR I=1 TO 2:AKIND(I)=0:NEXT:PUT(HUX,HUY),HUNR%,PSET:GOSUB 4380:HUNTEND=TIMER+30:IF HUNTEND>86370 THEN HUNTEND=86370
 4020 T=TIMER:IF T>HUNTEND OR T<HUNTEND-40 THEN 4400
 4025 K$=INKEY$:IF K$=CHR$(27)THEN 4400
@@ -456,13 +456,13 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 4250 AX(I)=AX(I)+AV(I):KD=AKIND(I):IF AX(I)<0 OR AX(I)>319-AW(KD)THEN LINE(AX(I)-AV(I),AY(I))-(AX(I)-AV(I)+AW(KD)-1,AY(I)+AH(KD)-1),2,BF:AKIND(I)=0:RETURN
 4255 IF AV(I)>0 THEN SLOT=(KD-1)*2 ELSE SLOT=(KD-1)*2+1
 4260 PUT(AX(I),AY(I)),ANIM%(SLOT*245),PSET:RETURN
-4270 LINE(BX,BY)-(BX+1,BY+1),2,BF:BX=BX+DX*9:BY=BY+DY*9:BLIFE=BLIFE-1
-4272 IF BLIFE<=0 OR BX<0 OR BX>317 OR BY<25 OR BY>173 THEN BON=0:RETURN
+4270 LINE(BX-3,BY-2)-(BX,BY),2:LINE-(BX+3,BY-2),2:PSET(BX,BY+1),2:BX=BX+DX*9:BY=BY+DY*9:BLIFE=BLIFE-1
+4272 IF BLIFE<=0 OR BX<4 OR BX>315 OR BY<25 OR BY>173 THEN BON=0:RETURN
 4275 FOR J=1 TO 2:KD=AKIND(J):IF KD=0 THEN 4285
 4280 IF BX>=AX(J)+4 AND BX<=AX(J)+AW(KD)-4 AND BY>=AY(J)AND BY<=AY(J)+AH(KD)THEN 4290
-4285 NEXT J:LINE(BX,BY)-(BX+1,BY+1),0,BF:RETURN
-4290 LINE(AX(J),AY(J))-(AX(J)+AW(KD)-1,AY(J)+AH(KD)-1),2,BF:AKIND(J)=0:BON=0:MEAT=MEAT+MEATOF(KD):IF MUTE=0 THEN SOUND 120,1
-4295 LOCATE 23,2:PRINT "You shot ";ANIMAL$(KD);"!";SPACE$(16);:GOSUB 4380:RETURN
+4285 NEXT J:LINE(BX-3,BY-2)-(BX,BY),6:LINE-(BX+3,BY-2),6:PSET(BX,BY+1),14:RETURN
+4290 LINE(AX(J),AY(J))-(AX(J)+AW(KD)-1,AY(J)+AH(KD)-1),2,BF:AKIND(J)=0:BON=0:MEAT=MEAT+MEATOF(KD):IF MUTE=0 THEN PLAY "MB T200 O4 L32 E G > C"
+4295 LOCATE 23,2:PRINT "Your eagle takes ";ANIMAL$(KD);"!";SPACE$(12);:GOSUB 4380:RETURN
 4300 C$=RIGHT$(K$,1):NX=0:NY=0
 4305 IF C$="H" THEN NY=-1 ELSE IF C$="P" THEN NY=1 ELSE IF C$="K" THEN NX=-1 ELSE IF C$="M" THEN NX=1
 4310 IF C$="G" THEN NX=-1:NY=-1 ELSE IF C$="I" THEN NX=1:NY=-1 ELSE IF C$="O" THEN NX=-1:NY=1 ELSE IF C$="Q" THEN NX=1:NY=1
@@ -474,12 +474,13 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 4340 IF HUY>146 THEN HUY=146
 4345 IF FACE>0 THEN PUT(HUX,HUY),HUNR%,PSET:RETURN ELSE PUT(HUX,HUY),HUNL%,PSET:RETURN
 4350 IF BON THEN RETURN
-4355 IF SHOTS<=0 THEN LOCATE 23,2:PRINT "You have no powder left.          ";:RETURN
-4360 SHOTS=SHOTS-1:BON=1:BLIFE=28:BX=HUX+11+DX*10:BY=HUY+12+DY*10:IF MUTE=0 THEN SOUND 80,.5
+4355 IF BAIT<=0 THEN LOCATE 23,2:PRINT "No eagle food. She will not fly. ";:RETURN
+4360 BAIT=BAIT-1:BON=1:BLIFE=28:BX=HUX+11+DX*10:BY=HUY+8+DY*10:IF MUTE=0 THEN SOUND 900,.5
 4365 GOSUB 4380:RETURN
-4380 LOCATE 25,2:PRINT "Shots:";SHOTS;"  Meat:";MEAT;"funt   ";:RETURN
-4400 CLS:GOSUB 7100:LOCATE 5,4:IF MEAT=0 THEN PRINT "You return with nothing.":GOTO 4415
-4405 PRINT "You shot";MEAT;"funt of meat."
+4380 LOCATE 25,2:PRINT "Eagle food:";BAIT;"  Meat:";MEAT;"funt  ";:RETURN
+4400 IF BON THEN LINE(BX-3,BY-2)-(BX,BY),2:LINE-(BX+3,BY-2),2:PSET(BX,BY+1),2
+4401 CLS:GOSUB 7100:LOCATE 5,4:IF MEAT=0 THEN PRINT "You return with nothing.":GOTO 4415
+4405 PRINT "Your eagle brought down";MEAT;"funt."
 4410 IF MEAT>100 THEN LOCATE 7,4:PRINT "You can carry only 100 funt back":LOCATE 8,4:PRINT "to the caravan.":MEAT=100
 4415 FOOD=FOOD+MEAT:GOSUB 7500:GOSUB 1200:RETURN
 4500 REM
@@ -703,9 +704,9 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 8335 COLOR 14:LOCATE 3,4:PRINT "Points for arriving":COLOR 15
 8340 LOCATE 5,4:PRINT LIVING;"in ";HEALTH$;" health";TAB(32);LIVING*T
 8345 LOCATE 6,4:PRINT HORSES;"horses";TAB(32);HORSES*4:LOCATE 7,4:PRINT INT(FOOD);"funt of food";TAB(32);INT(FOOD/25)
-8350 LOCATE 8,4:PRINT FELTS;"felt coats";TAB(32);FELTS*2:LOCATE 9,4:PRINT SHOTS;"shots of powder";TAB(32);INT(SHOTS/20)
+8350 LOCATE 8,4:PRINT FELTS;"felt coats";TAB(32);FELTS*2:LOCATE 9,4:PRINT BAIT;"meals of eagle food";TAB(32);INT(BAIT/10)
 8355 LOCATE 10,4:PRINT SHOES+SADDLES;"spare tack";TAB(32);(SHOES+SADDLES)*2:LOCATE 11,4:PRINT INT(MONEY);"rubles";TAB(32);INT(MONEY/5)
-8360 SCORE=LIVING*T+HORSES*4+INT(FOOD/25)+FELTS*2+INT(SHOTS/20)+(SHOES+SADDLES)*2+INT(MONEY/5)
+8360 SCORE=LIVING*T+HORSES*4+INT(FOOD/25)+FELTS*2+INT(BAIT/10)+(SHOES+SADDLES)*2+INT(MONEY/5)
 8365 IF DAYNUM<=236 THEN LOCATE 12,4:PRINT "Feast of St. Janyl";TAB(32);500:SCORE=SCORE+500
 8370 LOCATE 14,4:PRINT "Total";TAB(32);SCORE
 8375 IF OCC=2 THEN LOCATE 16,4:PRINT "As a felt merchant, your points":LOCATE 17,4:PRINT "are doubled.":SCORE=SCORE*2
@@ -757,7 +758,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 9033 DATA "The keeper of the caravanserai:/ /'Sogdian merchants built these/walls. Three hundred horses once/slept in these stables. Now it is/quiet.'"
 9034 DATA "A Russian clerk:/ /'Your papers. The Governor-General/wants every herd counted and every/head taxed.'"
 9035 DATA "An old woman at the well:/ /'Do not drink below the camps. The/flux lives in still water.'"
-9036 DATA "A hunter with a berkut:/ /'The arkhar come down to graze at/dawn. Walk slowly, and shoot only/when you see horns.'"
+9036 DATA "A hunter with a berkut:/ /'The arkhar come down to graze at/dawn. Walk slowly. Loose her only/when you see horns.'"
 9037 DATA "An aksakal of the zhayloo:/ /'Sit, drink. A guest is a gift from/God. The Ala-Bel will still be there/tomorrow.'"
 9038 DATA "A pilgrim at the cairn:/ /'From here the road runs downhill to/St. Janyl. Say a bata for those who/did not arrive.'"
 9039 DATA "A boy with a fishing line:/ /'The river is lowest at first light./Cross early.'"
@@ -768,7 +769,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 9060 DATA "Horses",20,"Osmon says:/ /'You'll want one horse for each/rider and two or three for the yurt/and packs. Six is the least I'd/take.'"
 9062 DATA "Food (10-funt sacks)",1,"Osmon says:/ /'Flour, kurut, mutton and tea. Five/people eat 15 funt a day. Take at/least 50 sacks.'"
 9064 DATA "Felt coats",5,"Osmon says:/ /'The passes are cold even in summer./Take a felt coat for every person.'"
-9066 DATA "Powder (box of 20)",2,"Osmon says:/ /'For hunting, and for wolves and/thieves. Three or four boxes will/do.'"
+9066 DATA "Eagle food (10 meals)",2,"Osmon says:/ /'Your berkut eats a meal each time/she flies. Fed, she hunts. Hungry,/she sulks on your glove. Take three/or four bundles.'"
 9068 DATA "Spare horseshoes",2,"Osmon says:/ /'Stony roads cost shoes. A few/spares will save you days.'"
 9069 DATA "Pack saddles",5,"Osmon says:/ /'A broken pack saddle means leaving/your goods by the road. Take two.'"
 9070 DATA very cold,cold,cool,warm,hot
@@ -802,7 +803,7 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
 9702 C0=GX+11-GD*2:LINE(C0-2,GY+5)-(C0+2,GY+6),15,BF:PSET(C0,GY+4),15:LINE(C0-1,GY+7)-(C0+1,GY+9),14,BF
 9704 LINE(C0-3,GY+10)-(C0+3,GY+18),4,BF:LINE(C0-3,GY+14)-(C0+3,GY+14),14
 9706 LINE(C0-2,GY+19)-(C0-1,GY+23),0,BF:LINE(C0+1,GY+19)-(C0+2,GY+23),0,BF
-9708 LINE(C0,GY+12)-(C0+GD*7,GY+10),8:LINE(C0+GD,GY+11)-(C0+GD*4,GY+12),4:RETURN
+9708 LINE(C0+GD,GY+11)-(C0+GD*5,GY+7),4:LINE(C0+GD*5,GY+8)-(C0+GD*6,GY+6),6,BF:RETURN
 9750 REM
 9752 CX=GX+AW(KD)\2:B=GY+AH(KD)-1:ON KD GOTO 9755,9760,9765,9770
 9755 LINE(CX-5,B-5)-(CX+4,B-2),7,BF:LINE(CX+GD*4,B-6)-(CX+GD*7,B-3),7,BF:LINE(CX+GD*5,B-10)-(CX+GD*5,B-6),7:LINE(CX+GD*6,B-10)-(CX+GD*6,B-6),15

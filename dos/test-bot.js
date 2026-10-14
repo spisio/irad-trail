@@ -26,7 +26,8 @@
         if ((bb.idle || 0) < 3 || pc.keyq.length) return;
         bb.idle = 0;
         const r = rows(), all = r.join("\n"), last = r[24] || "";
-        if (/Arrows move, SPACE shoots/.test(all)) {
+        if (/Arrows walk, SPACE looses the eagle/.test(all)) {
+          st.meatTotal = (st.meatTotal || 0) + Math.max(0, v("MEAT") - (st.lastMeat || 0)); st.lastMeat = v("MEAT");
           let best = 0; for (let i = 1; i <= 2; i++) if (a("AKIND", i)) { best = i; break; }
           if (best && Math.random() < cfg.aim) {
             const kd = a("AKIND", best); const ax = a("AX", best) + a("AW", kd) / 2, ay = a("AY", best) + a("AH", kd) / 2; const hx = v("HUX") + 11, hy = v("HUY") + 12;
@@ -67,7 +68,7 @@
           if (menuN > 5) { menuN = 0; return push("1"); }
           if (/9\. Buy supplies/.test(all) && v("FOOD") < 300 && v("MONEY") > 40 && !b.__bought) { b.__bought = 1; return push("9"); }
           if (v("HP") > 60 && menuN < 3) return push("6");
-          if (/Hunt for food/.test(all) && v("FOOD") < cfg.huntBelow && v("SHOTS") > 5 && menuN < 4) { st.hunts++; return push("8"); }
+          if (/Hunt for food/.test(all) && v("FOOD") < cfg.huntBelow && v("BAIT") > 5 && menuN < 4) { st.hunts++; return push("8"); }
           if (/Talk to people/.test(all) && menuN === 1 && Math.random() < .3) return push("8");
           if (menuN === 1 && Math.random() < .1) return push(String(2 + Math.floor(Math.random() * 4)));
           menuN = 0; b.__bought = 0; return push("1");
@@ -89,7 +90,7 @@
       if (r.err && r.err.code !== 99) { const k = r.err.msg + "@" + r.err.line; res.errs[k] = (res.errs[k] || 0) + 1; }
       if (r.err && r.err.code === 99) { const k = "runaway@" + r.err.line; res.errs[k] = (res.errs[k] || 0) + 1; }
       for (const l of r.st.scrollLines) res.scrolls[l] = (res.scrolls[l] || 0) + 1;
-      res.hunts += r.st.hunts; res.rafted += r.st.rafted; res.shots += r.st.shots;
+      res.hunts += r.st.hunts; res.meat = (res.meat || 0) + (r.st.meatTotal || 0); res.rafted += r.st.rafted; res.shots += r.st.shots;
       if (r.score > 0) { res.win++; res.days.push(r.day); if (r.day <= 236) res.feast++; res.scores.push(r.score); res.alive[r.alive]++; } else res.over[r.over] = (res.over[r.over] || 0) + 1;
       await new Promise(z => setTimeout(z, 0));
     }
