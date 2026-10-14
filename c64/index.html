@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Irad Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Press+Start+2P&display=swap">
+<style>
+/* Layout: one column. A Commodore monitor on a dark felt desk, the road told underneath. Single dark look by design. */
+:root {
+  --desk: #16130f;
+  --felt: #221d17;
+  --ink: #eee6d2;
+  --dim: #a89d86;
+  --amber: #e0a845;
+  --rule: #3a3227;
+  --case: #cfc6b0;
+  --case-shade: #a79e88;
+  --display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --pixel: "Press Start 2P", "Courier New", monospace;
+  color-scheme: dark;
+}
+html { background: var(--desk); }
+* { box-sizing: border-box; }
+body { margin: 0; }
+body {
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  padding-inline: 16px;
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 40px; }
+header { display: grid; gap: 10px; }
+.kicker { font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--amber); text-transform: uppercase; line-height: 1.8; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 11vw, 5.6rem); line-height: 0.88; letter-spacing: 0.01em; margin: 0; text-transform: uppercase; text-wrap: balance; }
+.lede { margin: 0; max-width: 60ch; color: var(--dim); }
+.lede strong { color: var(--ink); font-weight: 700; }
+
+/* Monitor */
+.monitor { background: linear-gradient(180deg, var(--case), var(--case-shade)); border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 30px 60px -30px #000, inset 0 2px 0 #f3ecd9; }
+.bezel { background: #0d0d0d; border-radius: 10px; padding: 10px; }
+.screen { container-type: inline-size; position: relative; border-radius: 6px; overflow: hidden; cursor: text; outline: none; }
+.screen:focus-within { box-shadow: 0 0 0 2px var(--amber); }
+.border { padding: 5.5cqw 4.5cqw; transition: background-color .2s; }
+.grid { font-family: var(--pixel); font-size: calc(91cqw / 40); line-height: 1; white-space: pre; letter-spacing: 0; font-variant-ligatures: none; }
+.grid div { height: 1em; overflow: hidden; }
+.grid .cur { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { background: transparent !important; color: inherit !important; } }
+@media (prefers-reduced-motion: reduce) { .grid .cur { animation: none; } }
+.screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.13) 2px 3px); }
+#kbd { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0; font-size: 16px; }
+.badge { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-family: var(--display); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4b4537; }
+.led { width: 10px; height: 10px; border-radius: 50%; background: #c0392b; box-shadow: 0 0 8px #e74c3c; }
+
+.keys { display: flex; flex-wrap: wrap; gap: 8px; }
+.keys button, .btn {
+  font-family: var(--pixel); font-size: 0.7rem; color: var(--ink); background: var(--felt);
+  border: 1px solid var(--rule); border-bottom-width: 3px; border-radius: 6px; padding: 11px 13px; cursor: pointer; line-height: 1;
+}
+.keys button:active, .btn:active { transform: translateY(2px); border-bottom-width: 1px; }
+.keys button:focus-visible, .btn:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.keys .wide { flex: 1 1 auto; }
+.hint { font-size: 0.85rem; color: var(--dim); margin: 6px 0 0; }
+
+h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; font-size: 2rem; line-height: 1; margin: 0 0 14px; }
+section p { margin: 0 0 12px; max-width: 62ch; }
+
+/* The road: a real sequence measured in versts */
+.road { list-style: none; margin: 0; padding: 0; display: grid; }
+.road li { display: grid; grid-template-columns: 4.2rem 1fr; gap: 14px; padding: 9px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.road li:last-child { border-bottom: 1px solid var(--rule); }
+.road .v { font-family: var(--pixel); font-size: 0.66rem; color: var(--amber); font-variant-numeric: tabular-nums; text-align: right; }
+.road .n { font-weight: 700; }
+.road .k { color: var(--dim); font-size: 0.92rem; }
+
+.steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 8px; max-width: 62ch; }
+code, .mono { font-family: var(--pixel); font-size: 0.68rem; color: var(--amber); background: var(--felt); padding: 3px 5px; border-radius: 3px; white-space: nowrap; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+.btn { text-decoration: none; display: inline-block; }
+.note { color: var(--dim); font-size: 0.9rem; }
+a { color: var(--amber); }
+footer { color: var(--dim); font-size: 0.85rem; border-top: 1px solid var(--rule); padding-top: 16px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">Commodore 64 &middot; BASIC V2 &middot; Chicago 1983</div>
+    <h1>The Irad Trail</h1>
+    <p class="lede"><strong>Spring 1877.</strong> Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead the family 690 versts by horse caravan, over three high passes and four rivers, to the Church of St. Janyl at Iyık Janyl. Get there before the snow closes the Ala-Bel.</p>
+  </header>
+
+  <div>
+    <div class="monitor">
+      <div class="bezel">
+        <div class="screen" id="screen" aria-label="Game screen. Click or tap, then type." role="application">
+          <div class="border" id="border"><div class="grid" id="grid" aria-live="polite"></div></div>
+          <input id="kbd" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-label="Keyboard input">
+        </div>
+      </div>
+      <div class="badge"><span>Irad&nbsp;64</span><span class="led" aria-hidden="true"></span></div>
+    </div>
+    <p class="hint">Click the screen and type. Answer with a number or Y/N, then press Return. On a phone, use the keys below or tap the screen for the keyboard.</p>
+    <div class="keys" id="keys">
+      <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button>
+      <button type="button" data-k="Y">Y</button><button type="button" data-k="N">N</button>
+      <button type="button" data-k="BS">DEL</button>
+      <button type="button" data-k="CR" class="wide">RETURN</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>The road</h2>
+    <ol class="road">
+      <li><span class="v">0</span><span><span class="n">The lower Chu</span><br><span class="k">Set out on St. Gewargis's day, 23 April</span></span></li>
+      <li><span class="v">25</span><span><span class="n">The Chu River</span><br><span class="k">River crossing, swollen with snowmelt</span></span></li>
+      <li><span class="v">140</span><span><span class="n">Kök-Bel Pass</span><br><span class="k">First high pass, over the Kyrgyz Range</span></span></li>
+      <li><span class="v">215</span><span><span class="n">Rabat-i-Safed</span><br><span class="k">Sogdian caravanserai. Fair trading</span></span></li>
+      <li><span class="v">240</span><span><span class="n">The Talas fort</span><br><span class="k">Old Kokand citadel, Russian garrison. Fair trading</span></span></li>
+      <li><span class="v">255</span><span><span class="n">The Talas River</span><br><span class="k">River crossing</span></span></li>
+      <li><span class="v">330</span><span><span class="n">Otmek Pass</span><br><span class="k">Second high pass</span></span></li>
+      <li><span class="v">400</span><span><span class="n">Suusamyr</span><br><span class="k">Summer pastures, kinsmen on the zhayloo</span></span></li>
+      <li><span class="v">450</span><span><span class="n">Ala-Bel Pass, 3,184 m</span><br><span class="k">The roof of the road. Deadly after mid-September</span></span></li>
+      <li><span class="v">500</span><span><span class="n">The Chychkan</span><br><span class="k">River crossing in a steep gorge</span></span></li>
+      <li><span class="v">570</span><span><span class="n">Ketmen-Töbö</span><br><span class="k">Bazaar in the great basin. Fair trading</span></span></li>
+      <li><span class="v">620</span><span><span class="n">The Naryn gorge</span><br><span class="k">Rockfall country</span></span></li>
+      <li><span class="v">690</span><span><span class="n">Iyık Janyl</span><br><span class="k">Cross the Naryn to Cathedral Hill. Arrive by 24 August for the Feast of St. Janyl</span></span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Play it on an emulator</h2>
+    <p>The same BASIC listing that runs above also runs on a Commodore 64. Use the disk image (<code>irad-trail.d64</code>) or the program file (<code>irad-trail.prg</code>) with an emulator such as <a href="https://vice-emu.sourceforge.io/" target="_blank" rel="noopener">VICE</a>.</p>
+    <ol class="steps">
+      <li>Start VICE's C64 emulator (x64sc).</li>
+      <li>Choose File &rarr; Smart attach, then pick <code>irad-trail.d64</code>. Most emulators also run the file if you drag it onto the window.</li>
+      <li>If it does not start by itself, type <code>LOAD"*",8</code>, press Return, then type <code>RUN</code>.</li>
+    </ol>
+    <div class="row" id="dl"></div>
+    <p class="note" style="margin-top:12px">No disk image to hand? Copy the listing below and paste it into VICE (Edit &rarr; Paste) at the READY prompt, then type <code>RUN</code>. It is the same program.</p>
+    <div class="row">
+      <button type="button" class="btn" id="copy">Copy BASIC listing</button>
+      <button type="button" class="btn" id="restart">Restart game</button>
+      <span class="note" id="copied" role="status"></span>
+    </div>
+  </section>
+
+  <footer>A new game in the spirit of the 1971 MECC classic, written for Commodore 64 BASIC V2. The page runs the original listing in a small BASIC interpreter. When the game ends you get the READY prompt: type <span class="mono">RUN</span> to play again or <span class="mono">LIST</span> to read the code. Want pictures? Play the <a href="../">Apple II edition</a>.</footer>
+</div>
+
+<script type="text/plain" id="bas">10 REM *** THE IRAD TRAIL ***
+20 REM FROM THE CHU TO IYIK JANYL, 1877
+30 REM IRADI AMERICAN ASSOCIATION
+40 REM CHICAGO, 1983. COMMODORE 64 BASIC
+50 POKE 53280,0:POKE 53281,0:PRINT CHR$(147);CHR$(158)
+60 X=RND(-TI):DIM WD$(4),L(12),TY(12),L$(12),G$(12),EV(15)
+70 FOR I=1 TO 4:READ WD$(I):NEXT I
+80 FOR I=1 TO 12:READ L(I),TY(I),L$(I),G$(I):NEXT I
+90 FOR I=1 TO 15:READ EV(I):NEXT I
+100 PRINT:PRINT:PRINT TAB(8);"*** THE IRAD TRAIL ***"
+110 PRINT:PRINT TAB(3);"FROM THE CHU TO IYIK JANYL, 1877"
+120 PRINT:PRINT:PRINT CHR$(5);TAB(6);"IRADI AMERICAN ASSOCIATION"
+130 PRINT TAB(13);"CHICAGO, 1983"
+140 PRINT:PRINT:PRINT CHR$(153);
+150 INPUT "DO YOU NEED INSTRUCTIONS";A$
+160 IF LEFT$(A$,1)="N" THEN 400
+200 PRINT CHR$(147)
+205 PRINT "SPRING, 1877. KOKAND HAS FALLEN, AND"
+210 PRINT "RUSSIAN SETTLERS HAVE TAKEN YOUR"
+215 PRINT "CLAN'S PASTURES ON THE CHU."
+220 PRINT "THE ELDERS HAVE DECIDED. THE FAMILY"
+225 PRINT "WILL MOVE 690 VERSTS SOUTH, OVER THE"
+230 PRINT "MOUNTAINS TO THE NARYN, AND SETTLE"
+235 PRINT "BELOW THE CHURCH OF ST. JANYL AT"
+240 PRINT "IYIK JANYL."
+245 PRINT
+250 PRINT "YOU LEAVE ON ST. GEWARGIS'S DAY,"
+255 PRINT "23 APRIL, WHEN THE HORSES ARE BLESSED."
+260 PRINT "TRY TO ARRIVE FOR THE FEAST OF ST."
+265 PRINT "JANYL ON 24 AUGUST, AND CROSS THE"
+270 PRINT "ALA-BEL PASS BEFORE THE SNOWS COME."
+275 PRINT
+280 PRINT "YOU WILL MEET RIVERS, RAIDERS, WOLVES,"
+285 PRINT "FEVERS AND HIGH PASSES. KEEP YOUR"
+290 PRINT "HORSES ALIVE. WITHOUT THEM YOU WILL"
+295 PRINT "NOT ARRIVE."
+300 PRINT:INPUT "PRESS RETURN";A$
+310 PRINT CHR$(147)
+315 PRINT "YOU HAVE 400 RUBLES TO SPEND ON:"
+320 PRINT
+325 PRINT "HORSES - 25 RUBLES A HEAD, 4 TO 10."
+330 PRINT "  MORE HORSES, FASTER TRAVEL."
+335 PRINT "FOOD - FLOUR, KURUT, MUTTON, TEA."
+340 PRINT "POWDER AND SHOT - 10 SHOTS A RUBLE,"
+345 PRINT "  FOR WOLVES AND RAIDERS."
+350 PRINT "FELTS AND FURS - FOR THE HIGH PASSES."
+355 PRINT "SUPPLIES - MEDICINE, TACK, SHOES."
+360 PRINT
+365 PRINT "YOUR BERKUT (HUNTING EAGLE) WILL"
+370 PRINT "HUNT FOR THE POT. WHEN TOLD TO, TYPE"
+375 PRINT "THE WORD SHOWN AND PRESS RETURN."
+380 PRINT "THE FASTER, THE BETTER."
+381 PRINT
+382 PRINT "KEEP SOME RUBLES BACK FOR THE HEALER."
+385 PRINT:INPUT "PRESS RETURN";A$
+400 PRINT CHR$(147)
+405 PRINT "HOW GOOD A RIDER AND SHOT ARE YOU?"
+410 PRINT "(1) BORN IN THE SADDLE  (2) GOOD"
+415 PRINT "(3) FAIR  (4) SHAKY  (5) A TOWNSMAN"
+420 INPUT D9:D9=INT(D9):IF D9<1 OR D9>5 THEN 405
+425 M=400:D=0:DY=0:T=0:SK=0:HU=0:LU=0:HM=0:EG=0:X1=0:TR=0:SV=0:PN=0:LN=1
+430 PRINT:INPUT "HOW MANY HORSES (4-10)";H:H=INT(H)
+435 IF H<4 OR H>10 THEN PRINT "4 TO 10, PLEASE.":GOTO 430
+440 M=M-25*H:PRINT "YOU HAVE";M;"RUBLES LEFT."
+445 INPUT "RUBLES ON FOOD";F:IF F<0 OR F>M THEN PRINT "NOT POSSIBLE.":GOTO 445
+450 M=M-F
+455 INPUT "RUBLES ON POWDER";P:IF P<0 OR P>M THEN PRINT "NOT POSSIBLE.":GOTO 455
+460 M=M-P:P=P*10
+465 INPUT "RUBLES ON FELTS";C:IF C<0 OR C>M THEN PRINT "NOT POSSIBLE.":GOTO 465
+470 M=M-C
+475 INPUT "RUBLES ON SUPPLIES";S:IF S<0 OR S>M THEN PRINT "NOT POSSIBLE.":GOTO 475
+480 M=M-S
+485 PRINT "YOU HAVE";INT(M);"RUBLES LEFT FOR THE ROAD."
+490 PRINT:PRINT "THE PRIEST BLESSES THE HORSES WITH"
+495 PRINT "WATER, MILK AND JUNIPER SMOKE."
+500 PRINT:INPUT "PRESS RETURN TO SET OUT";A$
+1000 REM *** EACH WEEK ***
+1005 IF F<0 THEN F=0
+1010 IF P<0 THEN P=0
+1015 IF C<0 THEN C=0
+1020 IF S<0 THEN S=0
+1025 IF M<0 THEN M=0
+1030 PRINT CHR$(147);:GOSUB 7000
+1035 IF H<2 THEN DC=7:GOTO 8000
+1040 IF DY>175 THEN DC=8:GOTO 8000
+1045 PRINT "VERSTS TRAVELLED:";INT(D);"OF 690"
+1050 PRINT "NEXT: ";L$(LN);",";INT(L(LN)-D);"VERSTS"
+1055 PRINT
+1060 PRINT "FOOD";INT(F);"POWDER";INT(P);"FELTS";INT(C)
+1065 PRINT "SUPPLIES";INT(S);"RUBLES";INT(M);"HORSES";H
+1070 IF F<15 THEN PRINT:PRINT "FOOD IS SHORT. HUNT OR TRADE SOON."
+1075 IF EG>0 THEN EG=EG-1
+1080 IF SK+HU=0 THEN 1200
+1085 PRINT
+1090 IF SK=1 THEN PRINT "YOU ARE SICK."
+1095 IF HU=1 THEN PRINT "YOU ARE HURT."
+1100 PRINT "A TABYP (HEALER) TENDS YOU. HE ASKS"
+1105 PRINT "10 RUBLES."
+1110 M=M-10:IF M>=0 THEN 1115
+1111 M=M+10:PRINT "YOU CANNOT PAY. HE TAKES MUTTON AND"
+1112 PRINT "KURUT INSTEAD.":F=F-15:IF F<0 THEN F=0:IF RND(1)<.5 THEN DC=2:GOTO 8000
+1115 SK=0:HU=0
+1200 X1=1-X1
+1205 PRINT:PRINT "DO YOU WANT TO:"
+1210 IF X1=1 OR TR=1 THEN PRINT "(1) TRADE"
+1215 IF EG=0 THEN PRINT "(2) FLY THE EAGLE"
+1220 PRINT "(3) RIDE ON"
+1225 INPUT X:X=INT(X)
+1230 IF X=1 AND (X1=1 OR TR=1) THEN 1300
+1235 IF X=2 AND EG=0 THEN 1400
+1240 IF X=3 THEN 1500
+1245 GOTO 1205
+1300 K=2/3:IF TR=1 THEN K=1
+1305 PN=PN+15:TR=0
+1310 IF K<1 THEN PRINT "A PASSING CARAVAN WILL TRADE, AT A":PRINT "STEEP PRICE."
+1315 PRINT "YOU HAVE";INT(M);"RUBLES."
+1320 INPUT "HORSES AT 30 RUBLES";X:X=INT(X)
+1325 IF X<0 OR 30*X>M THEN PRINT "NOT POSSIBLE.":GOTO 1320
+1330 H=H+X:M=M-30*X
+1335 INPUT "RUBLES ON FOOD";X:GOSUB 1390:F=F+K*X
+1340 INPUT "RUBLES ON POWDER";X:GOSUB 1390:P=P+K*X*10
+1345 INPUT "RUBLES ON FELTS";X:GOSUB 1390:C=C+K*X
+1350 INPUT "RUBLES ON SUPPLIES";X:GOSUB 1390:S=S+K*X
+1355 GOTO 1500
+1390 IF X<0 THEN X=0
+1392 IF X>M THEN PRINT "YOU HAVE NOT GOT THAT MUCH.":X=0
+1394 M=M-X:RETURN
+1400 PN=PN+15:EG=2
+1405 PRINT:PRINT "YOU UNHOOD THE BERKUT. A HARE BREAKS"
+1410 PRINT "COVER! CALL THE EAGLE ON."
+1415 GOSUB 6000
+1420 IF B1<=1 THEN PRINT "A CLEAN STRIKE! TWO HARES AND A FOX.":F=F+48+RND(1)*8:M=M+5:GOTO 1430
+1422 IF B1<=3 THEN PRINT "THE EAGLE TAKES A HARE.":F=F+36-B1*3:GOTO 1500
+1424 IF B1<=5 THEN PRINT "TOO SLOW FOR THE HARE. THE EAGLE TAKES":PRINT "A MARMOT INSTEAD.":F=F+18:GOTO 1500
+1425 IF B1<9 THEN PRINT "TOO SLOW. THE HARE IS GONE.":GOTO 1500
+1426 PRINT "THE EAGLE IGNORES YOU AND SITS ON A":PRINT "ROCK. NO MEAT TODAY.":GOTO 1500
+1430 PRINT "THE FOX PELT FETCHES 5 RUBLES."
+1500 IF F<10 THEN 1600
+1505 PRINT:PRINT "DO YOU WANT TO EAT (1) POORLY,"
+1510 PRINT "(2) MODERATELY OR (3) WELL";:INPUT E
+1515 E=INT(E):IF E<1 OR E>3 THEN 1505
+1520 Q=5+5*E:IF Q>F THEN PRINT "YOU CANNOT EAT THAT WELL.":GOTO 1505
+1525 F=F-Q:SV=0:GOTO 2000
+1600 IF H<3 OR HM=1 THEN 1650
+1605 PRINT:PRINT "THE FOOD IS GONE. A COUSIN LOOKS AT"
+1610 PRINT "THE LAME GREY MARE AND SAYS NOTHING."
+1615 INPUT "SLAUGHTER THE MARE";A$
+1620 IF LEFT$(A$,1)<>"Y" THEN 1650
+1625 H=H-1:F=F+40:LU=1:HM=1
+1630 PRINT "IT IS DONE. THE ELDERS WILL NOT EAT,"
+1635 PRINT "AND THE WOMEN COVER THEIR FACES. NO"
+1640 PRINT "BLESSING WILL FOLLOW THIS CARAVAN."
+1645 GOTO 1505
+1650 PRINT "YOU GO HUNGRY.":E=1:F=0:SV=SV+1:SK=1
+1655 IF SV>=2 THEN DC=1:GOTO 8000
+2000 Q=20+5*H+RND(1)*15-PN:PN=0
+2005 IF Q>85 THEN Q=85
+2010 Z=0:IF D>=120 AND D<170 THEN Z=1
+2015 IF D>=300 AND D<350 THEN Z=1
+2020 IF D>=420 AND D<470 THEN Z=1
+2025 IF D>=600 AND D<670 THEN Z=2
+2030 IF Z>0 THEN Q=Q*.6
+2035 GOSUB 3000
+2040 IF Z>0 THEN GOSUB 5000
+2045 IF Q<5 THEN Q=5
+2050 D=D+INT(Q):DY=DY+7:T=T+1
+2055 R=RND(1)*100:IF R<15-6*E+5*LU THEN GOSUB 5500
+2060 IF D>=L(LN) THEN ON TY(LN) GOSUB 4600,4700,4800,4900,4950,8500:LN=LN+1:GOTO 2060
+2065 PRINT:INPUT "PRESS RETURN";A$
+2070 GOTO 1000
+3000 REM *** EVENTS ***
+3005 R=RND(1)*100:IF LU=1 AND R>60 THEN R=R-45
+3010 PRINT:FOR I=1 TO 15:IF R<EV(I) THEN 3020
+3015 NEXT I:I=15
+3020 IF I>8 THEN ON I-8 GOTO 3900,4000,4100,4200,4300,4400,4500
+3025 ON I GOTO 3100,3200,3300,3400,3500,3600,3700,3800
+3100 PRINT "A HORSE THROWS A SHOE AND GOES LAME."
+3105 IF S>=5 THEN PRINT "YOU STOP AND SHOE HER.":S=S-5:Q=Q-10:RETURN
+3110 PRINT "NO SPARE SHOES. SHE LIMPS ALONG.":Q=Q-25:RETURN
+3200 PRINT "A HORSE STRAYS IN THE NIGHT."
+3205 IF RND(1)<.3 THEN PRINT "YOU NEVER FIND HER.":H=H-1:RETURN
+3210 PRINT "YOU LOSE HALF A DAY FINDING HER.":Q=Q-10:RETURN
+3300 PRINT "COLD RAIN FOR THREE DAYS. THE FLOUR"
+3305 PRINT "GETS WET AND SPOILS.":F=F-10:Q=Q-10:RETURN
+3400 PRINT "WOLVES CIRCLE THE HERD AT NIGHT!"
+3405 IF P<20 THEN PRINT "NO POWDER TO DRIVE THEM OFF. THEY":PRINT "PULL DOWN A HORSE.":H=H-1:RETURN
+3410 GOSUB 6000:P=P-10-B1*3
+3415 IF B1<=3 THEN PRINT "YOUR SHOTS DRIVE THEM INTO THE DARK.":RETURN
+3420 IF RND(1)<.5 THEN PRINT "TOO SLOW. THEY TAKE A HORSE.":H=H-1:RETURN
+3425 PRINT "THEY SCATTER, BUT THE HERD IS":PRINT "SPOOKED FOR DAYS.":Q=Q-10:RETURN
+3500 PRINT "RIDERS ON THE SKYLINE!"
+3505 HS=0:IF RND(1)<.7 THEN HS=1
+3510 A1=HS:IF RND(1)<.2 THEN A1=1-A1
+3515 IF A1=1 THEN PRINT "THEY LOOK LIKE HORSE THIEVES."
+3520 IF A1=0 THEN PRINT "THEY DO NOT LOOK HOSTILE."
+3525 PRINT "(1) RUN  (2) ATTACK  (3) RING THE HERD"
+3530 PRINT "(4) RIDE OUT WITH GIFTS";:INPUT X:X=INT(X)
+3535 IF X<1 OR X>4 THEN 3525
+3540 IF HS=0 THEN 3590
+3545 ON X GOTO 3550,3560,3570,3580
+3550 Q=Q+15:F=F-10:S=S-5:PRINT "YOU RUN. PACKS ARE LOST IN THE CHASE."
+3552 IF RND(1)<.4 THEN PRINT "THEY CUT OUT ONE HORSE.":H=H-1
+3555 RETURN
+3560 IF P<20 THEN PRINT "YOU HAVE NO POWDER! THEY TAKE TWO":PRINT "HORSES.":H=H-2:RETURN
+3562 GOSUB 6000:P=P-B1*8-20
+3564 IF B1<=1 THEN PRINT "FINE SHOOTING! THEY SCATTER.":RETURN
+3566 IF B1<=4 THEN PRINT "A HARD FIGHT. THEY GIVE UP, BUT YOU":PRINT "ARE WOUNDED.":HU=1:RETURN
+3568 PRINT "THEY BEAT YOU AND TAKE A HORSE.":H=H-1:HU=1:RETURN
+3570 Q=Q-20:IF P<20 THEN PRINT "NO POWDER. THEY TAKE TWO HORSES.":H=H-2:RETURN
+3572 P=P-20:GOSUB 6000:IF B1<=4 THEN PRINT "THE RING HOLDS. THEY RIDE AWAY.":RETURN
+3574 PRINT "THEY BREAK THE RING AND TAKE A HORSE.":H=H-1:RETURN
+3580 PRINT "YOU OFFER TEA, KURUT AND SILVER."
+3582 IF M>=15 THEN M=M-15:F=F-5:PRINT "THEY TAKE 15 RUBLES AND RIDE OFF.":RETURN
+3584 PRINT "YOU HAVE LITTLE TO GIVE. THEY TAKE A":PRINT "HORSE INSTEAD.":H=H-1:RETURN
+3590 PRINT "THEY WERE KOKJAL HERDERS LOOKING FOR"
+3592 PRINT "STRAYS. THEY SHARE THEIR KYMYZ."
+3594 IF X=1 THEN PRINT "YOU RAN FOR NOTHING.":F=F-5:RETURN
+3596 IF X=2 THEN PRINT "YOU FIRED ON FRIENDS. THEIR BIY":PRINT "DEMANDS KUN: 20 RUBLES.":M=M-20:P=P-10
+3598 RETURN
+3600 PRINT "AT DUSK A BLACK BULL STANDS ON THE"
+3605 PRINT "TRAIL AND WILL NOT MOVE. THE ELDERS"
+3610 PRINT "WHISPER ONE WORD: MORKHAN."
+3615 INPUT "BURN JUNIPER AND POUR MILK";A$
+3620 IF LEFT$(A$,1)<>"Y" THEN PRINT "THE WOMEN WILL NOT LOOK AT YOU.":LU=1:RETURN
+3625 S=S-5:Q=Q-5:PRINT "THE SMOKE RISES WHITE. THE BULL":PRINT "WANDERS OFF INTO THE DARK.":RETURN
+3700 PRINT "A STEPPE VIPER BITES YOUR LEG."
+3705 IF S<10 AND RND(1)<.5 THEN PRINT "YOU HAVE NO MEDICINE.":DC=5:GOTO 8000
+3710 S=S-10:SK=1:PRINT "YOU CUT AND BIND IT. YOU FEEL ILL.":RETURN
+3800 PRINT "YOUR HORSE STUMBLES ON SCREE AND"
+3805 PRINT "THROWS YOU. YOUR ARM IS BADLY HURT.":HU=1:Q=Q-5:S=S-5:RETURN
+3900 PRINT "BAD WATER. THE FLUX GOES THROUGH THE"
+3905 PRINT "CAMP.":SK=1:S=S-10:Q=Q-10:RETURN
+4000 PRINT "A COSSACK POST BARS THE ROAD. THE"
+4005 PRINT "OFFICER WANTS 10 RUBLES FOR PAPERS."
+4010 INPUT "PAY HIM";A$
+4015 IF LEFT$(A$,1)="Y" AND M>=10 THEN M=M-10:PRINT "HE STAMPS SOMETHING IN RUSSIAN.":RETURN
+4020 PRINT "YOU TAKE THE LONG WAY ROUND.":Q=Q-25:RETURN
+4100 PRINT "FOG ON THE HILLS. YOU LOSE THE TRAIL."
+4105 Q=Q-15:RETURN
+4200 PRINT "HAILSTONES LIKE WALNUTS! FELTS ARE"
+4205 PRINT "TORN AND A PACK SADDLE BREAKS.":C=C-8:S=S-5:RETURN
+4300 PRINT "A KINSMAN'S AUL TAKES YOU IN. THEY"
+4305 PRINT "KILL A SHEEP AND POUR KYMYZ.":F=F+15:Q=Q-5:RETURN
+4400 PRINT "YOU FIND WILD RHUBARB AND ONIONS."
+4405 F=F+8:RETURN
+4500 PRINT "PILGRIMS BOUND FOR IYIK JANYL RIDE"
+4505 PRINT "WITH YOU. THEIR KASHYSH GIVES A BATA."
+4510 PRINT "ALL ANSWER: OOMIN."
+4515 IF LU=1 THEN PRINT "A WEIGHT LIFTS FROM THE CARAVAN.":LU=0
+4520 RETURN
+4600 REM *** RIVER ***
+4605 PRINT:PRINT "YOU REACH ";L$(LN);".":PRINT G$(LN)
+4610 DP=INT(RND(1)*3)+1
+4615 IF DP=1 THEN PRINT "IT IS STIRRUP-DEEP."
+4620 IF DP=2 THEN PRINT "IT IS SADDLE-DEEP."
+4625 IF DP=3 THEN PRINT "THE HORSES WILL HAVE TO SWIM."
+4630 PRINT "(1) FORD IT  (2) WAIT A DAY"
+4635 PRINT "(3) PAY RIVERMEN 5 RUBLES";:INPUT X:X=INT(X)
+4640 IF X<1 OR X>3 THEN 4630
+4645 IF X=2 THEN 4690
+4650 RK=DP*DP*6
+4655 IF X=3 AND M<5 THEN PRINT "YOU CANNOT PAY THEM.":GOTO 4630
+4660 IF X=3 THEN M=M-5:RK=DP*3:PRINT "RIVERMEN LEAD YOU ACROSS."
+4665 IF RND(1)*100>=RK THEN PRINT "YOU CROSS SAFELY.":RETURN
+4670 PRINT "A PACKHORSE IS SWEPT DOWNSTREAM!":F=F-15:S=S-10:P=P-20
+4675 IF DP=3 AND RND(1)<.2 THEN DC=3:GOTO 8000
+4680 IF RND(1)<.5 THEN PRINT "THE HORSE DROWNS.":H=H-1
+4685 RETURN
+4690 DY=DY+1:IF DP>1 AND RND(1)<.7 THEN DP=DP-1:PRINT "THE WATER FALLS.":GOTO 4615
+4695 PRINT "THE WATER IS NO LOWER.":GOTO 4615
+4700 REM *** HIGH PASS ***
+4705 PRINT:PRINT "YOU CROSS ";L$(LN);".":PRINT G$(LN)
+4710 C=C-5:IF C<20 THEN PRINT "YOUR FELTS ARE THIN. YOU TAKE A":PRINT "CHILL IN THE NIGHT.":SK=1
+4715 IF DY>145 THEN GOSUB 5030
+4720 RETURN
+4800 REM *** TRADING PLACE ***
+4805 PRINT:PRINT "YOU REACH ";L$(LN);".":PRINT G$(LN)
+4810 PRINT "THERE ARE HONEST TRADERS HERE.":TR=1:RETURN
+4900 REM *** HIGH MEADOWS ***
+4905 PRINT:PRINT "YOU REACH ";L$(LN);".":PRINT G$(LN)
+4910 PRINT "KINSMEN ON THE ZHAYLOO SHARE KYMYZ.":F=F+10:RETURN
+4950 REM *** GORGE ***
+4955 PRINT:PRINT "YOU ENTER ";L$(LN);".":PRINT G$(LN):RETURN
+5000 REM *** MOUNTAINS ***
+5005 IF Z=2 THEN 5050
+5010 IF DY>145 THEN 5030
+5015 IF RND(1)>.35 THEN RETURN
+5020 PRINT "COLD WIND AND SLEET ON THE PASS.":C=C-5
+5022 IF C<25 THEN PRINT "YOUR FELTS ARE TOO THIN.":SK=1
+5024 IF RND(1)<.3 THEN PRINT "A PACKHORSE SLIPS ON THE ICE.":F=F-10:S=S-5
+5025 RETURN
+5030 PRINT "SNOW! THE PASS IS CLOSING."
+5035 IF C<50 THEN DC=4:GOTO 8000
+5040 PRINT "YOU WRAP THE HORSES IN FELT AND PUSH":PRINT "ON. ONE DIES IN THE DRIFTS."
+5045 H=H-1:C=C-15:Q=Q*.5:RETURN
+5050 IF RND(1)>.3 THEN RETURN
+5055 PRINT "ROCKFALL IN THE GORGE!":Q=Q-10:S=S-5
+5060 IF RND(1)<.2 THEN PRINT "A PACKHORSE FALLS INTO THE NARYN.":H=H-1:F=F-10
+5065 RETURN
+5500 REM *** ILLNESS ***
+5505 IF SK=1 THEN RETURN
+5510 PRINT:IF E=1 THEN PRINT "WEAK FROM POOR FOOD, YOU FALL SICK."
+5515 IF E>1 THEN PRINT "YOU HAVE CAMP FEVER."
+5520 S=S-3:SK=1:IF S<0 AND RND(1)<.5 THEN PRINT "NO MEDICINE LEFT.":DC=5:GOTO 8000
+5525 RETURN
+6000 REM *** TYPE THE WORD ***
+6005 W$=WD$(INT(RND(1)*4)+1)
+6010 PRINT CHR$(158);"TYPE: ";W$;CHR$(153)
+6015 T0=TI:INPUT A$:B1=(TI-T0)/60-1.5+(D9-1)*.4
+6020 IF A$<>W$ THEN B1=9
+6025 IF B1<0 THEN B1=0
+6030 RETURN
+7000 REM *** PRINT THE DATE ***
+7005 XD=DY+23:M$="APRIL":IF XD<=30 THEN 7045
+7010 XD=XD-30:M$="MAY":IF XD<=31 THEN 7045
+7015 XD=XD-31:M$="JUNE":IF XD<=30 THEN 7045
+7020 XD=XD-30:M$="JULY":IF XD<=31 THEN 7045
+7025 XD=XD-31:M$="AUGUST":IF XD<=31 THEN 7045
+7030 XD=XD-31:M$="SEPTEMBER":IF XD<=30 THEN 7045
+7035 XD=XD-30:M$="OCTOBER":IF XD<=31 THEN 7045
+7040 XD=XD-31:M$="NOVEMBER"
+7045 PRINT CHR$(158);M$;STR$(XD);", 1877";CHR$(153):RETURN
+8000 REM *** THE END OF THE ROAD ***
+8005 PRINT:PRINT CHR$(150);
+8010 ON DC GOTO 8015,8020,8025,8030,8035,8040,8045,8050
+8015 PRINT "YOU HAVE STARVED TO DEATH.":GOTO 8060
+8020 PRINT "NO HEALER WILL TREAT YOU FOR NOTHING.":PRINT "THE FEVER TAKES YOU.":GOTO 8060
+8025 PRINT "THE RIVER TAKES YOU.":GOTO 8060
+8030 PRINT "SNOW CLOSES THE PASS. YOU FREEZE IN":PRINT "YOUR THIN FELTS.":GOTO 8060
+8035 PRINT "WITHOUT MEDICINE, YOU DIE.":GOTO 8060
+8040 PRINT "THE RAIDERS KILL YOU.":GOTO 8060
+8045 PRINT "WITH ONE HORSE LEFT, THE CARAVAN":PRINT "CANNOT GO ON. YOU WINTER WITH"
+8047 PRINT "STRANGERS AND PRAY FOR SPRING.":PRINT CHR$(153);:GOTO 8900
+8050 PRINT "WINTER CATCHES YOU ON THE ROAD. THE"
+8055 PRINT "FAMILY SCATTERS TO WINTER AULS.":PRINT CHR$(153);:GOTO 8900
+8060 PRINT CHR$(153)
+8065 PRINT "YOUR KINSMEN BURY YOU BESIDE THE"
+8070 PRINT "TRAIL. YOUR RIDING HORSE, ITS SADDLE"
+8075 PRINT "EMPTY, IS LED BEHIND THE BIER, AND"
+8080 PRINT "THE WOMEN SING THE KOSHOK."
+8085 GOTO 8900
+8500 REM *** IYIK JANYL ***
+8505 PRINT:PRINT "THE NARYN FLATS! ACROSS THE RIVER,"
+8510 PRINT "ON CATHEDRAL HILL, STANDS THE CHURCH"
+8515 PRINT "OF ST. JANYL."
+8520 PRINT "(1) FORD THE NARYN"
+8525 PRINT "(2) PAY THE FERRYMEN 10 RUBLES";:INPUT X:X=INT(X)
+8530 IF X<1 OR X>2 THEN 8520
+8535 IF X=2 AND M<10 THEN PRINT "YOU CANNOT PAY THEM.":GOTO 8520
+8540 IF X=2 THEN M=M-10:PRINT "THE FERRY CREAKS ACROSS.":GOTO 8560
+8545 IF RND(1)<.7 THEN PRINT "COLD AND WET, BUT ACROSS.":GOTO 8560
+8550 PRINT "THE NARYN TAKES TWO PACKHORSES.":H=H-2:F=F-20
+8555 IF RND(1)<.15 THEN DC=3:GOTO 8000
+8560 IF H<0 THEN H=0
+8562 IF F<0 THEN F=0
+8565 PRINT:PRINT CHR$(5);"YOU HAVE REACHED IYIK JANYL!"
+8570 GOSUB 7000
+8575 IF DY<=123 THEN PRINT "IN TIME FOR THE FEAST OF ST. JANYL!":GOTO 8585
+8580 IF DY<=144 THEN PRINT "IN TIME FOR THE FEAST OF THE CROSS."
+8585 PRINT "HORSES";H;"RUBLES";INT(M);"FOOD";INT(F)
+8590 PRINT:PRINT "JUNIPER SMOKE RISES OVER THE HILL."
+8595 PRINT "THE KASHYSH BLESSES YOUR HOUSEHOLD,"
+8600 PRINT "AND YOUR KINSMEN ANSWER: OOMIN."
+8605 IF HM=1 THEN PRINT:PRINT "BUT THE ELDERS DO NOT FORGET THE":PRINT "GREY MARE."
+8900 PRINT:INPUT "PLAY AGAIN";A$
+8905 IF LEFT$(A$,1)="Y" THEN RUN
+8910 PRINT "JOLUNG BOLSUN. MAY YOUR ROAD BE OPEN.":END
+9000 DATA ALGA,URAN,CHU,KEL
+9010 DATA 25,1,"THE CHU RIVER","SNOWMELT HAS SWOLLEN THE CHU."
+9015 DATA 140,2,"THE KOK-BEL PASS","THE TRAIL TOPS THE KYRGYZ RANGE."
+9020 DATA 215,3,"RABAT-I-SAFED","WHITE WALLS OF AN OLD SOGDIAN INN."
+9025 DATA 240,3,"THE TALAS FORT","RUSSIAN SOLDIERS HOLD THE KOKAND FORT."
+9030 DATA 255,1,"THE TALAS RIVER","THE TALAS RUNS FAST AND COLD."
+9035 DATA 330,2,"THE OTMEK PASS","SNOW STILL LIES ON THE HIGH GROUND."
+9040 DATA 400,4,"THE SUUSAMYR VALLEY","HIGH MEADOWS, GREEN TO THE SKY."
+9045 DATA 450,2,"THE ALA-BEL PASS","3,184 METERS. THE ROOF OF THE ROAD."
+9050 DATA 500,1,"THE CHYCHKAN RIVER","IT TUMBLES DOWN A STEEP GORGE."
+9055 DATA 570,3,"KETMEN-TOBO","A BAZAAR IN THE GREAT BASIN."
+9060 DATA 620,5,"THE NARYN GORGE","THE NARYN ROARS BETWEEN THE CLIFFS."
+9065 DATA 690,6,"IYIK JANYL","THE END OF THE ROAD."
+9070 DATA 8,14,22,30,40,46,51,57,63,70,76,81,89,94,100</script>
+<script>
+"use strict";
+/* ---------- Commodore BASIC V2 tokens ---------- */
+const KW = ["END","FOR","NEXT","DATA","INPUT#","INPUT","DIM","READ","LET","GOTO","RUN","IF","RESTORE","GOSUB","RETURN","REM",
+  "STOP","ON","WAIT","LOAD","SAVE","VERIFY","DEF","POKE","PRINT#","PRINT","CONT","LIST","CLR","CMD","SYS","OPEN","CLOSE",
+  "GET","NEW","TAB(","TO","FN","SPC(","THEN","NOT","STEP","+","-","*","/","^","AND","OR",">","=","<","SGN","INT","ABS",
+  "USR","FRE","POS","SQR","RND","LOG","EXP","COS","SIN","TAN","ATN","PEEK","LEN","STR$","VAL","ASC","CHR$","LEFT$",
+  "RIGHT$","MID$","GO"];
+const T = {}; KW.forEach((k, i) => T[k] = 0x80 + i);
+
+function crunch(s) {
+  const out = []; let q = false, rem = false, data = false;
+  for (let i = 0; i < s.length;) {
+    const c = s[i], cc = s.charCodeAt(i);
+    if (rem) { out.push(cc); i++; continue; }
+    if (c === '"') { q = !q; out.push(34); i++; continue; }
+    if (q) { out.push(cc); i++; continue; }
+    if (data) { if (c === ":") data = false; out.push(cc); i++; continue; }
+    if (c === " ") { out.push(32); i++; continue; }
+    let m = -1;
+    for (let k = 0; k < KW.length; k++) if (s.startsWith(KW[k], i)) { m = k; break; }
+    if (m >= 0) { out.push(0x80 + m); i += KW[m].length; if (KW[m] === "REM") rem = true; if (KW[m] === "DATA") data = true; continue; }
+    out.push(cc); i++;
+  }
+  return out;
+}
+function parseProgram(src) {
+  const lines = [];
+  for (const raw of src.split(/\r?\n/)) {
+    const m = /^\s*(\d+)\s*(.*)$/.exec(raw);
+    if (!m) continue;
+    lines.push({ num: +m[1], b: crunch(m[2]) });
+  }
+  lines.sort((a, b) => a.num - b.num);
+  return lines;
+}
+function detok(b) { let s = ""; for (const x of b) s += x >= 0x80 ? (KW[x - 0x80] || "?") : String.fromCharCode(x); return s; }
+
+/* ---------- Screen: 40 x 25, C64 colours ---------- */
+const PAL = ["#000000","#ffffff","#813338","#75cec8","#8e3c97","#56ac4d","#2e2c9b","#edf171","#8e5029","#553800","#c46c71","#4a4a4a","#7b7b7b","#a9ff9f","#706deb","#b2b2b2"];
+const COLCODE = {144:0,5:1,28:2,159:3,156:4,30:5,31:6,158:7,129:8,149:9,150:10,151:11,152:12,153:13,154:14,155:15};
+class Screen {
+  constructor() { this.W = 40; this.H = 25; this.fg = 14; this.border = 14; this.bg = 6; this.rev = false; this.clear(); }
+  clear() { this.ch = []; this.co = []; this.rv = [];
+    for (let i = 0; i < this.W * this.H; i++) { this.ch.push(32); this.co.push(this.fg); this.rv.push(false); }
+    this.x = 0; this.y = 0; this.dirty = true; }
+  scroll() { const W = this.W;
+    this.ch.splice(0, W); this.co.splice(0, W); this.rv.splice(0, W);
+    for (let i = 0; i < W; i++) { this.ch.push(32); this.co.push(this.fg); this.rv.push(false); }
+    this.y = this.H - 1; }
+  nl() { this.x = 0; this.y++; if (this.y >= this.H) this.scroll(); this.rev = false; this.dirty = true; }
+  put(c) {
+    if (c === 13) { this.nl(); return; }
+    if (c === 147) { this.clear(); return; }
+    if (c === 19) { this.x = 0; this.y = 0; return; }
+    if (c in COLCODE) { this.fg = COLCODE[c]; return; }
+    if (c === 18) { this.rev = true; return; }
+    if (c === 146) { this.rev = false; return; }
+    if (c === 17) { this.y++; if (this.y >= this.H) this.scroll(); return; }
+    if (c === 145) { if (this.y > 0) this.y--; return; }
+    if (c === 29) { this.x++; if (this.x >= this.W) { this.x = 0; this.y++; if (this.y >= this.H) this.scroll(); } return; }
+    if (c === 157) { if (this.x > 0) this.x--; else if (this.y > 0) { this.y--; this.x = this.W - 1; } return; }
+    if (c < 32 || (c > 95 && c < 160)) return;
+    const i = this.y * this.W + this.x;
+    this.ch[i] = c; this.co[i] = this.fg; this.rv[i] = this.rev;
+    this.x++; if (this.x >= this.W) { this.x = 0; this.y++; if (this.y >= this.H) this.scroll(); }
+    this.dirty = true;
+  }
+  print(s) { for (let i = 0; i < s.length; i++) this.put(s.charCodeAt(i)); }
+  back() { if (this.x > 0) this.x--; else if (this.y > 0) { this.y--; this.x = this.W - 1; }
+    const i = this.y * this.W + this.x; this.ch[i] = 32; this.dirty = true; }
+  text() { let s = ""; for (let y = 0; y < this.H; y++) { let r = ""; for (let x = 0; x < this.W; x++) r += String.fromCharCode(this.ch[y * this.W + x]); s += r.replace(/\s+$/, "") + "\n"; } return s; }
+}
+
+/* ---------- Interpreter ---------- */
+class BasicError extends Error { constructor(code) { super(code); this.code = code; } }
+function fmtNum(n) {
+  if (n === 0) return " 0";
+  const a = Math.abs(n); let s;
+  if (a >= 1e9 || a < 0.01) {
+    let [m, e] = a.toExponential(8).split("e");
+    m = m.replace(/\.?0+$/, ""); const ei = +e;
+    s = m + "E" + (ei < 0 ? "-" : "+") + String(Math.abs(ei)).padStart(2, "0");
+  } else { s = String(parseFloat(a.toPrecision(9))); if (s.startsWith("0.")) s = s.slice(1); }
+  return (n < 0 ? "-" : " ") + s;
+}
+function int16(v) { v = Math.floor(v); if (v < -32768 || v > 32767) throw new BasicError("ILLEGAL QUANTITY"); return v; }
+const isDigit = c => c >= 48 && c <= 57, isAlpha = c => c >= 65 && c <= 90;
+const NUMRE = /^\s*[+-]?(\d+\.?\d*|\.\d+)(E[+-]?\d+)?\s*$/;
+
+class Interp {
+  constructor(screen, io, seed) { this.scr = screen; this.io = io; this.prog = []; this.idx = new Map(); this.seed(seed ?? (Math.random() * 1e9)); this.border = 14; this.bg = 6; }
+  seed(x) { let h = 2166136261 ^ Math.floor(Math.abs(x) * 1000); h = Math.imul(h ^ (h >>> 16), 2246822507); this.rs = (h >>> 0) || 1; }
+  rand() { let t = (this.rs += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  load(lines) { this.prog = lines; this.idx = new Map(lines.map((l, i) => [l.num, i])); }
+  clearVars() { this.v = new Map(); this.arr = new Map(); this.stack = []; this.dp = 0; this.buildData(); this.lastRnd = this.rand(); }
+  buildData() {
+    this.data = [];
+    for (const ln of this.prog) {
+      const b = ln.b; let q = false;
+      for (let p = 0; p < b.length; p++) {
+        if (b[p] === 34) q = !q;
+        if (q || b[p] !== T.DATA) continue;
+        p++;
+        for (;;) {
+          while (b[p] === 32) p++;
+          let item = "";
+          if (b[p] === 34) { p++; while (p < b.length && b[p] !== 34) item += String.fromCharCode(b[p++]); p++; while (p < b.length && b[p] !== 44 && b[p] !== 58) p++; }
+          else { while (p < b.length && b[p] !== 44 && b[p] !== 58) item += String.fromCharCode(b[p++]); item = item.replace(/\s+$/, ""); }
+          this.data.push({ s: item, line: ln.num });
+          if (b[p] === 44) { p++; continue; }
+          break;
+        }
+      }
+    }
+  }
+  get b() { return this.prog[this.li].b; }
+  skip() { const b = this.b; while (this.p < b.length && b[this.p] === 32) this.p++; }
+  peek() { this.skip(); return this.p < this.b.length ? this.b[this.p] : -1; }
+  accept(c) { if (this.peek() === c) { this.p++; return true; } return false; }
+  expect(c) { if (!this.accept(c)) throw new BasicError("SYNTAX"); }
+  lineNum() { this.skip(); const b = this.b; let s = "";
+    while (this.p < b.length && (isDigit(b[this.p]) || b[this.p] === 32)) { if (b[this.p] !== 32) s += String.fromCharCode(b[this.p]); this.p++; }
+    if (!s) throw new BasicError("SYNTAX"); return +s; }
+  jump(n) { const i = this.idx.get(n); if (i === undefined) throw new BasicError("UNDEF'D STATEMENT"); this.li = i; this.p = 0; this.jumped = true; }
+  /* variables */
+  name() { this.skip(); const b = this.b; let s = "";
+    if (!isAlpha(b[this.p])) throw new BasicError("SYNTAX");
+    while (this.p < b.length && (isAlpha(b[this.p]) || isDigit(b[this.p]))) s += String.fromCharCode(b[this.p++]);
+    let str = false; if (b[this.p] === 36) { str = true; this.p++; }
+    return { key: s.slice(0, 2) + (str ? "$" : ""), str }; }
+  ref() { const n = this.name(); if (this.peek() === 40) { this.p++; const ix = [this.expr()];
+      while (this.accept(44)) ix.push(this.expr()); this.expect(41); n.ix = ix.map(v => { if (typeof v !== "number") throw new BasicError("TYPE MISMATCH"); return Math.floor(v); }); }
+    return n; }
+  array(key, dims) { let a = this.arr.get(key);
+    if (!a) { dims = dims || [10]; let size = 1; dims.forEach(d => size *= d + 1);
+      a = { dims, data: new Array(size).fill(key.endsWith("$") ? "" : 0) }; this.arr.set(key, a); }
+    return a; }
+  offset(a, ix) { if (ix.length !== a.dims.length) throw new BasicError("BAD SUBSCRIPT"); let o = 0;
+    for (let i = 0; i < ix.length; i++) { if (ix[i] < 0 || ix[i] > a.dims[i]) throw new BasicError("BAD SUBSCRIPT"); o = o * (a.dims[i] + 1) + ix[i]; } return o; }
+  get(r) {
+    if (r.ix) { const a = this.array(r.key, r.ix.map(() => 10)); return a.data[this.offset(a, r.ix)]; }
+    if (r.key === "TI") return this.io.now();
+    if (r.key === "ST") return 0;
+    if (r.key === "TI$") { const t = Math.floor(this.io.now() / 60); return [t / 3600 % 24, t / 60 % 60, t % 60].map(x => String(Math.floor(x)).padStart(2, "0")).join(""); }
+    return this.v.has(r.key) ? this.v.get(r.key) : (r.str ? "" : 0); }
+  set(r, val) {
+    if (r.str !== (typeof val === "string")) throw new BasicError("TYPE MISMATCH");
+    if (typeof val === "string" && val.length > 255) throw new BasicError("STRING TOO LONG");
+    if (r.ix) { const a = this.array(r.key, r.ix.map(() => 10)); a.data[this.offset(a, r.ix)] = val; return; }
+    if (r.key === "TI" || r.key === "ST") throw new BasicError("SYNTAX");
+    this.v.set(r.key, val); }
+  /* expressions */
+  expr() { let a = this.andE(); while (this.accept(T.OR)) { const b = this.andE(); a = int16(this.num(a)) | int16(this.num(b)); } return a; }
+  andE() { let a = this.notE(); while (this.accept(T.AND)) { const b = this.notE(); a = int16(this.num(a)) & int16(this.num(b)); } return a; }
+  notE() { if (this.accept(T.NOT)) return ~int16(this.num(this.notE())); return this.rel(); }
+  rel() { let a = this.add();
+    for (;;) { const c = this.peek(); if (c !== T["<"] && c !== T["="] && c !== T[">"]) return a;
+      let lt = false, eq = false, gt = false;
+      while ([T["<"], T["="], T[">"]].includes(this.peek())) { const d = this.b[this.p++]; if (d === T["<"]) lt = true; if (d === T["="]) eq = true; if (d === T[">"]) gt = true; }
+      const b = this.add();
+      if ((typeof a === "string") !== (typeof b === "string")) throw new BasicError("TYPE MISMATCH");
+      const r = (lt && a < b) || (eq && a === b) || (gt && a > b); a = r ? -1 : 0; } }
+  add() { let a = this.mul();
+    for (;;) { if (this.accept(T["+"])) { const b = this.mul();
+        if (typeof a === "string" && typeof b === "string") { a = a + b; if (a.length > 255) throw new BasicError("STRING TOO LONG"); }
+        else a = this.num(a) + this.num(b); }
+      else if (this.accept(T["-"])) a = this.num(a) - this.num(this.mul()); else return a; } }
+  mul() { let a = this.unary();
+    for (;;) { if (this.accept(T["*"])) a = this.num(a) * this.num(this.unary());
+      else if (this.accept(T["/"])) { const b = this.num(this.unary()); if (b === 0) throw new BasicError("DIVISION BY ZERO"); a = this.num(a) / b; }
+      else return a; } }
+  unary() { if (this.accept(T["-"])) return -this.num(this.unary()); if (this.accept(T["+"])) return this.unary(); return this.pow(); }
+  pow() { let a = this.prim(); while (this.accept(T["^"])) { const neg = this.accept(T["-"]); let b = this.num(this.prim()); if (neg) b = -b; a = Math.pow(this.num(a), b); } return a; }
+  num(v) { if (typeof v !== "number") throw new BasicError("TYPE MISMATCH"); return v; }
+  str(v) { if (typeof v !== "string") throw new BasicError("TYPE MISMATCH"); return v; }
+  arg() { this.expect(40); const v = this.expr(); this.expect(41); return v; }
+  prim() {
+    const c = this.peek(), b = this.b;
+    if (c === -1) throw new BasicError("SYNTAX");
+    if (isDigit(c) || c === 46) { let s = "";
+      while (this.p < b.length && (isDigit(b[this.p]) || b[this.p] === 46)) s += String.fromCharCode(b[this.p++]);
+      if (b[this.p] === 69) { let e = "E"; let q = this.p + 1; if (b[q] === T["-"] || b[q] === T["+"]) { e += b[q] === T["-"] ? "-" : "+"; q++; }
+        if (isDigit(b[q])) { while (isDigit(b[q])) e += String.fromCharCode(b[q++]); s += e; this.p = q; } }
+      return parseFloat(s === "." ? "0" : s); }
+    if (c === 34) { this.p++; let s = ""; while (this.p < b.length && b[this.p] !== 34) s += String.fromCharCode(b[this.p++]); if (this.p < b.length) this.p++; return s; }
+    if (c === 40) { this.p++; const v = this.expr(); this.expect(41); return v; }
+    if (isAlpha(c)) return this.get(this.ref());
+    this.p++;
+    switch (c) {
+      case T.SGN: return Math.sign(this.num(this.arg()));
+      case T.INT: return Math.floor(this.num(this.arg()));
+      case T.ABS: return Math.abs(this.num(this.arg()));
+      case T.SQR: { const v = this.num(this.arg()); if (v < 0) throw new BasicError("ILLEGAL QUANTITY"); return Math.sqrt(v); }
+      case T.RND: { const v = this.num(this.arg()); if (v < 0) { this.seed(v); this.lastRnd = this.rand(); } else if (v > 0) this.lastRnd = this.rand(); return this.lastRnd; }
+      case T.LOG: { const v = this.num(this.arg()); if (v <= 0) throw new BasicError("ILLEGAL QUANTITY"); return Math.log(v); }
+      case T.EXP: return Math.exp(this.num(this.arg()));
+      case T.COS: return Math.cos(this.num(this.arg()));
+      case T.SIN: return Math.sin(this.num(this.arg()));
+      case T.TAN: return Math.tan(this.num(this.arg()));
+      case T.ATN: return Math.atan(this.num(this.arg()));
+      case T.PEEK: this.arg(); return 0;
+      case T.FRE: this.arg(); return 38911;
+      case T.POS: this.arg(); return this.scr.x;
+      case T.LEN: return this.str(this.arg()).length;
+      case T["STR$"]: return fmtNum(this.num(this.arg()));
+      case T.VAL: { const s = this.str(this.arg()); const m = /^\s*[+-]?(\d+\.?\d*|\.\d+)(E[+-]?\d+)?/.exec(s); return m ? parseFloat(m[0]) : 0; }
+      case T.ASC: { const s = this.str(this.arg()); if (!s) throw new BasicError("ILLEGAL QUANTITY"); return s.charCodeAt(0); }
+      case T["CHR$"]: { const v = Math.floor(this.num(this.arg())); if (v < 0 || v > 255) throw new BasicError("ILLEGAL QUANTITY"); return String.fromCharCode(v); }
+      case T["LEFT$"]: case T["RIGHT$"]: { this.expect(40); const s = this.str(this.expr()); this.expect(44); const n = Math.floor(this.num(this.expr())); this.expect(41);
+        if (n < 0 || n > 255) throw new BasicError("ILLEGAL QUANTITY"); return c === T["LEFT$"] ? s.slice(0, n) : (n === 0 ? "" : s.slice(-n)); }
+      case T["MID$"]: { this.expect(40); const s = this.str(this.expr()); this.expect(44); const st = Math.floor(this.num(this.expr())); let n = 255;
+        if (this.accept(44)) n = Math.floor(this.num(this.expr())); this.expect(41);
+        if (st < 1 || st > 255 || n < 0) throw new BasicError("ILLEGAL QUANTITY"); return s.substr(st - 1, n); }
+      case T["-"]: return -this.num(this.prim());
+    }
+    throw new BasicError("SYNTAX");
+  }
+  /* statements */
+  endStmt() { const c = this.peek(); if (c !== -1 && c !== 58) throw new BasicError("SYNTAX"); }
+  skipStmt() { const b = this.b; let q = false; while (this.p < b.length) { if (b[this.p] === 34) q = !q; else if (!q && b[this.p] === 58) return; this.p++; } }
+  async run() {
+    this.clearVars(); this.li = 0; this.p = 0; this.running = true; this.steps = 0;
+    try {
+      while (this.running && this.li < this.prog.length) {
+        await this.stmt();
+        if (++this.steps % 400 === 0 && this.io.yield) await this.io.yield();
+        if (this.io.limit && this.steps > this.io.limit) throw new BasicError("RUNAWAY");
+      }
+    } catch (e) {
+      if (!(e instanceof BasicError)) throw e;
+      if (this.scr.x) this.scr.put(13);
+      this.scr.print("?" + e.code + "  ERROR" + (this.li < this.prog.length ? " IN " + this.prog[this.li].num : "")); this.scr.put(13);
+      this.error = { code: e.code, line: this.li < this.prog.length ? this.prog[this.li].num : null };
+    }
+    this.running = false;
+  }
+  async stmt() {
+    const c = this.peek();
+    if (c === -1) { this.li++; this.p = 0; return; }
+    if (c === 58) { this.p++; return; }
+    this.jumped = false;
+    if (isAlpha(c)) { this.doLet(); this.endStmt(); return; }
+    this.p++;
+    switch (c) {
+      case T.REM: this.li++; this.p = 0; return;
+      case T.DATA: this.skipStmt(); return;
+      case T.LET: this.doLet(); break;
+      case T.PRINT: this.doPrint(); break;
+      case T.INPUT: await this.doInput(); break;
+      case T.GET: { const r = this.ref(); const k = this.io.key ? this.io.key() : ""; this.set(r, r.str ? k : (k ? +k || 0 : 0)); break; }
+      case T.IF: {
+        const v = this.expr();
+        if (this.accept(T.THEN)) { if (isDigit(this.peek())) { const n = this.lineNum(); if (v) this.jump(n); else { this.li++; this.p = 0; this.jumped = true; } return; } }
+        else if (this.accept(T.GOTO)) { const n = this.lineNum(); if (v) this.jump(n); else { this.li++; this.p = 0; this.jumped = true; } return; }
+        else throw new BasicError("SYNTAX");
+        if (!v) { this.li++; this.p = 0; }
+        return; }
+      case T.GOTO: this.jump(this.lineNum()); return;
+      case T.GO: this.expect(T.TO); this.jump(this.lineNum()); return;
+      case T.GOSUB: { const n = this.lineNum(); this.stack.push({ t: "g", li: this.li, p: this.p }); this.jump(n); return; }
+      case T.RETURN: {
+        while (this.stack.length && this.stack[this.stack.length - 1].t !== "g") this.stack.pop();
+        const f = this.stack.pop(); if (!f) throw new BasicError("RETURN WITHOUT GOSUB");
+        this.li = f.li; this.p = f.p; this.skipStmt(); return; }
+      case T.ON: {
+        const v = Math.floor(this.num(this.expr())); let sub;
+        if (this.accept(T.GOTO)) sub = false; else if (this.accept(T.GOSUB)) sub = true; else throw new BasicError("SYNTAX");
+        const list = [this.lineNum()]; while (this.accept(44)) list.push(this.lineNum());
+        if (v < 0 || v > 255) throw new BasicError("ILLEGAL QUANTITY");
+        if (v >= 1 && v <= list.length) { if (sub) this.stack.push({ t: "g", li: this.li, p: this.p }); this.jump(list[v - 1]); return; }
+        break; }
+      case T.FOR: {
+        const r = this.name(); if (r.str) throw new BasicError("TYPE MISMATCH");
+        this.expect(T["="]); this.set(r, this.num(this.expr())); this.expect(T.TO); const lim = this.num(this.expr());
+        let step = 1; if (this.accept(T.STEP)) step = this.num(this.expr());
+        this.endStmt();
+        for (let i = this.stack.length - 1; i >= 0; i--) { const f = this.stack[i]; if (f.t === "g") break; if (f.key === r.key) { this.stack.length = i; break; } }
+        this.stack.push({ t: "f", key: r.key, lim, step, li: this.li, p: this.p }); return; }
+      case T.NEXT: {
+        for (;;) {
+          let key = null; if (isAlpha(this.peek())) key = this.name().key;
+          let i = this.stack.length - 1;
+          for (; i >= 0; i--) { const f = this.stack[i]; if (f.t === "g") { i = -1; break; } if (!key || f.key === key) break; }
+          if (i < 0) throw new BasicError("NEXT WITHOUT FOR");
+          this.stack.length = i + 1; const f = this.stack[i];
+          const nv = this.v.get(f.key) + f.step; this.v.set(f.key, nv);
+          if (f.step >= 0 ? nv <= f.lim : nv >= f.lim) { this.li = f.li; this.p = f.p; this.jumped = true; return; }
+          this.stack.pop();
+          if (!this.accept(44)) break;
+        }
+        break; }
+      case T.DIM: do { const n = this.name(); this.expect(40); const d = [Math.floor(this.num(this.expr()))]; while (this.accept(44)) d.push(Math.floor(this.num(this.expr()))); this.expect(41);
+          if (this.arr.has(n.key)) throw new BasicError("REDIM'D ARRAY"); this.array(n.key, d); } while (this.accept(44)); break;
+      case T.READ: do { const r = this.ref(); if (this.dp >= this.data.length) throw new BasicError("OUT OF DATA"); const it = this.data[this.dp++];
+          if (r.str) this.set(r, it.s); else { if (it.s !== "" && !NUMRE.test(it.s)) throw new BasicError("SYNTAX"); this.set(r, it.s === "" ? 0 : parseFloat(it.s)); } } while (this.accept(44)); break;
+      case T.RESTORE: this.dp = 0; break;
+      case T.POKE: { const a = Math.floor(this.num(this.expr())); this.expect(44); const v = Math.floor(this.num(this.expr()));
+        if (a === 53280) this.io.setBorder && this.io.setBorder(v & 15); else if (a === 53281) this.io.setBg && this.io.setBg(v & 15); else if (a === 646) this.scr.fg = v & 15; break; }
+      case T.END: this.running = false; return;
+      case T.STOP: this.scr.put(13); this.scr.print("BREAK IN " + this.prog[this.li].num); this.scr.put(13); this.running = false; return;
+      case T.RUN: this.clearVars(); this.li = 0; this.p = 0; this.jumped = true; return;
+      case T.CLR: this.clearVars(); break;
+      default: throw new BasicError("SYNTAX");
+    }
+    if (!this.jumped) this.endStmt();
+  }
+  doLet() { const r = this.ref(); this.expect(T["="]); this.set(r, this.expr()); }
+  doPrint() {
+    let sep = false; const scr = this.scr;
+    for (;;) {
+      const c = this.peek();
+      if (c === -1 || c === 58) { if (!sep) scr.put(13); return; }
+      if (c === 59) { this.p++; sep = true; continue; }
+      if (c === 44) { this.p++; const n = 10 - (scr.x % 10); for (let i = 0; i < n; i++) scr.put(29); sep = true; continue; }
+      if (c === T["TAB("] || c === T["SPC("]) { this.p++; const n = Math.floor(this.num(this.expr())); this.expect(41);
+        if (n < 0 || n > 255) throw new BasicError("ILLEGAL QUANTITY");
+        if (c === T["TAB("]) { while (scr.x < n % 40 && scr.x < 39) scr.put(29); } else for (let i = 0; i < n; i++) scr.put(29);
+        sep = true; continue; }
+      const v = this.expr();
+      scr.print(typeof v === "number" ? fmtNum(v) + " " : v); sep = false;
+    }
+  }
+  async doInput() {
+    let prompt = "";
+    if (this.peek() === 34) { prompt = this.str(this.prim()); this.expect(59); }
+    const refs = [this.ref()]; while (this.accept(44)) refs.push(this.ref());
+    this.scr.print(prompt);
+    let pre = "? ";
+    for (;;) {
+      this.scr.print(pre);
+      const line = await this.io.readLine();
+      if (line.trim() === "") return;
+      const parts = []; let cur = "", q = false;
+      for (const ch of line) { if (ch === '"') { q = !q; continue; } if (ch === "," && !q) { parts.push(cur); cur = ""; } else cur += ch; }
+      parts.push(cur);
+      let ok = true;
+      for (let i = 0; i < refs.length && i < parts.length; i++) if (!refs[i].str && !NUMRE.test(parts[i])) ok = false;
+      if (!ok) { this.scr.print("?REDO FROM START"); this.scr.put(13); continue; }
+      for (let i = 0; i < refs.length && i < parts.length; i++) this.set(refs[i], refs[i].str ? parts[i].replace(/^\s+/, "") : parseFloat(parts[i]));
+      if (parts.length > refs.length) { this.scr.print("?EXTRA IGNORED"); this.scr.put(13); }
+      return;
+    }
+  }
+}
+
+/* ---------- Browser UI ---------- */
+const SRC = document.getElementById("bas").textContent.replace(/^\s+/, "");
+const PROGRAM = parseProgram(SRC);
+window.IradBasic = { KW, crunch, parseProgram, detok, Screen, Interp, PROGRAM, SRC, fmtNum };
+
+(function () {
+  const gridEl = document.getElementById("grid"), borderEl = document.getElementById("border");
+  const screenEl = document.getElementById("screen"), kbd = document.getElementById("kbd");
+  const scr = new Screen();
+  let pending = null, buf = "";
+  const t0 = performance.now(), tiBase = Math.floor(Math.random() * 4000000);
+  const esc = c => c === 60 ? "&lt;" : c === 62 ? "&gt;" : c === 38 ? "&amp;" : String.fromCharCode(c);
+  function render() {
+    if (scr.dirty || pending) {
+      scr.dirty = false; let html = "";
+      for (let y = 0; y < scr.H; y++) {
+        html += "<div>"; let run = "", key = null;
+        for (let x = 0; x < scr.W; x++) {
+          const i = y * scr.W + x; const isCur = pending && x === scr.x && y === scr.y;
+          const rev = scr.rv[i] !== isCur; const k = scr.co[i] + (rev ? "r" : "") + (isCur ? "c" : "");
+          if (k !== key) { if (key !== null) html += run + "</span>"; key = k; run = "";
+            const fgc = PAL[scr.co[i]], bgc = PAL[interp.bg];
+            html += `<span${isCur ? ' class="cur"' : ""} style="color:${rev ? bgc : fgc};${rev ? "background:" + fgc : ""}">`; }
+          run += esc(scr.ch[i]);
+        }
+        html += run + "</span></div>";
+      }
+      gridEl.innerHTML = html;
+    }
+    requestAnimationFrame(render);
+  }
+  const io = {
+    now: () => tiBase + Math.floor((performance.now() - t0) * 0.06),
+    yield: () => new Promise(r => setTimeout(r, 0)),
+    readLine: () => new Promise(res => { buf = ""; pending = res; scr.dirty = true; }),
+    setBorder: c => { interp.border = c; borderEl.style.backgroundColor = PAL[c]; },
+    setBg: c => { interp.bg = c; screenEl.style.backgroundColor = PAL[c]; gridEl.style.backgroundColor = PAL[c]; scr.dirty = true; },
+  };
+  let interp = new Interp(scr, io);
+  interp.load(PROGRAM);
+  io.setBorder(14); io.setBg(6);
+
+  function typeChar(ch) {
+    if (!pending) return;
+    ch = ch.toUpperCase(); const c = ch.charCodeAt(0);
+    if (c < 32 || c > 95 || buf.length >= 78) return;
+    buf += ch; scr.put(c);
+  }
+  function backspace() { if (!pending || !buf) return; buf = buf.slice(0, -1); scr.back(); }
+  function enter() { if (!pending) return; const r = pending; pending = null; scr.put(13); r(buf); }
+
+  kbd.addEventListener("input", () => { const v = kbd.value; kbd.value = ""; for (const ch of v) typeChar(ch); });
+  function onKey(e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key === "Enter") { e.preventDefault(); enter(); }
+    else if (e.key === "Backspace") { e.preventDefault(); backspace(); }
+    else if (e.key.length === 1) { e.preventDefault(); typeChar(e.key); }
+  }
+  kbd.addEventListener("keydown", onKey);
+  // Typing anywhere on the page goes to the game, unless a button has focus.
+  document.addEventListener("keydown", e => {
+    if (e.target === kbd || (e.target.closest && e.target.closest("button, a, input, textarea"))) return;
+    if (e.key === "Enter" || e.key === "Backspace" || e.key.length === 1) { onKey(e); }
+  });
+  screenEl.addEventListener("click", () => kbd.focus({ preventScroll: true }));
+  document.getElementById("keys").addEventListener("click", e => {
+    const k = e.target.closest("button")?.dataset.k; if (!k) return;
+    if (k === "CR") enter(); else if (k === "BS") backspace(); else typeChar(k);
+  });
+
+  async function directMode() {
+    for (;;) {
+      scr.put(13); scr.print("READY."); scr.put(13);
+      for (;;) {
+        const cmd = (await io.readLine()).trim();
+        if (!cmd) continue;
+        if (cmd === "RUN") { await boot(); break; }
+        const m = /^LIST\s*(\d*)\s*(-?)\s*(\d*)$/.exec(cmd);
+        if (m) { const a = m[1] ? +m[1] : 0, b = m[3] ? +m[3] : (m[2] ? 99999 : (m[1] ? a : 99999));
+          for (const ln of PROGRAM) if (ln.num >= a && ln.num <= b) { scr.print(ln.num + " " + detok(ln.b)); scr.put(13); }
+          scr.print("READY."); scr.put(13); continue; }
+        scr.print("?SYNTAX  ERROR"); scr.put(13); scr.print("READY."); scr.put(13);
+      }
+      return;
+    }
+  }
+  async function boot() {
+    await interp.run();
+    await directMode();
+  }
+  function restart() {
+    interp.running = false; pending = null;
+    scr.fg = 14; scr.clear(); io.setBorder(14); io.setBg(6);
+    interp = new Interp(scr, io); interp.load(PROGRAM);
+    const me = interp;
+    me.run().then(() => { if (me === interp) directMode(); });
+  }
+  document.getElementById("restart").addEventListener("click", () => { restart(); kbd.focus({ preventScroll: true }); });
+  document.getElementById("copy").addEventListener("click", () => {
+    const out = document.getElementById("copied");
+    navigator.clipboard.writeText(SRC).then(() => { out.textContent = "Listing copied."; },
+      () => { out.textContent = "Copy failed. Type LIST at the READY prompt to read it."; });
+  });
+
+  // Offer the emulator files when they are published next to this page.
+  const dl = document.getElementById("dl");
+  [["irad-trail.d64", "Disk image (.d64)"], ["irad-trail.prg", "Program file (.prg)"]].forEach(([f, label]) => {
+    fetch(f, { method: "HEAD" }).then(r => { if (!r.ok) return;
+      const a = document.createElement("a"); a.href = f; a.className = "btn"; a.textContent = label; a.target = "_blank"; a.rel = "noopener"; dl.appendChild(a); }).catch(() => {});
+  });
+
+  requestAnimationFrame(render);
+  // Power-on banner, then the program starts as if typed RUN.
+  scr.print("    **** IRAD 64 BASIC V2 ****"); scr.put(13); scr.put(13);
+  scr.print(" 64K RAM SYSTEM  38911 BASIC BYTES FREE"); scr.put(13); scr.put(13);
+  scr.print("READY."); scr.put(13); scr.print("LOAD\"IRAD TRAIL\",8"); scr.put(13); scr.put(13);
+  scr.print("SEARCHING FOR IRAD TRAIL"); scr.put(13); scr.print("LOADING"); scr.put(13); scr.print("READY."); scr.put(13); scr.print("RUN"); scr.put(13);
+  if (!window.__NO_AUTORUN) setTimeout(() => { interp.run().then(directMode); }, 1400);
+})();
+</script>

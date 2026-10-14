@@ -5,718 +5,952 @@
 <title>The Irad Trail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: one column. A Commodore monitor on a dark felt desk, the road told underneath. Single dark look by design. */
+/* Layout: one column. A dark 1980s monitor holds the hi-res screen; the road and emulator notes sit below. Single dark look by design. */
 :root {
-  --desk: #16130f;
-  --felt: #221d17;
-  --ink: #eee6d2;
-  --dim: #a89d86;
-  --amber: #e0a845;
-  --rule: #3a3227;
-  --case: #cfc6b0;
-  --case-shade: #a79e88;
-  --display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
-  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-  --pixel: "Press Start 2P", "Courier New", monospace;
+  --bg: #111014;
+  --panel: #1c1a21;
+  --ink: #ece8df;
+  --dim: #a29d93;
+  --orange: #ff8a4c;
+  --violet: #c98bff;
+  --rule: #34303c;
+  --case: #2a2830;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
   color-scheme: dark;
 }
-html { background: var(--desk); }
 * { box-sizing: border-box; }
-body { margin: 0; }
-body {
-  background: var(--desk);
-  color: var(--ink);
-  font-family: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.55;
-  padding-inline: 16px;
-  padding-block: 28px 56px;
-}
-.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 40px; }
-header { display: grid; gap: 10px; }
-.kicker { font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--amber); text-transform: uppercase; line-height: 1.8; }
-h1 { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 11vw, 5.6rem); line-height: 0.88; letter-spacing: 0.01em; margin: 0; text-transform: uppercase; text-wrap: balance; }
-.lede { margin: 0; max-width: 60ch; color: var(--dim); }
-.lede strong { color: var(--ink); font-weight: 700; }
+html { background: var(--bg); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.55; padding-inline: 16px; padding-block: 28px 56px; }
+.wrap { max-width: 800px; margin: 0 auto; display: grid; gap: 40px; }
+header { display: grid; gap: 12px; }
+.kicker { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 10vw, 5rem); line-height: 0.92; margin: 0; text-wrap: balance; background: linear-gradient(180deg, var(--orange) 0 50%, var(--violet) 50% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { margin: 0; max-width: 62ch; color: var(--dim); }
+.lede strong { color: var(--ink); }
 
-/* Monitor */
-.monitor { background: linear-gradient(180deg, var(--case), var(--case-shade)); border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 30px 60px -30px #000, inset 0 2px 0 #f3ecd9; }
-.bezel { background: #0d0d0d; border-radius: 10px; padding: 10px; }
-.screen { container-type: inline-size; position: relative; border-radius: 6px; overflow: hidden; cursor: text; outline: none; }
-.screen:focus-within { box-shadow: 0 0 0 2px var(--amber); }
-.border { padding: 5.5cqw 4.5cqw; transition: background-color .2s; }
-.grid { font-family: var(--pixel); font-size: calc(91cqw / 40); line-height: 1; white-space: pre; letter-spacing: 0; font-variant-ligatures: none; }
-.grid div { height: 1em; overflow: hidden; }
-.grid .cur { animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { background: transparent !important; color: inherit !important; } }
-@media (prefers-reduced-motion: reduce) { .grid .cur { animation: none; } }
-.screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.13) 2px 3px); }
+.monitor { background: var(--case); border-radius: 16px; padding: 20px 20px 14px; box-shadow: 0 30px 70px -30px #000, inset 0 1px 0 #48444f; }
+.bezel { background: #050506; border-radius: 12px; padding: 12px; }
+.screen { position: relative; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 8px; overflow: hidden; background: #000; cursor: text; }
+.screen:focus-within { box-shadow: 0 0 0 2px var(--orange); }
+#crt { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; }
+.screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.18) 2px 3px); box-shadow: inset 0 0 60px rgba(0,0,0,.6); }
 #kbd { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0; font-size: 16px; }
-.badge { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-family: var(--display); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4b4537; }
-.led { width: 10px; height: 10px; border-radius: 50%; background: #c0392b; box-shadow: 0 0 8px #e74c3c; }
+.badge { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: #77727f; }
+.led { width: 9px; height: 9px; border-radius: 50%; background: #3ddc64; box-shadow: 0 0 8px #3ddc64; }
 
-.keys { display: flex; flex-wrap: wrap; gap: 8px; }
+.controls { display: grid; gap: 10px; margin-top: 14px; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px; }
 .keys button, .btn {
-  font-family: var(--pixel); font-size: 0.7rem; color: var(--ink); background: var(--felt);
-  border: 1px solid var(--rule); border-bottom-width: 3px; border-radius: 6px; padding: 11px 13px; cursor: pointer; line-height: 1;
+  font-family: var(--mono); font-size: 0.85rem; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--rule); border-bottom-width: 3px; border-radius: 6px; padding: 9px 12px; cursor: pointer; line-height: 1; min-width: 40px;
 }
 .keys button:active, .btn:active { transform: translateY(2px); border-bottom-width: 1px; }
-.keys button:focus-visible, .btn:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
-.keys .wide { flex: 1 1 auto; }
-.hint { font-size: 0.85rem; color: var(--dim); margin: 6px 0 0; }
+.keys button:focus-visible, .btn:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.keys .wide { flex: 1 1 90px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.toggle { font-family: var(--mono); font-size: 0.85rem; color: var(--dim); display: inline-flex; gap: 8px; align-items: center; }
+.hint { font-size: 0.88rem; color: var(--dim); margin: 0; }
 
-h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; font-size: 2rem; line-height: 1; margin: 0 0 14px; }
-section p { margin: 0 0 12px; max-width: 62ch; }
-
-/* The road: a real sequence measured in versts */
+h2 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; line-height: 1; margin: 0 0 14px; color: var(--ink); }
+section p { margin: 0 0 12px; max-width: 64ch; }
 .road { list-style: none; margin: 0; padding: 0; display: grid; }
-.road li { display: grid; grid-template-columns: 4.2rem 1fr; gap: 14px; padding: 9px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.road li { display: grid; grid-template-columns: 3.6rem 1fr; gap: 14px; padding: 8px 0; border-top: 1px solid var(--rule); align-items: baseline; }
 .road li:last-child { border-bottom: 1px solid var(--rule); }
-.road .v { font-family: var(--pixel); font-size: 0.66rem; color: var(--amber); font-variant-numeric: tabular-nums; text-align: right; }
-.road .n { font-weight: 700; }
+.road .v { font-family: var(--mono); color: var(--orange); font-variant-numeric: tabular-nums; text-align: right; font-size: 0.9rem; }
+.road .n { font-weight: 600; }
 .road .k { color: var(--dim); font-size: 0.92rem; }
-
-.steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 8px; max-width: 62ch; }
-code, .mono { font-family: var(--pixel); font-size: 0.68rem; color: var(--amber); background: var(--felt); padding: 3px 5px; border-radius: 3px; white-space: nowrap; }
-.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
-.btn { text-decoration: none; display: inline-block; }
-.note { color: var(--dim); font-size: 0.9rem; }
-a { color: var(--amber); }
-footer { color: var(--dim); font-size: 0.85rem; border-top: 1px solid var(--rule); padding-top: 16px; }
+.steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 8px; max-width: 64ch; }
+code { font-family: var(--mono); font-size: 0.88em; color: var(--orange); background: var(--panel); padding: 2px 5px; border-radius: 3px; }
+.note { color: var(--dim); font-size: 0.92rem; }
+a { color: var(--orange); }
+footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule); padding-top: 16px; }
 </style>
 
 <div class="wrap">
   <header>
-    <div class="kicker">Commodore 64 &middot; BASIC V2 &middot; Chicago 1983</div>
+    <div class="kicker">Apple II edition &middot; Applesoft BASIC &middot; 1985</div>
     <h1>The Irad Trail</h1>
-    <p class="lede"><strong>Spring 1877.</strong> Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead the family 690 versts by horse caravan, over three high passes and four rivers, to the Church of St. Janyl at Iyık Janyl. Get there before the snow closes the Ala-Bel.</p>
+    <p class="lede"><strong>Spring 1877.</strong> Lead your family 690 versts by horse caravan from the Chu to Iyık Janyl. Buy supplies at Osmon's shop, ford four rivers, cross three high passes, hunt with your eagle, and keep all five of your family alive.</p>
   </header>
 
   <div>
     <div class="monitor">
       <div class="bezel">
-        <div class="screen" id="screen" aria-label="Game screen. Click or tap, then type." role="application">
-          <div class="border" id="border"><div class="grid" id="grid" aria-live="polite"></div></div>
+        <div class="screen" id="screen" role="application" aria-label="Game screen. Click or tap, then use the keyboard.">
+          <canvas id="crt" width="560" height="384"></canvas>
           <input id="kbd" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-label="Keyboard input">
         </div>
       </div>
-      <div class="badge"><span>Irad&nbsp;64</span><span class="led" aria-hidden="true"></span></div>
+      <div class="badge"><span>Irad Trail &middot; 48K</span><span class="led" aria-hidden="true"></span></div>
     </div>
-    <p class="hint">Click the screen and type. Answer with a number or Y/N, then press Return. On a phone, use the keys below or tap the screen for the keyboard.</p>
-    <div class="keys" id="keys">
-      <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button>
-      <button type="button" data-k="Y">Y</button><button type="button" data-k="N">N</button>
-      <button type="button" data-k="BS">DEL</button>
-      <button type="button" data-k="CR" class="wide">RETURN</button>
+    <div class="controls">
+      <p class="hint">Click the screen and use your keyboard. Press Return to stop while travelling. When hunting, J and L turn, the space bar looses the eagle. On a phone, use the keys below.</p>
+      <div class="keys" id="keys">
+        <button type="button" data-k="49">1</button><button type="button" data-k="50">2</button><button type="button" data-k="51">3</button>
+        <button type="button" data-k="52">4</button><button type="button" data-k="53">5</button><button type="button" data-k="54">6</button>
+        <button type="button" data-k="55">7</button><button type="button" data-k="56">8</button><button type="button" data-k="57">9</button>
+        <button type="button" data-k="89">Y</button><button type="button" data-k="78">N</button>
+        <button type="button" data-k="74">J</button><button type="button" data-k="76">L</button>
+        <button type="button" data-k="32" class="wide">SPACE</button>
+        <button type="button" data-k="27">ESC</button><button type="button" data-k="8">&larr;</button>
+        <button type="button" data-k="13" class="wide">RETURN</button>
+      </div>
+      <div class="row">
+        <label class="toggle"><input type="checkbox" id="fast"> Run faster than a real Apple II</label>
+        <label class="toggle"><input type="checkbox" id="sound" checked> Sound</label>
+        <button type="button" class="btn" id="restart">Restart</button>
+      </div>
     </div>
   </div>
 
   <section>
     <h2>The road</h2>
     <ol class="road">
-      <li><span class="v">0</span><span><span class="n">The lower Chu</span><br><span class="k">Set out on St. Gewargis's day, 23 April</span></span></li>
-      <li><span class="v">25</span><span><span class="n">The Chu River</span><br><span class="k">River crossing, swollen with snowmelt</span></span></li>
-      <li><span class="v">140</span><span><span class="n">Kök-Bel Pass</span><br><span class="k">First high pass, over the Kyrgyz Range</span></span></li>
-      <li><span class="v">215</span><span><span class="n">Rabat-i-Safed</span><br><span class="k">Sogdian caravanserai. Fair trading</span></span></li>
-      <li><span class="v">240</span><span><span class="n">The Talas fort</span><br><span class="k">Old Kokand citadel, Russian garrison. Fair trading</span></span></li>
+      <li><span class="v">0</span><span><span class="n">The lower Chu</span><br><span class="k">Osmon's shop at the Chu ford</span></span></li>
+      <li><span class="v">25</span><span><span class="n">The Chu River</span><br><span class="k">River crossing</span></span></li>
+      <li><span class="v">140</span><span><span class="n">Kök-Bel Pass</span><br><span class="k">Over the Kyrgyz Range</span></span></li>
+      <li><span class="v">215</span><span><span class="n">Rabat-i-Safed</span><br><span class="k">Sogdian caravanserai. Supplies</span></span></li>
+      <li><span class="v">240</span><span><span class="n">The Talas fort</span><br><span class="k">Russian garrison. Supplies</span></span></li>
       <li><span class="v">255</span><span><span class="n">The Talas River</span><br><span class="k">River crossing</span></span></li>
       <li><span class="v">330</span><span><span class="n">Otmek Pass</span><br><span class="k">Second high pass</span></span></li>
-      <li><span class="v">400</span><span><span class="n">Suusamyr</span><br><span class="k">Summer pastures, kinsmen on the zhayloo</span></span></li>
-      <li><span class="v">450</span><span><span class="n">Ala-Bel Pass, 3,184 m</span><br><span class="k">The roof of the road. Deadly after mid-September</span></span></li>
-      <li><span class="v">500</span><span><span class="n">The Chychkan</span><br><span class="k">River crossing in a steep gorge</span></span></li>
-      <li><span class="v">570</span><span><span class="n">Ketmen-Töbö</span><br><span class="k">Bazaar in the great basin. Fair trading</span></span></li>
+      <li><span class="v">400</span><span><span class="n">Suusamyr</span><br><span class="k">Kinsmen on the summer pastures</span></span></li>
+      <li><span class="v">450</span><span><span class="n">Ala-Bel Pass, 3,184 m</span><br><span class="k">Snowbound early and late in the year</span></span></li>
+      <li><span class="v">500</span><span><span class="n">The Chychkan</span><br><span class="k">River crossing</span></span></li>
+      <li><span class="v">570</span><span><span class="n">Ketmen-Töbö</span><br><span class="k">Bazaar. Supplies, at a price</span></span></li>
       <li><span class="v">620</span><span><span class="n">The Naryn gorge</span><br><span class="k">Rockfall country</span></span></li>
-      <li><span class="v">690</span><span><span class="n">Iyık Janyl</span><br><span class="k">Cross the Naryn to Cathedral Hill. Arrive by 24 August for the Feast of St. Janyl</span></span></li>
+      <li><span class="v">690</span><span><span class="n">Iyık Janyl</span><br><span class="k">Cathedral Hill. Arrive by 24 August for the Feast of St. Janyl</span></span></li>
     </ol>
   </section>
 
   <section>
-    <h2>Play it on an emulator</h2>
-    <p>The same BASIC listing that runs above also runs on a Commodore 64. Use the disk image (<code>irad-trail.d64</code>) or the program file (<code>irad-trail.prg</code>) with an emulator such as <a href="https://vice-emu.sourceforge.io/" target="_blank" rel="noopener">VICE</a>.</p>
+    <h2>Play it on an Apple II emulator</h2>
+    <p>The disk boots by itself on an Apple II+, IIe or IIc with 48K, real or emulated. It needs no DOS.</p>
     <ol class="steps">
-      <li>Start VICE's C64 emulator (x64sc).</li>
-      <li>Choose File &rarr; Smart attach, then pick <code>irad-trail.d64</code>. Most emulators also run the file if you drag it onto the window.</li>
-      <li>If it does not start by itself, type <code>LOAD"*",8</code>, press Return, then type <code>RUN</code>.</li>
+      <li>Download the disk image <code>irad-trail.dsk</code>.</li>
+      <li>In <a href="https://github.com/AppleWin/AppleWin" target="_blank" rel="noopener">AppleWin</a>, put it in drive 1 and press the reboot button. Other emulators work the same way.</li>
+      <li>Loading takes about 20 seconds at normal disk speed.</li>
     </ol>
-    <div class="row" id="dl"></div>
-    <p class="note" style="margin-top:12px">No disk image to hand? Copy the listing below and paste it into VICE (Edit &rarr; Paste) at the READY prompt, then type <code>RUN</code>. It is the same program.</p>
+    <div class="row" id="dl" style="margin-top:14px"></div>
+    <p class="note" style="margin-top:12px">You can also paste the listing into an emulator. The program is too big to share memory with the hi-res screen, so at the <code>]</code> prompt first type <code>POKE 103,1:POKE 104,64:POKE 16384,0:NEW</code>, then paste the listing and type <code>RUN</code>.</p>
     <div class="row">
-      <button type="button" class="btn" id="copy">Copy BASIC listing</button>
-      <button type="button" class="btn" id="restart">Restart game</button>
+      <button type="button" class="btn" id="copy">Copy Applesoft listing</button>
       <span class="note" id="copied" role="status"></span>
     </div>
   </section>
 
-  <footer>A new game in the spirit of the 1971 MECC classic, written for Commodore 64 BASIC V2. The page runs the original listing in a small BASIC interpreter. When the game ends you get the READY prompt: type <span class="mono">RUN</span> to play again or <span class="mono">LIST</span> to read the code.</footer>
+  <footer>A new game in the spirit of the 1985 MECC classic, written in Applesoft BASIC with hi-res graphics. This page runs the same listing that is on the disk, in a small Applesoft interpreter that draws an Apple II screen. Prefer text? Play the <a href="c64/">Commodore 64 classic edition</a>.</footer>
 </div>
 
-<script type="text/plain" id="bas">10 REM *** THE IRAD TRAIL ***
-20 REM FROM THE CHU TO IYIK JANYL, 1877
-30 REM IRADI AMERICAN ASSOCIATION
-40 REM CHICAGO, 1983. COMMODORE 64 BASIC
-50 POKE 53280,0:POKE 53281,0:PRINT CHR$(147);CHR$(158)
-60 X=RND(-TI):DIM WD$(4),L(12),TY(12),L$(12),G$(12),EV(15)
-70 FOR I=1 TO 4:READ WD$(I):NEXT I
-80 FOR I=1 TO 12:READ L(I),TY(I),L$(I),G$(I):NEXT I
-90 FOR I=1 TO 15:READ EV(I):NEXT I
-100 PRINT:PRINT:PRINT TAB(8);"*** THE IRAD TRAIL ***"
-110 PRINT:PRINT TAB(3);"FROM THE CHU TO IYIK JANYL, 1877"
-120 PRINT:PRINT:PRINT CHR$(5);TAB(6);"IRADI AMERICAN ASSOCIATION"
-130 PRINT TAB(13);"CHICAGO, 1983"
-140 PRINT:PRINT:PRINT CHR$(153);
-150 INPUT "DO YOU NEED INSTRUCTIONS";A$
-160 IF LEFT$(A$,1)="N" THEN 400
-200 PRINT CHR$(147)
-205 PRINT "SPRING, 1877. KOKAND HAS FALLEN, AND"
-210 PRINT "RUSSIAN SETTLERS HAVE TAKEN YOUR"
-215 PRINT "CLAN'S PASTURES ON THE CHU."
-220 PRINT "THE ELDERS HAVE DECIDED. THE FAMILY"
-225 PRINT "WILL MOVE 690 VERSTS SOUTH, OVER THE"
-230 PRINT "MOUNTAINS TO THE NARYN, AND SETTLE"
-235 PRINT "BELOW THE CHURCH OF ST. JANYL AT"
-240 PRINT "IYIK JANYL."
-245 PRINT
-250 PRINT "YOU LEAVE ON ST. GEWARGIS'S DAY,"
-255 PRINT "23 APRIL, WHEN THE HORSES ARE BLESSED."
-260 PRINT "TRY TO ARRIVE FOR THE FEAST OF ST."
-265 PRINT "JANYL ON 24 AUGUST, AND CROSS THE"
-270 PRINT "ALA-BEL PASS BEFORE THE SNOWS COME."
-275 PRINT
-280 PRINT "YOU WILL MEET RIVERS, RAIDERS, WOLVES,"
-285 PRINT "FEVERS AND HIGH PASSES. KEEP YOUR"
-290 PRINT "HORSES ALIVE. WITHOUT THEM YOU WILL"
-295 PRINT "NOT ARRIVE."
-300 PRINT:INPUT "PRESS RETURN";A$
-310 PRINT CHR$(147)
-315 PRINT "YOU HAVE 400 RUBLES TO SPEND ON:"
-320 PRINT
-325 PRINT "HORSES - 25 RUBLES A HEAD, 4 TO 10."
-330 PRINT "  MORE HORSES, FASTER TRAVEL."
-335 PRINT "FOOD - FLOUR, KURUT, MUTTON, TEA."
-340 PRINT "POWDER AND SHOT - 10 SHOTS A RUBLE,"
-345 PRINT "  FOR WOLVES AND RAIDERS."
-350 PRINT "FELTS AND FURS - FOR THE HIGH PASSES."
-355 PRINT "SUPPLIES - MEDICINE, TACK, SHOES."
-360 PRINT
-365 PRINT "YOUR BERKUT (HUNTING EAGLE) WILL"
-370 PRINT "HUNT FOR THE POT. WHEN TOLD TO, TYPE"
-375 PRINT "THE WORD SHOWN AND PRESS RETURN."
-380 PRINT "THE FASTER, THE BETTER."
-381 PRINT
-382 PRINT "KEEP SOME RUBLES BACK FOR THE HEALER."
-385 PRINT:INPUT "PRESS RETURN";A$
-400 PRINT CHR$(147)
-405 PRINT "HOW GOOD A RIDER AND SHOT ARE YOU?"
-410 PRINT "(1) BORN IN THE SADDLE  (2) GOOD"
-415 PRINT "(3) FAIR  (4) SHAKY  (5) A TOWNSMAN"
-420 INPUT D9:D9=INT(D9):IF D9<1 OR D9>5 THEN 405
-425 M=400:D=0:DY=0:T=0:SK=0:HU=0:LU=0:HM=0:EG=0:X1=0:TR=0:SV=0:PN=0:LN=1
-430 PRINT:INPUT "HOW MANY HORSES (4-10)";H:H=INT(H)
-435 IF H<4 OR H>10 THEN PRINT "4 TO 10, PLEASE.":GOTO 430
-440 M=M-25*H:PRINT "YOU HAVE";M;"RUBLES LEFT."
-445 INPUT "RUBLES ON FOOD";F:IF F<0 OR F>M THEN PRINT "NOT POSSIBLE.":GOTO 445
-450 M=M-F
-455 INPUT "RUBLES ON POWDER";P:IF P<0 OR P>M THEN PRINT "NOT POSSIBLE.":GOTO 455
-460 M=M-P:P=P*10
-465 INPUT "RUBLES ON FELTS";C:IF C<0 OR C>M THEN PRINT "NOT POSSIBLE.":GOTO 465
-470 M=M-C
-475 INPUT "RUBLES ON SUPPLIES";S:IF S<0 OR S>M THEN PRINT "NOT POSSIBLE.":GOTO 475
-480 M=M-S
-485 PRINT "YOU HAVE";INT(M);"RUBLES LEFT FOR THE ROAD."
-490 PRINT:PRINT "THE PRIEST BLESSES THE HORSES WITH"
-495 PRINT "WATER, MILK AND JUNIPER SMOKE."
-500 PRINT:INPUT "PRESS RETURN TO SET OUT";A$
-1000 REM *** EACH WEEK ***
-1005 IF F<0 THEN F=0
-1010 IF P<0 THEN P=0
-1015 IF C<0 THEN C=0
-1020 IF S<0 THEN S=0
-1025 IF M<0 THEN M=0
-1030 PRINT CHR$(147);:GOSUB 7000
-1035 IF H<2 THEN DC=7:GOTO 8000
-1040 IF DY>175 THEN DC=8:GOTO 8000
-1045 PRINT "VERSTS TRAVELLED:";INT(D);"OF 690"
-1050 PRINT "NEXT: ";L$(LN);",";INT(L(LN)-D);"VERSTS"
-1055 PRINT
-1060 PRINT "FOOD";INT(F);"POWDER";INT(P);"FELTS";INT(C)
-1065 PRINT "SUPPLIES";INT(S);"RUBLES";INT(M);"HORSES";H
-1070 IF F<15 THEN PRINT:PRINT "FOOD IS SHORT. HUNT OR TRADE SOON."
-1075 IF EG>0 THEN EG=EG-1
-1080 IF SK+HU=0 THEN 1200
-1085 PRINT
-1090 IF SK=1 THEN PRINT "YOU ARE SICK."
-1095 IF HU=1 THEN PRINT "YOU ARE HURT."
-1100 PRINT "A TABYP (HEALER) TENDS YOU. HE ASKS"
-1105 PRINT "10 RUBLES."
-1110 M=M-10:IF M>=0 THEN 1115
-1111 M=M+10:PRINT "YOU CANNOT PAY. HE TAKES MUTTON AND"
-1112 PRINT "KURUT INSTEAD.":F=F-15:IF F<0 THEN F=0:IF RND(1)<.5 THEN DC=2:GOTO 8000
-1115 SK=0:HU=0
-1200 X1=1-X1
-1205 PRINT:PRINT "DO YOU WANT TO:"
-1210 IF X1=1 OR TR=1 THEN PRINT "(1) TRADE"
-1215 IF EG=0 THEN PRINT "(2) FLY THE EAGLE"
-1220 PRINT "(3) RIDE ON"
-1225 INPUT X:X=INT(X)
-1230 IF X=1 AND (X1=1 OR TR=1) THEN 1300
-1235 IF X=2 AND EG=0 THEN 1400
-1240 IF X=3 THEN 1500
-1245 GOTO 1205
-1300 K=2/3:IF TR=1 THEN K=1
-1305 PN=PN+15:TR=0
-1310 IF K<1 THEN PRINT "A PASSING CARAVAN WILL TRADE, AT A":PRINT "STEEP PRICE."
-1315 PRINT "YOU HAVE";INT(M);"RUBLES."
-1320 INPUT "HORSES AT 30 RUBLES";X:X=INT(X)
-1325 IF X<0 OR 30*X>M THEN PRINT "NOT POSSIBLE.":GOTO 1320
-1330 H=H+X:M=M-30*X
-1335 INPUT "RUBLES ON FOOD";X:GOSUB 1390:F=F+K*X
-1340 INPUT "RUBLES ON POWDER";X:GOSUB 1390:P=P+K*X*10
-1345 INPUT "RUBLES ON FELTS";X:GOSUB 1390:C=C+K*X
-1350 INPUT "RUBLES ON SUPPLIES";X:GOSUB 1390:S=S+K*X
-1355 GOTO 1500
-1390 IF X<0 THEN X=0
-1392 IF X>M THEN PRINT "YOU HAVE NOT GOT THAT MUCH.":X=0
-1394 M=M-X:RETURN
-1400 PN=PN+15:EG=2
-1405 PRINT:PRINT "YOU UNHOOD THE BERKUT. A HARE BREAKS"
-1410 PRINT "COVER! CALL THE EAGLE ON."
-1415 GOSUB 6000
-1420 IF B1<=1 THEN PRINT "A CLEAN STRIKE! TWO HARES AND A FOX.":F=F+48+RND(1)*8:M=M+5:GOTO 1430
-1422 IF B1<=3 THEN PRINT "THE EAGLE TAKES A HARE.":F=F+36-B1*3:GOTO 1500
-1424 IF B1<=5 THEN PRINT "TOO SLOW FOR THE HARE. THE EAGLE TAKES":PRINT "A MARMOT INSTEAD.":F=F+18:GOTO 1500
-1425 IF B1<9 THEN PRINT "TOO SLOW. THE HARE IS GONE.":GOTO 1500
-1426 PRINT "THE EAGLE IGNORES YOU AND SITS ON A":PRINT "ROCK. NO MEAT TODAY.":GOTO 1500
-1430 PRINT "THE FOX PELT FETCHES 5 RUBLES."
-1500 IF F<10 THEN 1600
-1505 PRINT:PRINT "DO YOU WANT TO EAT (1) POORLY,"
-1510 PRINT "(2) MODERATELY OR (3) WELL";:INPUT E
-1515 E=INT(E):IF E<1 OR E>3 THEN 1505
-1520 Q=5+5*E:IF Q>F THEN PRINT "YOU CANNOT EAT THAT WELL.":GOTO 1505
-1525 F=F-Q:SV=0:GOTO 2000
-1600 IF H<3 OR HM=1 THEN 1650
-1605 PRINT:PRINT "THE FOOD IS GONE. A COUSIN LOOKS AT"
-1610 PRINT "THE LAME GREY MARE AND SAYS NOTHING."
-1615 INPUT "SLAUGHTER THE MARE";A$
-1620 IF LEFT$(A$,1)<>"Y" THEN 1650
-1625 H=H-1:F=F+40:LU=1:HM=1
-1630 PRINT "IT IS DONE. THE ELDERS WILL NOT EAT,"
-1635 PRINT "AND THE WOMEN COVER THEIR FACES. NO"
-1640 PRINT "BLESSING WILL FOLLOW THIS CARAVAN."
-1645 GOTO 1505
-1650 PRINT "YOU GO HUNGRY.":E=1:F=0:SV=SV+1:SK=1
-1655 IF SV>=2 THEN DC=1:GOTO 8000
-2000 Q=20+5*H+RND(1)*15-PN:PN=0
-2005 IF Q>85 THEN Q=85
-2010 Z=0:IF D>=120 AND D<170 THEN Z=1
-2015 IF D>=300 AND D<350 THEN Z=1
-2020 IF D>=420 AND D<470 THEN Z=1
-2025 IF D>=600 AND D<670 THEN Z=2
-2030 IF Z>0 THEN Q=Q*.6
-2035 GOSUB 3000
-2040 IF Z>0 THEN GOSUB 5000
-2045 IF Q<5 THEN Q=5
-2050 D=D+INT(Q):DY=DY+7:T=T+1
-2055 R=RND(1)*100:IF R<15-6*E+5*LU THEN GOSUB 5500
-2060 IF D>=L(LN) THEN ON TY(LN) GOSUB 4600,4700,4800,4900,4950,8500:LN=LN+1:GOTO 2060
-2065 PRINT:INPUT "PRESS RETURN";A$
-2070 GOTO 1000
-3000 REM *** EVENTS ***
-3005 R=RND(1)*100:IF LU=1 AND R>60 THEN R=R-45
-3010 PRINT:FOR I=1 TO 15:IF R<EV(I) THEN 3020
-3015 NEXT I:I=15
-3020 IF I>8 THEN ON I-8 GOTO 3900,4000,4100,4200,4300,4400,4500
-3025 ON I GOTO 3100,3200,3300,3400,3500,3600,3700,3800
-3100 PRINT "A HORSE THROWS A SHOE AND GOES LAME."
-3105 IF S>=5 THEN PRINT "YOU STOP AND SHOE HER.":S=S-5:Q=Q-10:RETURN
-3110 PRINT "NO SPARE SHOES. SHE LIMPS ALONG.":Q=Q-25:RETURN
-3200 PRINT "A HORSE STRAYS IN THE NIGHT."
-3205 IF RND(1)<.3 THEN PRINT "YOU NEVER FIND HER.":H=H-1:RETURN
-3210 PRINT "YOU LOSE HALF A DAY FINDING HER.":Q=Q-10:RETURN
-3300 PRINT "COLD RAIN FOR THREE DAYS. THE FLOUR"
-3305 PRINT "GETS WET AND SPOILS.":F=F-10:Q=Q-10:RETURN
-3400 PRINT "WOLVES CIRCLE THE HERD AT NIGHT!"
-3405 IF P<20 THEN PRINT "NO POWDER TO DRIVE THEM OFF. THEY":PRINT "PULL DOWN A HORSE.":H=H-1:RETURN
-3410 GOSUB 6000:P=P-10-B1*3
-3415 IF B1<=3 THEN PRINT "YOUR SHOTS DRIVE THEM INTO THE DARK.":RETURN
-3420 IF RND(1)<.5 THEN PRINT "TOO SLOW. THEY TAKE A HORSE.":H=H-1:RETURN
-3425 PRINT "THEY SCATTER, BUT THE HERD IS":PRINT "SPOOKED FOR DAYS.":Q=Q-10:RETURN
-3500 PRINT "RIDERS ON THE SKYLINE!"
-3505 HS=0:IF RND(1)<.7 THEN HS=1
-3510 A1=HS:IF RND(1)<.2 THEN A1=1-A1
-3515 IF A1=1 THEN PRINT "THEY LOOK LIKE HORSE THIEVES."
-3520 IF A1=0 THEN PRINT "THEY DO NOT LOOK HOSTILE."
-3525 PRINT "(1) RUN  (2) ATTACK  (3) RING THE HERD"
-3530 PRINT "(4) RIDE OUT WITH GIFTS";:INPUT X:X=INT(X)
-3535 IF X<1 OR X>4 THEN 3525
-3540 IF HS=0 THEN 3590
-3545 ON X GOTO 3550,3560,3570,3580
-3550 Q=Q+15:F=F-10:S=S-5:PRINT "YOU RUN. PACKS ARE LOST IN THE CHASE."
-3552 IF RND(1)<.4 THEN PRINT "THEY CUT OUT ONE HORSE.":H=H-1
-3555 RETURN
-3560 IF P<20 THEN PRINT "YOU HAVE NO POWDER! THEY TAKE TWO":PRINT "HORSES.":H=H-2:RETURN
-3562 GOSUB 6000:P=P-B1*8-20
-3564 IF B1<=1 THEN PRINT "FINE SHOOTING! THEY SCATTER.":RETURN
-3566 IF B1<=4 THEN PRINT "A HARD FIGHT. THEY GIVE UP, BUT YOU":PRINT "ARE WOUNDED.":HU=1:RETURN
-3568 PRINT "THEY BEAT YOU AND TAKE A HORSE.":H=H-1:HU=1:RETURN
-3570 Q=Q-20:IF P<20 THEN PRINT "NO POWDER. THEY TAKE TWO HORSES.":H=H-2:RETURN
-3572 P=P-20:GOSUB 6000:IF B1<=4 THEN PRINT "THE RING HOLDS. THEY RIDE AWAY.":RETURN
-3574 PRINT "THEY BREAK THE RING AND TAKE A HORSE.":H=H-1:RETURN
-3580 PRINT "YOU OFFER TEA, KURUT AND SILVER."
-3582 IF M>=15 THEN M=M-15:F=F-5:PRINT "THEY TAKE 15 RUBLES AND RIDE OFF.":RETURN
-3584 PRINT "YOU HAVE LITTLE TO GIVE. THEY TAKE A":PRINT "HORSE INSTEAD.":H=H-1:RETURN
-3590 PRINT "THEY WERE KOKJAL HERDERS LOOKING FOR"
-3592 PRINT "STRAYS. THEY SHARE THEIR KYMYZ."
-3594 IF X=1 THEN PRINT "YOU RAN FOR NOTHING.":F=F-5:RETURN
-3596 IF X=2 THEN PRINT "YOU FIRED ON FRIENDS. THEIR BIY":PRINT "DEMANDS KUN: 20 RUBLES.":M=M-20:P=P-10
-3598 RETURN
-3600 PRINT "AT DUSK A BLACK BULL STANDS ON THE"
-3605 PRINT "TRAIL AND WILL NOT MOVE. THE ELDERS"
-3610 PRINT "WHISPER ONE WORD: MORKHAN."
-3615 INPUT "BURN JUNIPER AND POUR MILK";A$
-3620 IF LEFT$(A$,1)<>"Y" THEN PRINT "THE WOMEN WILL NOT LOOK AT YOU.":LU=1:RETURN
-3625 S=S-5:Q=Q-5:PRINT "THE SMOKE RISES WHITE. THE BULL":PRINT "WANDERS OFF INTO THE DARK.":RETURN
-3700 PRINT "A STEPPE VIPER BITES YOUR LEG."
-3705 IF S<10 AND RND(1)<.5 THEN PRINT "YOU HAVE NO MEDICINE.":DC=5:GOTO 8000
-3710 S=S-10:SK=1:PRINT "YOU CUT AND BIND IT. YOU FEEL ILL.":RETURN
-3800 PRINT "YOUR HORSE STUMBLES ON SCREE AND"
-3805 PRINT "THROWS YOU. YOUR ARM IS BADLY HURT.":HU=1:Q=Q-5:S=S-5:RETURN
-3900 PRINT "BAD WATER. THE FLUX GOES THROUGH THE"
-3905 PRINT "CAMP.":SK=1:S=S-10:Q=Q-10:RETURN
-4000 PRINT "A COSSACK POST BARS THE ROAD. THE"
-4005 PRINT "OFFICER WANTS 10 RUBLES FOR PAPERS."
-4010 INPUT "PAY HIM";A$
-4015 IF LEFT$(A$,1)="Y" AND M>=10 THEN M=M-10:PRINT "HE STAMPS SOMETHING IN RUSSIAN.":RETURN
-4020 PRINT "YOU TAKE THE LONG WAY ROUND.":Q=Q-25:RETURN
-4100 PRINT "FOG ON THE HILLS. YOU LOSE THE TRAIL."
-4105 Q=Q-15:RETURN
-4200 PRINT "HAILSTONES LIKE WALNUTS! FELTS ARE"
-4205 PRINT "TORN AND A PACK SADDLE BREAKS.":C=C-8:S=S-5:RETURN
-4300 PRINT "A KINSMAN'S AUL TAKES YOU IN. THEY"
-4305 PRINT "KILL A SHEEP AND POUR KYMYZ.":F=F+15:Q=Q-5:RETURN
-4400 PRINT "YOU FIND WILD RHUBARB AND ONIONS."
-4405 F=F+8:RETURN
-4500 PRINT "PILGRIMS BOUND FOR IYIK JANYL RIDE"
-4505 PRINT "WITH YOU. THEIR KASHYSH GIVES A BATA."
-4510 PRINT "ALL ANSWER: OOMIN."
-4515 IF LU=1 THEN PRINT "A WEIGHT LIFTS FROM THE CARAVAN.":LU=0
-4520 RETURN
-4600 REM *** RIVER ***
-4605 PRINT:PRINT "YOU REACH ";L$(LN);".":PRINT G$(LN)
-4610 DP=INT(RND(1)*3)+1
-4615 IF DP=1 THEN PRINT "IT IS STIRRUP-DEEP."
-4620 IF DP=2 THEN PRINT "IT IS SADDLE-DEEP."
-4625 IF DP=3 THEN PRINT "THE HORSES WILL HAVE TO SWIM."
-4630 PRINT "(1) FORD IT  (2) WAIT A DAY"
-4635 PRINT "(3) PAY RIVERMEN 5 RUBLES";:INPUT X:X=INT(X)
-4640 IF X<1 OR X>3 THEN 4630
-4645 IF X=2 THEN 4690
-4650 RK=DP*DP*6
-4655 IF X=3 AND M<5 THEN PRINT "YOU CANNOT PAY THEM.":GOTO 4630
-4660 IF X=3 THEN M=M-5:RK=DP*3:PRINT "RIVERMEN LEAD YOU ACROSS."
-4665 IF RND(1)*100>=RK THEN PRINT "YOU CROSS SAFELY.":RETURN
-4670 PRINT "A PACKHORSE IS SWEPT DOWNSTREAM!":F=F-15:S=S-10:P=P-20
-4675 IF DP=3 AND RND(1)<.2 THEN DC=3:GOTO 8000
-4680 IF RND(1)<.5 THEN PRINT "THE HORSE DROWNS.":H=H-1
-4685 RETURN
-4690 DY=DY+1:IF DP>1 AND RND(1)<.7 THEN DP=DP-1:PRINT "THE WATER FALLS.":GOTO 4615
-4695 PRINT "THE WATER IS NO LOWER.":GOTO 4615
-4700 REM *** HIGH PASS ***
-4705 PRINT:PRINT "YOU CROSS ";L$(LN);".":PRINT G$(LN)
-4710 C=C-5:IF C<20 THEN PRINT "YOUR FELTS ARE THIN. YOU TAKE A":PRINT "CHILL IN THE NIGHT.":SK=1
-4715 IF DY>145 THEN GOSUB 5030
-4720 RETURN
-4800 REM *** TRADING PLACE ***
-4805 PRINT:PRINT "YOU REACH ";L$(LN);".":PRINT G$(LN)
-4810 PRINT "THERE ARE HONEST TRADERS HERE.":TR=1:RETURN
-4900 REM *** HIGH MEADOWS ***
-4905 PRINT:PRINT "YOU REACH ";L$(LN);".":PRINT G$(LN)
-4910 PRINT "KINSMEN ON THE ZHAYLOO SHARE KYMYZ.":F=F+10:RETURN
-4950 REM *** GORGE ***
-4955 PRINT:PRINT "YOU ENTER ";L$(LN);".":PRINT G$(LN):RETURN
-5000 REM *** MOUNTAINS ***
-5005 IF Z=2 THEN 5050
-5010 IF DY>145 THEN 5030
-5015 IF RND(1)>.35 THEN RETURN
-5020 PRINT "COLD WIND AND SLEET ON THE PASS.":C=C-5
-5022 IF C<25 THEN PRINT "YOUR FELTS ARE TOO THIN.":SK=1
-5024 IF RND(1)<.3 THEN PRINT "A PACKHORSE SLIPS ON THE ICE.":F=F-10:S=S-5
-5025 RETURN
-5030 PRINT "SNOW! THE PASS IS CLOSING."
-5035 IF C<50 THEN DC=4:GOTO 8000
-5040 PRINT "YOU WRAP THE HORSES IN FELT AND PUSH":PRINT "ON. ONE DIES IN THE DRIFTS."
-5045 H=H-1:C=C-15:Q=Q*.5:RETURN
-5050 IF RND(1)>.3 THEN RETURN
-5055 PRINT "ROCKFALL IN THE GORGE!":Q=Q-10:S=S-5
-5060 IF RND(1)<.2 THEN PRINT "A PACKHORSE FALLS INTO THE NARYN.":H=H-1:F=F-10
-5065 RETURN
-5500 REM *** ILLNESS ***
-5505 IF SK=1 THEN RETURN
-5510 PRINT:IF E=1 THEN PRINT "WEAK FROM POOR FOOD, YOU FALL SICK."
-5515 IF E>1 THEN PRINT "YOU HAVE CAMP FEVER."
-5520 S=S-3:SK=1:IF S<0 AND RND(1)<.5 THEN PRINT "NO MEDICINE LEFT.":DC=5:GOTO 8000
-5525 RETURN
-6000 REM *** TYPE THE WORD ***
-6005 W$=WD$(INT(RND(1)*4)+1)
-6010 PRINT CHR$(158);"TYPE: ";W$;CHR$(153)
-6015 T0=TI:INPUT A$:B1=(TI-T0)/60-1.5+(D9-1)*.4
-6020 IF A$<>W$ THEN B1=9
-6025 IF B1<0 THEN B1=0
-6030 RETURN
-7000 REM *** PRINT THE DATE ***
-7005 XD=DY+23:M$="APRIL":IF XD<=30 THEN 7045
-7010 XD=XD-30:M$="MAY":IF XD<=31 THEN 7045
-7015 XD=XD-31:M$="JUNE":IF XD<=30 THEN 7045
-7020 XD=XD-30:M$="JULY":IF XD<=31 THEN 7045
-7025 XD=XD-31:M$="AUGUST":IF XD<=31 THEN 7045
-7030 XD=XD-31:M$="SEPTEMBER":IF XD<=30 THEN 7045
-7035 XD=XD-30:M$="OCTOBER":IF XD<=31 THEN 7045
-7040 XD=XD-31:M$="NOVEMBER"
-7045 PRINT CHR$(158);M$;STR$(XD);", 1877";CHR$(153):RETURN
-8000 REM *** THE END OF THE ROAD ***
-8005 PRINT:PRINT CHR$(150);
-8010 ON DC GOTO 8015,8020,8025,8030,8035,8040,8045,8050
-8015 PRINT "YOU HAVE STARVED TO DEATH.":GOTO 8060
-8020 PRINT "NO HEALER WILL TREAT YOU FOR NOTHING.":PRINT "THE FEVER TAKES YOU.":GOTO 8060
-8025 PRINT "THE RIVER TAKES YOU.":GOTO 8060
-8030 PRINT "SNOW CLOSES THE PASS. YOU FREEZE IN":PRINT "YOUR THIN FELTS.":GOTO 8060
-8035 PRINT "WITHOUT MEDICINE, YOU DIE.":GOTO 8060
-8040 PRINT "THE RAIDERS KILL YOU.":GOTO 8060
-8045 PRINT "WITH ONE HORSE LEFT, THE CARAVAN":PRINT "CANNOT GO ON. YOU WINTER WITH"
-8047 PRINT "STRANGERS AND PRAY FOR SPRING.":PRINT CHR$(153);:GOTO 8900
-8050 PRINT "WINTER CATCHES YOU ON THE ROAD. THE"
-8055 PRINT "FAMILY SCATTERS TO WINTER AULS.":PRINT CHR$(153);:GOTO 8900
-8060 PRINT CHR$(153)
-8065 PRINT "YOUR KINSMEN BURY YOU BESIDE THE"
-8070 PRINT "TRAIL. YOUR RIDING HORSE, ITS SADDLE"
-8075 PRINT "EMPTY, IS LED BEHIND THE BIER, AND"
-8080 PRINT "THE WOMEN SING THE KOSHOK."
-8085 GOTO 8900
-8500 REM *** IYIK JANYL ***
-8505 PRINT:PRINT "THE NARYN FLATS! ACROSS THE RIVER,"
-8510 PRINT "ON CATHEDRAL HILL, STANDS THE CHURCH"
-8515 PRINT "OF ST. JANYL."
-8520 PRINT "(1) FORD THE NARYN"
-8525 PRINT "(2) PAY THE FERRYMEN 10 RUBLES";:INPUT X:X=INT(X)
-8530 IF X<1 OR X>2 THEN 8520
-8535 IF X=2 AND M<10 THEN PRINT "YOU CANNOT PAY THEM.":GOTO 8520
-8540 IF X=2 THEN M=M-10:PRINT "THE FERRY CREAKS ACROSS.":GOTO 8560
-8545 IF RND(1)<.7 THEN PRINT "COLD AND WET, BUT ACROSS.":GOTO 8560
-8550 PRINT "THE NARYN TAKES TWO PACKHORSES.":H=H-2:F=F-20
-8555 IF RND(1)<.15 THEN DC=3:GOTO 8000
-8560 IF H<0 THEN H=0
-8562 IF F<0 THEN F=0
-8565 PRINT:PRINT CHR$(5);"YOU HAVE REACHED IYIK JANYL!"
-8570 GOSUB 7000
-8575 IF DY<=123 THEN PRINT "IN TIME FOR THE FEAST OF ST. JANYL!":GOTO 8585
-8580 IF DY<=144 THEN PRINT "IN TIME FOR THE FEAST OF THE CROSS."
-8585 PRINT "HORSES";H;"RUBLES";INT(M);"FOOD";INT(F)
-8590 PRINT:PRINT "JUNIPER SMOKE RISES OVER THE HILL."
-8595 PRINT "THE KASHYSH BLESSES YOUR HOUSEHOLD,"
-8600 PRINT "AND YOUR KINSMEN ANSWER: OOMIN."
-8605 IF HM=1 THEN PRINT:PRINT "BUT THE ELDERS DO NOT FORGET THE":PRINT "GREY MARE."
-8900 PRINT:INPUT "PLAY AGAIN";A$
-8905 IF LEFT$(A$,1)="Y" THEN RUN
-8910 PRINT "JOLUNG BOLSUN. MAY YOUR ROAD BE OPEN.":END
-9000 DATA ALGA,URAN,CHU,KEL
-9010 DATA 25,1,"THE CHU RIVER","SNOWMELT HAS SWOLLEN THE CHU."
-9015 DATA 140,2,"THE KOK-BEL PASS","THE TRAIL TOPS THE KYRGYZ RANGE."
-9020 DATA 215,3,"RABAT-I-SAFED","WHITE WALLS OF AN OLD SOGDIAN INN."
-9025 DATA 240,3,"THE TALAS FORT","RUSSIAN SOLDIERS HOLD THE KOKAND FORT."
-9030 DATA 255,1,"THE TALAS RIVER","THE TALAS RUNS FAST AND COLD."
-9035 DATA 330,2,"THE OTMEK PASS","SNOW STILL LIES ON THE HIGH GROUND."
-9040 DATA 400,4,"THE SUUSAMYR VALLEY","HIGH MEADOWS, GREEN TO THE SKY."
-9045 DATA 450,2,"THE ALA-BEL PASS","3,184 METERS. THE ROOF OF THE ROAD."
-9050 DATA 500,1,"THE CHYCHKAN RIVER","IT TUMBLES DOWN A STEEP GORGE."
-9055 DATA 570,3,"KETMEN-TOBO","A BAZAAR IN THE GREAT BASIN."
-9060 DATA 620,5,"THE NARYN GORGE","THE NARYN ROARS BETWEEN THE CLIFFS."
-9065 DATA 690,6,"IYIK JANYL","THE END OF THE ROAD."
-9070 DATA 8,14,22,30,40,46,51,57,63,70,76,81,89,94,100</script>
+<script type="text/plain" id="bas">10 REM THE IRAD TRAIL: APPLE II EDITION
+20 REM IRADI AMERICAN ASSOCIATION, CHICAGO 1985
+30 TEXT : HOME : NORMAL
+40 DIM N$(5),HL(5),DS(5),SD(5),L(13),TY(13),L$(13),Q$(13),D$(12),MO$(12),MS(12),TB(12),C(6),CN$(6),WT$(4),PA$(3),RA$(3),VX(4),VY(4),DN$(5),MX(13),MY(13)
+50 FOR I = 1 TO 12 : READ MO$(I),MS(I),TB(I) : NEXT
+55 FOR I = 1 TO 13 : READ L(I),TY(I),L$(I),MX(I),MY(I) : NEXT
+60 FOR I = 1 TO 13 : READ Q$(I) : NEXT
+65 FOR I = 1 TO 12 : READ D$(I) : NEXT
+70 FOR I = 1 TO 6 : READ CN$(I),C(I) : NEXT
+75 FOR I = 0 TO 4 : READ WT$(I) : NEXT
+80 FOR I = 1 TO 3 : READ PA$(I),RA$(I) : NEXT
+85 FOR I = 0 TO 4 : READ VX(I),VY(I) : NEXT
+90 FOR I = 1 TO 5 : READ DN$(I) : NEXT
+100 SN = 6 : GOSUB 6000
+105 HOME : HTAB 14 : PRINT "THE IRAD TRAIL"
+110 HTAB 5 : PRINT "FROM THE CHU TO IYIK JANYL, 1877"
+115 HTAB 5 : PRINT "IRADI AMERICAN ASSOCIATION, 1985"
+120 HTAB 10 : PRINT "PRESS RETURN TO BEGIN"; : GET K$
+125 X = RND ( - (PEEK (78) + 256 * PEEK (79)))
+200 TEXT : HOME : PRINT : HTAB 14 : PRINT "THE IRAD TRAIL" : PRINT
+210 PRINT "  YOU MAY:" : PRINT
+220 PRINT "    1. TRAVEL THE ROAD"
+230 PRINT "    2. LEARN ABOUT THE ROAD"
+240 PRINT "    3. END"
+250 PRINT : PRINT "  WHAT IS YOUR CHOICE? "; : GET K$ : PRINT K$
+260 K = VAL (K$) : IF K < 1 OR K > 3 THEN 200
+270 ON K GOTO 300,2300,280
+280 HOME : PRINT "JOLUNG BOLSUN. MAY YOUR ROAD BE OPEN." : END
+300 TEXT : HOME
+305 PRINT "MANY KINDS OF PEOPLE MADE THE JOURNEY" : PRINT "SOUTH IN 1877." : PRINT
+310 PRINT "YOU MAY:" : PRINT
+315 PRINT "  1. BE A BIY'S SON, WITH A GOOD HERD"
+320 PRINT "  2. BE A FELT MERCHANT"
+325 PRINT "  3. BE A HERDER WITH LITTLE SILVER"
+330 PRINT "  4. FIND OUT THE DIFFERENCES"
+335 PRINT "     BETWEEN THESE CHOICES"
+340 PRINT : PRINT "WHAT IS YOUR CHOICE? "; : GET K$ : PRINT K$ : OC = VAL (K$)
+345 IF OC = 4 THEN GOSUB 2800 : GOTO 300
+350 IF OC < 1 OR OC > 3 THEN 300
+355 M = 800 : IF OC = 2 THEN M = 500
+360 IF OC = 3 THEN M = 300
+365 H = 0 : F = 0 : FE = 0 : PW = 0 : SH = 0 : SA = 0 : D = 0 : LN = 1 : P = 1 : RA = 1 : HE = 0 : CU = 0 : HM = 0 : EN = 0 : AL = 0 : QA = 0 : RS = 0
+370 FOR I = 1 TO 5 : HL(I) = 1 : DS(I) = 0 : SD(I) = 0 : NEXT
+400 HOME : PRINT "WHAT IS THE FIRST NAME OF THE" : PRINT "CARAVAN LEADER?" : PRINT
+405 INPUT "> ";A$ : IF A$ = "" THEN A$ = DN$(1)
+410 N$(1) = LEFT$ (A$,8)
+415 PRINT : PRINT "WHAT ARE THE FIRST NAMES OF THE FOUR" : PRINT "OTHER MEMBERS OF YOUR FAMILY?" : PRINT
+420 FOR I = 2 TO 5 : PRINT I;". "; : INPUT "";A$ : IF A$ = "" THEN A$ = DN$(I)
+425 N$(I) = LEFT$ (A$,8) : NEXT I
+430 HOME : PRINT "YOUR FAMILY:" : PRINT : PRINT "  1. ";N$(1);" (LEADER)" : FOR I = 2 TO 5 : PRINT "  ";I;". ";N$(I) : NEXT
+435 PRINT : PRINT "ARE THESE NAMES CORRECT? (Y/N) "; : GET K$ : PRINT K$ : IF K$ = "N" THEN 400
+500 HOME : PRINT "IT IS 1877. THE SNOW IS MELTING ON THE" : PRINT "PLAINS, BUT THE HIGH PASSES MAY STAY" : PRINT "CLOSED UNTIL LATE SPRING." : PRINT
+505 PRINT "YOU MUST DECIDE WHICH MONTH TO LEAVE." : PRINT
+510 PRINT "  1. MARCH" : PRINT "  2. APRIL" : PRINT "  3. MAY" : PRINT "  4. JUNE" : PRINT "  5. JULY" : PRINT "  6. ASK FOR ADVICE"
+515 PRINT : PRINT "WHAT IS YOUR CHOICE? "; : GET K$ : PRINT K$ : K = VAL (K$)
+520 IF K = 6 THEN GOSUB 2900 : GOTO 500
+525 IF K < 1 OR K > 5 THEN 500
+530 DY = MS(K + 2) + 1
+550 HOME : PRINT "BEFORE LEAVING, VISIT OSMON'S SHOP BY" : PRINT "THE CHU FORD. YOU HAVE ";M;" RUBLES." : PRINT
+555 PRINT "YOU WILL NEED:" : PRINT
+560 PRINT " - HORSES TO RIDE AND TO CARRY THE" : PRINT "   YURT. SIX OR MORE IS WISE."
+565 PRINT " - FOOD FOR THE ROAD" : PRINT " - FELT COATS AND FURS FOR THE PASSES"
+570 PRINT " - POWDER AND SHOT FOR WOLVES AND" : PRINT "   RAIDERS"
+575 PRINT " - SPARE HORSESHOES AND PACK SADDLES"
+580 PRINT : PRINT "A FUNT IS ABOUT A POUND." : GOSUB 7500
+585 PF = 1 : SN$ = "OSMON'S SHOP AT THE CHU FORD" : GOSUB 700
+590 IF H < 2 THEN HOME : PRINT "YOU CANNOT LEAVE WITH FEWER THAN TWO" : PRINT "HORSES." : GOSUB 7500 : GOSUB 700 : GOTO 590
+595 GOTO 900
+700 TEXT : HOME : PRINT SN$ : GOSUB 7000 : PRINT DT$ : PRINT "---------------------------------------"
+705 PRINT "ITEM"; : HTAB 24 : PRINT "PRICE"; : HTAB 32 : PRINT "YOU HAVE"
+710 FOR I = 1 TO 6 : PRINT I;". ";CN$(I); : HTAB 24 : PRINT INT (C(I) * PF + .5); : HTAB 32 : GOSUB 790 : PRINT T : NEXT
+715 PRINT "7. LEAVE THE SHOP" : PRINT "---------------------------------------"
+720 PRINT "YOU HAVE ";INT (M);" RUBLES." : PRINT : PRINT "WHICH NUMBER? "; : GET K$ : PRINT K$ : K = VAL (K$)
+725 IF K = 7 OR K$ = CHR$ (13) THEN RETURN
+730 IF K < 1 OR K > 6 THEN 700
+735 T = INT (C(K) * PF + .5) : PRINT : PRINT "HOW MANY? "; : INPUT "";A$ : Q = INT ( VAL (A$)) : IF Q < 0 THEN Q = 0
+740 IF Q * T > M THEN PRINT "YOU DO NOT HAVE ENOUGH SILVER." : GOSUB 7500 : GOTO 700
+745 M = M - Q * T : ON K GOSUB 750,755,760,765,770,775 : GOTO 700
+750 H = H + Q : RETURN
+755 F = F + 10 * Q : RETURN
+760 FE = FE + Q : RETURN
+765 PW = PW + Q : RETURN
+770 SH = SH + Q : RETURN
+775 SA = SA + Q : RETURN
+790 ON I GOTO 791,792,793,794,795,796
+791 T = H : RETURN
+792 T = INT (F) : RETURN
+793 T = FE : RETURN
+794 T = PW : RETURN
+795 T = SH : RETURN
+796 T = SA : RETURN
+900 LN = 1 : GOSUB 6100 : GOSUB 7000 : PRINT L$(1) : PRINT DT$
+905 PRINT "THE KASHYSH BLESSES THE HORSES WITH" : PRINT "WATER, MILK AND JUNIPER SMOKE."; : GET K$
+910 LN = 2 : SS = 0 : GOTO 1000
+1000 REM *** ON THE ROAD ***
+1002 GOSUB 1150 : GOSUB 6800 : GOSUB 5600 : GOSUB 7200
+1005 K = PEEK ( - 16384) : IF K > 127 THEN POKE - 16368,0 : IF K = 141 OR K = 160 THEN 1500
+1010 GOSUB 1100 : IF EN THEN 8500
+1015 IF D > = L(LN) THEN D = L(LN) : GOTO 3500
+1020 GOTO 1005
+1100 V = 10 + 5 * P : T = H / 6 : IF T > 1 THEN T = 1
+1105 V = V * T : IF Z = 1 THEN V = V * .6
+1110 IF PC = 1 THEN V = V * .8
+1115 IF PC = 2 THEN V = V * .5
+1120 IF H < 2 THEN EN = 3 : RETURN
+1125 IF Z = 1 AND DY > 288 THEN EN = 2 : RETURN
+1130 D = D + V : DY = DY + 1 : GOSUB 1150 : GOSUB 5600 : GOSUB 5000 : IF EN THEN RETURN
+1135 IF P = 3 AND RND (1) < .02 THEN H = H - 1 : M1$ = "A HORSE DIES OF EXHAUSTION." : GOSUB 7600
+1140 GOSUB 6900 : GOSUB 7200
+1145 IF RND (1) < .06 THEN GOSUB 2000 : GOSUB 7200
+1149 RETURN
+1150 Z = 0 : IF (D > = 115 AND D < 165) OR (D > = 300 AND D < 350) OR (D > = 420 AND D < 470) THEN Z = 1
+1155 IF D > = 600 AND D < 670 THEN Z = 2
+1160 RETURN
+1200 DY = DY + 1 : GOSUB 1150 : GOSUB 5600 : GOSUB 5000 : RETURN
+1500 TEXT : HOME : IF AL THEN PRINT L$(LN - 1)
+1502 GOSUB 7000 : PRINT DT$ : PRINT
+1505 GOSUB 7400 : PRINT "WEATHER: ";WE$ : PRINT "HEALTH: ";HE$ : PRINT "PACE: ";PA$(P) : PRINT "RATIONS: ";RA$(RA)
+1510 PRINT : PRINT "YOU MAY:" : PRINT
+1515 PRINT "  1. CONTINUE ON THE ROAD"
+1520 PRINT "  2. CHECK SUPPLIES"
+1525 PRINT "  3. LOOK AT THE MAP"
+1530 PRINT "  4. CHANGE THE PACE"
+1535 PRINT "  5. CHANGE FOOD RATIONS"
+1540 PRINT "  6. STOP TO REST"
+1545 PRINT "  7. ATTEMPT TO TRADE"
+1550 IF AL THEN PRINT "  8. TALK TO PEOPLE"
+1555 IF NOT AL THEN PRINT "  8. HUNT FOR FOOD"
+1560 IF AL AND TY(LN - 1) = 3 THEN PRINT "  9. BUY SUPPLIES"
+1565 PRINT : PRINT "WHAT IS YOUR CHOICE? "; : GET K$ : PRINT K$ : K = VAL (K$)
+1570 IF K < 1 OR K > 9 THEN 1500
+1575 IF K = 9 AND NOT (AL AND TY(LN - 1) = 3) THEN 1500
+1580 ON K GOTO 1600,1650,1700,1750,1800,1850,1900,1950,1990
+1600 AL = 0 : GOTO 1000
+1650 TEXT : HOME : PRINT "YOUR SUPPLIES" : PRINT
+1655 PRINT "  HORSES"; : HTAB 28 : PRINT H
+1660 PRINT "  FOOD (FUNT)"; : HTAB 28 : PRINT INT (F)
+1665 PRINT "  FELT COATS AND FURS"; : HTAB 28 : PRINT FE
+1670 PRINT "  BOXES OF POWDER"; : HTAB 28 : PRINT PW
+1675 PRINT "  SPARE HORSESHOES"; : HTAB 28 : PRINT SH
+1680 PRINT "  PACK SADDLES"; : HTAB 28 : PRINT SA
+1685 PRINT "  RUBLES"; : HTAB 28 : PRINT INT (M)
+1690 PRINT : PRINT "YOUR FAMILY" : PRINT
+1692 FOR I = 1 TO 5 : S$ = "WELL" : IF DS(I) THEN S$ = D$(DS(I))
+1694 IF HL(I) = 0 THEN S$ = "DEAD"
+1696 PRINT "  ";N$(I); : HTAB 14 : PRINT S$ : NEXT I
+1698 GOSUB 7500 : GOTO 1500
+1700 GOSUB 4500 : GOTO 1500
+1750 TEXT : HOME : PRINT "CHANGE THE PACE" : PRINT "(NOW ";PA$(P);")" : PRINT
+1755 PRINT "THE PACE IS HOW HARD YOU PUSH THE" : PRINT "HORSES AND THE FAMILY EACH DAY." : PRINT
+1760 PRINT "  1. STEADY: ABOUT 15 VERSTS A DAY" : PRINT "  2. STRENUOUS: ABOUT 20 VERSTS" : PRINT "  3. GRUELING: ABOUT 25 VERSTS, HARD" : PRINT "     ON PEOPLE AND HORSES"
+1765 PRINT : PRINT "WHAT IS YOUR CHOICE? "; : GET K$ : K = VAL (K$) : IF K > = 1 AND K < = 3 THEN P = K
+1770 GOTO 1500
+1800 TEXT : HOME : PRINT "CHANGE FOOD RATIONS" : PRINT "(NOW ";RA$(RA);")" : PRINT
+1805 PRINT "  1. FILLING: 3 FUNT A PERSON A DAY" : PRINT "  2. MEAGER: 2 FUNT, NOT QUITE ENOUGH" : PRINT "  3. BARE BONES: 1 FUNT, VERY HUNGRY"
+1810 PRINT : PRINT "WHAT IS YOUR CHOICE? "; : GET K$ : K = VAL (K$) : IF K > = 1 AND K < = 3 THEN RA = K
+1815 GOTO 1500
+1850 TEXT : HOME : PRINT "HOW MANY DAYS WILL YOU REST? (1-9) "; : GET K$ : K = VAL (K$) : IF K < 1 THEN 1500
+1855 PRINT K : RS = 1 : FOR J = 1 TO K : GOSUB 1200 : IF EN THEN RS = 0 : GOTO 8500
+1860 NEXT J : RS = 0 : GOTO 1500
+1900 TEXT : HOME : GOSUB 1200 : IF EN THEN 8500
+1905 HOME : K = INT ( RND (1) * 7) + 1 : ON K GOSUB 1910,1915,1920,1925,1930,1935,1940 : GOSUB 7500 : GOTO 1500
+1910 PRINT "A HERDER WILL TRADE YOU A HORSE FOR" : PRINT "100 FUNT OF FOOD." : IF F < 100 THEN PRINT : PRINT "YOU DO NOT HAVE ENOUGH FOOD." : RETURN
+1911 GOSUB 1945 : IF K$ = "Y" THEN H = H + 1 : F = F - 100
+1912 RETURN
+1915 PRINT "A SMITH WANTS 2 BOXES OF POWDER FOR" : PRINT "3 SPARE HORSESHOES." : IF PW < 2 THEN PRINT : PRINT "YOU DO NOT HAVE ENOUGH POWDER." : RETURN
+1916 GOSUB 1945 : IF K$ = "Y" THEN PW = PW - 2 : SH = SH + 3
+1917 RETURN
+1920 PRINT "A FELTMAKER OFFERS 2 FELT COATS FOR" : PRINT "30 RUBLES." : IF M < 30 THEN PRINT : PRINT "YOU DO NOT HAVE ENOUGH SILVER." : RETURN
+1921 GOSUB 1945 : IF K$ = "Y" THEN M = M - 30 : FE = FE + 2
+1922 RETURN
+1925 PRINT "A KINSMAN NEEDS A HORSE. HE OFFERS" : PRINT "150 FUNT OF FOOD FOR ONE." : IF H < 3 THEN PRINT : PRINT "YOU CANNOT SPARE A HORSE." : RETURN
+1926 GOSUB 1945 : IF K$ = "Y" THEN H = H - 1 : F = F + 150
+1927 RETURN
+1930 PRINT "A SADDLER OFFERS A PACK SADDLE FOR" : PRINT "2 BOXES OF POWDER." : IF PW < 2 THEN PRINT : PRINT "YOU DO NOT HAVE ENOUGH POWDER." : RETURN
+1931 GOSUB 1945 : IF K$ = "Y" THEN PW = PW - 2 : SA = SA + 1
+1932 RETURN
+1935 PRINT "A HERDER WILL SELL YOU A HORSE FOR" : PRINT "40 RUBLES." : IF M < 40 THEN PRINT : PRINT "YOU DO NOT HAVE ENOUGH SILVER." : RETURN
+1936 GOSUB 1945 : IF K$ = "Y" THEN M = M - 40 : H = H + 1
+1937 RETURN
+1940 PRINT "NOBODY WANTS TO TRADE TODAY." : RETURN
+1945 PRINT : PRINT "WILL YOU TRADE? (Y/N) "; : GET K$ : PRINT K$ : RETURN
+1950 IF AL THEN TEXT : HOME : S$ = Q$(LN - 1) : GOSUB 7700 : GOSUB 7500 : GOTO 1500
+1955 GOSUB 4000 : IF EN THEN 8500
+1960 GOTO 1500
+1990 SN$ = "TRADERS AT " + L$(LN - 1) : PF = 1.25 : IF LN - 1 = 5 THEN PF = 1.5
+1995 IF LN - 1 = 11 THEN PF = 1.75
+1996 GOSUB 700 : GOTO 1500
+2000 REM *** WHAT HAPPENS ON THE ROAD ***
+2002 R = INT ( RND (1) * 16) + 1 : IF CU AND R > 12 THEN R = R - 8
+2005 IF Z = 2 AND RND (1) < .3 THEN R = 17
+2010 IF R > 8 THEN ON R - 8 GOTO 2100,2110,2120,2130,2140,2150,2160,2170,2180
+2015 ON R GOTO 2020,2030,2040,2050,2060,2070,2080,2090
+2020 IF SH > 0 THEN SH = SH - 1 : M1$ = "A HORSE THROWS A SHOE. YOU FIT A SPARE." : GOTO 2190
+2025 M1$ = "A HORSE THROWS A SHOE. WITH NO SPARE," : M2$ = "YOU LOSE A DAY LEADING HER." : GOSUB 7600 : GOTO 1200
+2030 IF SA > 0 THEN SA = SA - 1 : M1$ = "A PACK SADDLE BREAKS. YOU USE A SPARE." : GOTO 2190
+2035 F = F - 50 : M1$ = "A PACK SADDLE BREAKS. YOU LEAVE 50" : M2$ = "FUNT OF FOOD BESIDE THE ROAD." : GOTO 2190
+2040 IF RND (1) < .3 THEN H = H - 1 : M1$ = "A HORSE STRAYS IN THE NIGHT. YOU" : M2$ = "NEVER FIND HER." : GOTO 2190
+2045 M1$ = "A HORSE STRAYS. YOU LOSE A DAY" : M2$ = "SEARCHING FOR HER." : GOSUB 7600 : GOTO 1200
+2050 IF PW > 0 THEN PW = PW - 1 : M1$ = "WOLVES CIRCLE THE HERD AT NIGHT." : M2$ = "YOUR SHOTS DRIVE THEM OFF." : GOTO 2190
+2055 H = H - 1 : M1$ = "WOLVES CIRCLE THE HERD. WITH NO" : M2$ = "POWDER, YOU LOSE A HORSE." : GOTO 2190
+2060 GOTO 2500
+2070 GOTO 2600
+2080 I = INT ( RND (1) * 5) + 1 : IF HL(I) = 0 OR DS(I) THEN RETURN
+2085 K = 7 : GOTO 5250
+2090 I = INT ( RND (1) * 5) + 1 : IF HL(I) = 0 OR DS(I) THEN RETURN
+2095 K = 6 : GOTO 5250
+2100 I = INT ( RND (1) * 5) + 1 : IF HL(I) = 0 OR DS(I) THEN RETURN
+2105 K = 2 : GOTO 5250
+2110 GOTO 2700
+2120 M1$ = "FOG ON THE HILLS. YOU LOSE THE TRAIL" : M2$ = "AND A DAY." : GOSUB 7600 : GOTO 1200
+2130 F = F - 20 : M1$ = "HAILSTONES LIKE WALNUTS!" : IF FE > 0 THEN FE = FE - 1 : M2$ = "A FELT COAT IS TORN TO RAGS."
+2135 GOTO 2190
+2140 F = F + 40 : HE = HE * .7 : M1$ = "A KINSMAN'S AUL TAKES YOU IN. THEY" : M2$ = "KILL A SHEEP AND POUR KYMYZ." : GOTO 2190
+2150 F = F + 15 : M1$ = "YOU FIND WILD RHUBARB AND ONIONS." : GOTO 2190
+2160 CU = 0 : HE = HE * .8 : M1$ = "PILGRIMS BOUND FOR IYIK JANYL RIDE WITH" : M2$ = "YOU. THEIR KASHYSH GIVES A BATA." : M3$ = "ALL ANSWER: OOMIN." : GOTO 2190
+2170 IF M > 20 AND RND (1) < .5 THEN M = M - 20 : M1$ = "A THIEF IN THE NIGHT TAKES 20 RUBLES." : GOTO 2190
+2175 F = F - 40 : M1$ = "A THIEF IN THE NIGHT TAKES 40 FUNT" : M2$ = "OF FOOD." : GOTO 2190
+2180 M1$ = "ROCKFALL IN THE GORGE! YOU LOSE A DAY" : M2$ = "CLEARING THE TRAIL." : IF RND (1) < .2 THEN H = H - 1 : M3$ = "A PACKHORSE FALLS INTO THE NARYN."
+2185 GOSUB 7600 : GOTO 1200
+2190 IF F < 0 THEN F = 0
+2191 IF H < 0 THEN H = 0
+2192 IF M < 0 THEN M = 0
+2195 GOSUB 7600 : RETURN
+2300 TEXT : HOME : PRINT "THE ROAD SOUTH" : PRINT
+2305 PRINT "IN 1876 THE RUSSIAN ARMY TOOK KOKAND." : PRINT "SETTLERS FOLLOWED, AND MANY IRADI" : PRINT "CLANS LOST THEIR PASTURES ON THE CHU."
+2310 PRINT : PRINT "YOUR FAMILY WILL RIDE 690 VERSTS" : PRINT "SOUTH, OVER THREE HIGH PASSES AND FOUR" : PRINT "RIVERS, TO SETTLE BELOW THE CHURCH OF" : PRINT "ST. JANYL AT IYIK JANYL."
+2315 PRINT : PRINT "A VERST IS ABOUT TWO-THIRDS OF A MILE."
+2320 GOSUB 7500
+2330 HOME : PRINT "HOW TO PLAY" : PRINT
+2335 PRINT "BUY HORSES, FOOD, FELTS, POWDER AND" : PRINT "SPARE TACK BEFORE YOU LEAVE. YOU CAN" : PRINT "BUY MORE AT RABAT-I-SAFED, THE TALAS" : PRINT "FORT AND KETMEN-TOBO."
+2340 PRINT : PRINT "WHILE YOU TRAVEL, PRESS RETURN TO STOP" : PRINT "AND SIZE UP THE SITUATION. YOU CAN" : PRINT "CHANGE THE PACE AND RATIONS, REST," : PRINT "TRADE, OR HUNT WITH YOUR EAGLE."
+2345 PRINT : PRINT "TO HUNT, TURN WITH J AND L, AND PRESS" : PRINT "THE SPACE BAR TO LOOSE THE EAGLE."
+2350 GOSUB 7500
+2355 HOME : PRINT "THE PASSES" : PRINT
+2360 PRINT "THE KOK-BEL, OTMEK AND ALA-BEL PASSES" : PRINT "HOLD SNOW UNTIL MAY AND CLOSE AGAIN IN" : PRINT "THE AUTUMN. THE ALA-BEL STANDS 3,184" : PRINT "METERS HIGH."
+2365 PRINT : PRINT "CARRY A FELT COAT FOR EVERY PERSON." : PRINT : PRINT "ARRIVE BY THE FEAST OF ST. JANYL," : PRINT "24 AUGUST, FOR A BONUS."
+2370 GOSUB 7500 : GOTO 200
+2500 HS = RND (1) < .7 : A1 = HS : IF RND (1) < .2 THEN A1 = 1 - A1
+2505 HOME : PRINT "RIDERS ON THE SKYLINE!"
+2507 IF A1 THEN PRINT "THEY LOOK LIKE HORSE THIEVES."
+2508 IF NOT A1 THEN PRINT "THEY DO NOT LOOK HOSTILE."
+2510 PRINT "1 RUN 2 FIGHT 3 RING THE HERD 4 GIFTS";
+2515 GET K$ : K = VAL (K$) : IF K < 1 OR K > 4 THEN 2515
+2520 IF HS = 0 AND K = 2 THEN M = M - 20 : M1$ = "YOU FIRED ON KOKJAL HERDERS. THEIR BIY" : M2$ = "DEMANDS KUN: 20 RUBLES." : GOTO 2190
+2522 IF HS = 0 THEN M1$ = "THEY WERE KOKJAL HERDERS LOOKING FOR" : M2$ = "STRAYS. THEY SHARE THEIR KYMYZ." : GOTO 2190
+2525 ON K GOTO 2530,2540,2550,2560
+2530 F = F - 30 : M1$ = "YOU RUN. PACKS ARE LOST IN THE CHASE." : IF RND (1) < .4 THEN H = H - 1 : M2$ = "THEY CUT OUT ONE HORSE."
+2535 GOTO 2190
+2540 IF PW < 1 THEN H = H - 2 : M1$ = "YOU HAVE NO POWDER! THEY TAKE TWO" : M2$ = "HORSES." : GOTO 2190
+2545 PW = PW - 1 : IF RND (1) < .6 THEN M1$ = "YOUR SHOTS SCATTER THEM." : GOTO 2190
+2547 I = INT ( RND (1) * 5) + 1 : IF HL(I) = 0 THEN 2547
+2548 H = H - 1 : IF H < 0 THEN H = 0
+2549 M1$ = "THEY TAKE A HORSE, AND THERE IS BLOOD." : GOSUB 7600 : K = 10 : GOTO 5250
+2550 IF PW < 1 THEN H = H - 2 : M1$ = "NO POWDER. THEY TAKE TWO HORSES." : GOTO 2190
+2555 PW = PW - 1 : IF RND (1) < .75 THEN M1$ = "THE RING HOLDS. THEY RIDE AWAY." : GOTO 2190
+2557 H = H - 1 : M1$ = "THEY BREAK THE RING AND TAKE A HORSE." : GOTO 2190
+2560 IF M > = 15 THEN M = M - 15 : M1$ = "YOU OFFER TEA, KURUT AND SILVER." : M2$ = "THEY TAKE 15 RUBLES AND RIDE OFF." : GOTO 2190
+2565 H = H - 1 : M1$ = "YOU HAVE LITTLE TO GIVE. THEY TAKE A" : M2$ = "HORSE INSTEAD." : GOTO 2190
+2600 HOME : PRINT "AT DUSK A BLACK BULL STANDS ON THE" : PRINT "TRAIL. THE ELDERS WHISPER: MORKHAN." : PRINT "BURN JUNIPER AND POUR MILK? (Y/N) ";
+2605 GET K$ : IF K$ = "Y" THEN M1$ = "THE SMOKE RISES WHITE. THE BULL" : M2$ = "WANDERS OFF INTO THE DARK." : GOTO 2190
+2610 CU = 1 : M1$ = "THE WOMEN WILL NOT LOOK AT YOU." : GOTO 2190
+2700 HOME : PRINT "A COSSACK POST BARS THE ROAD. THE" : PRINT "OFFICER WANTS 10 RUBLES FOR PAPERS." : PRINT "PAY HIM? (Y/N) ";
+2705 GET K$ : IF K$ = "Y" AND M > = 10 THEN M = M - 10 : M1$ = "HE STAMPS SOMETHING IN RUSSIAN." : GOTO 2190
+2710 M1$ = "YOU TAKE THE LONG WAY ROUND." : M2$ = "IT COSTS TWO DAYS." : GOSUB 7600 : GOSUB 1200 : IF EN THEN RETURN
+2715 GOTO 1200
+2800 HOME : PRINT "A BIY'S SON STARTS WITH 800 RUBLES, A" : PRINT "FELT MERCHANT WITH 500 AND A HERDER" : PRINT "WITH 300." : PRINT
+2805 PRINT "THE POORER YOU START, THE MORE POINTS" : PRINT "YOU EARN FOR ARRIVING: DOUBLE FOR THE" : PRINT "MERCHANT, TRIPLE FOR THE HERDER."
+2810 GOSUB 7500 : RETURN
+2900 HOME : PRINT "YOU VISIT THE AKSAKAL, THE OLDEST MAN" : PRINT "IN THE AUL. HE SAYS:" : PRINT
+2905 PRINT "'LEAVE TOO EARLY AND SNOW WILL CLOSE" : PRINT "THE PASSES IN YOUR FACE. LEAVE TOO" : PRINT "LATE AND YOU WILL MISS THE FEAST OF" : PRINT "ST. JANYL, AND MAYBE MEET THE AUTUMN" : PRINT "SNOW ON THE ALA-BEL. MAY IS GOOD.'"
+2910 GOSUB 7500 : RETURN
+3000 REM *** RIVER CROSSING ***
+3002 AR = INT ((1 + RND (1) * 3) * 2) / 2 : WI = INT ( RND (1) * 50) + 30 : RC = 5
+3005 TEXT : HOME : PRINT L$(LN) : GOSUB 7000 : PRINT DT$ : PRINT
+3010 PRINT "THE RIVER IS ";WI;" SAZHEN ACROSS AND" : PRINT AR;" ARSHIN DEEP AT THE FORD."
+3015 PRINT : PRINT "YOU MAY:" : PRINT
+3020 PRINT "  1. FORD THE RIVER" : PRINT "  2. FLOAT THE PACKS ON A SKIN RAFT" : PRINT "  3. PAY THE RIVERMEN (";RC;" RUBLES)" : PRINT "  4. WAIT A DAY" : PRINT "  5. GET MORE INFORMATION"
+3025 PRINT : PRINT "WHAT IS YOUR CHOICE? "; : GET K$ : PRINT K$ : K = VAL (K$)
+3030 IF K = 5 THEN GOSUB 3300 : GOTO 3005
+3035 IF K = 4 THEN GOSUB 1200 : IF EN THEN RETURN
+3040 IF K = 4 THEN AR = AR - INT ( RND (1) * 2) / 2 : IF AR < 1 THEN AR = 1
+3045 IF K = 4 THEN 3005
+3050 IF K < 1 OR K > 3 THEN 3005
+3055 IF K = 3 AND M < RC THEN PRINT : PRINT "YOU CANNOT PAY THEM." : GOSUB 7500 : GOTO 3005
+3060 IF K = 3 THEN M = M - RC
+3065 IF K = 2 THEN GOSUB 1200 : IF EN THEN RETURN
+3070 RK = 3 : IF K = 1 AND AR > 1.5 THEN RK = 25
+3075 IF K = 1 AND AR > 2.5 THEN RK = 60
+3080 IF K = 2 THEN RK = 8 + 12 * (AR > 3)
+3085 GOSUB 6990 : GOSUB 6300 : GOSUB 3200
+3090 IF RND (1) * 100 > = RK THEN M1$ = "YOU CROSS SAFELY." : GOSUB 7600 : RETURN
+3095 T = INT ( RND (1) * 60) + 20 : F = F - T : IF F < 0 THEN F = 0
+3100 M1$ = "THE CURRENT TAKES A PACKHORSE." : M2$ = "YOU LOSE " + STR$ (T) + " FUNT OF FOOD."
+3105 IF RND (1) < .5 THEN H = H - 1 : M3$ = "THE HORSE DROWNS."
+3110 IF FE > 0 AND RND (1) < .5 THEN FE = FE - 1
+3115 GOSUB 7600
+3120 IF K = 1 AND AR > 2.5 AND RND (1) < .3 THEN GOSUB 3150
+3125 RETURN
+3150 I = INT ( RND (1) * 5) + 1 : IF HL(I) = 0 THEN 3150
+3155 K = 9 : GOSUB 5300 : RETURN
+3200 FOR J = 1 TO 400 : NEXT J : HCOLOR= 0 : YB = 158 : F1 = 0 : X1 = 150 : GOSUB 6960
+3205 HCOLOR= 3 : YB = 124 : X1 = 110 : GOSUB 6960 : RETURN
+3300 HOME : PRINT "RIVER CROSSINGS" : PRINT
+3305 PRINT "A FORD IS SAFE WHEN THE WATER IS LESS" : PRINT "THAN 1.5 ARSHIN DEEP. DEEPER THAN 2.5," : PRINT "THE HORSES MUST SWIM AND THE CURRENT" : PRINT "CAN TAKE THEM."
+3310 PRINT : PRINT "A TURSUK IS A RAFT ON BLOWN-UP" : PRINT "GOATSKINS. IT IS SAFER, BUT BUILDING" : PRINT "ONE TAKES A DAY."
+3315 PRINT : PRINT "THE RIVERMEN KNOW EVERY STONE. THEY" : PRINT "WANT SILVER." : PRINT : PRINT "(AN ARSHIN IS 28 INCHES, A SAZHEN" : PRINT "IS 7 FEET.)"
+3320 GOSUB 7500 : RETURN
+3500 REM *** A LANDMARK ***
+3502 GOSUB 6100 : GOSUB 7000 : PRINT L$(LN) : PRINT DT$
+3505 IF TY(LN) = 6 THEN 8000
+3510 PRINT "PRESS RETURN"; : GET K$
+3515 IF TY(LN) = 1 THEN GOSUB 3000 : IF EN THEN 8500
+3520 IF TY(LN) = 2 THEN GOSUB 3600 : IF EN THEN 8500
+3525 IF TY(LN) = 4 THEN F = F + 30 : HE = HE * .7 : M1$ = "KINSMEN ON THE ZHAYLOO SHARE KYMYZ" : M2$ = "AND MUTTON. EVERYONE FEELS BETTER." : GOSUB 7600
+3530 SS = L(LN) : LN = LN + 1 : AL = 1 : GOTO 1500
+3600 IF DY > 288 THEN EN = 2 : RETURN
+3605 IF DY > = 125 AND DY < = 263 THEN RETURN
+3610 T = INT ( RND (1) * 3) + 2 : M1$ = "SNOW LIES DEEP ON THE PASS. YOU LOSE" : M2$ = STR$ (T) + " DAYS BREAKING A TRAIL." : GOSUB 7600
+3615 FOR J = 1 TO T : GOSUB 1200 : IF EN THEN RETURN
+3620 NEXT J : RETURN
+4000 REM *** HUNTING WITH THE EAGLE ***
+4002 HGR : POKE 34,20 : HOME : QT = 0 : SK = 5 : MT = 0 : FR = 0 : AQ = 0 : EG = 0 : DI = 2
+4005 PRINT "J AND L: TURN   SPACE: LOOSE THE EAGLE" : PRINT "ESC: BACK TO CAMP"
+4010 HCOLOR= 1 : FOR I = 1 TO 30 : X = RND (1) * 268 + 4 : Y = RND (1) * 14 + 128 : HPLOT X,Y TO X + 2,Y - 4 TO X + 4,Y : NEXT
+4015 IF Z = 1 THEN HCOLOR= 3 : FOR I = 1 TO 6 : X = RND (1) * 250 + 4 : HPLOT X,22 TO X + 10,10 TO X + 20,22 : NEXT
+4020 HX = 139 : HY = 154 : HCOLOR= 3 : HPLOT HX,HY TO HX,HY - 14 : HPLOT HX - 2,HY - 17 TO HX + 2,HY - 17 TO HX + 2,HY - 15 TO HX - 2,HY - 15 TO HX - 2,HY - 17 : HPLOT HX - 5,HY - 10 TO HX + 5,HY - 10 : HPLOT HX - 3,HY + 3 TO HX,HY TO HX + 3,HY + 3
+4025 GOSUB 4350 : GOSUB 4360
+4030 FR = FR + 1 : IF FR > 350 OR QT THEN 4400
+4035 K = PEEK ( - 16384) : IF K > 127 THEN POKE - 16368,0 : GOSUB 4300
+4040 IF AQ = 0 AND RND (1) < .1 THEN GOSUB 4200
+4045 IF AQ THEN GOSUB 4250
+4050 IF EG THEN GOSUB 4270
+4055 IF SK = 0 AND EG = 0 THEN QT = 1
+4060 GOTO 4030
+4200 AK = INT ( RND (1) * 3) + 1 : IF RND (1) < .15 + .2 * (Z = 1) THEN AK = 4
+4205 AW = 14 : AH = 8 : AV = 7 : AC = 3 : IF AK = 2 THEN AV = 4 : AH = 10 : AC = 5
+4210 IF AK = 3 THEN AW = 18 : AV = 8 : AC = 5
+4215 IF AK = 4 THEN AW = 28 : AH = 20 : AV = 5 : AC = 3
+4220 AY = INT ( RND (1) * 60) + 45 : AX = 4 : IF RND (1) < .5 THEN AX = 270 - AW : AV = - AV
+4225 AQ = 1 : HCOLOR= AC : GOSUB 4230 : RETURN
+4230 ON AK GOTO 4232,4236,4240,4244
+4232 HPLOT AX,AY TO AX + 12,AY TO AX + 12,AY - 6 TO AX,AY - 6 TO AX,AY : HPLOT AX + 10,AY - 6 TO AX + 11,AY - 14 : HPLOT AX + 12,AY - 6 TO AX + 14,AY - 13 : RETURN
+4236 HPLOT AX,AY TO AX + 12,AY TO AX + 12,AY - 10 TO AX,AY - 10 TO AX,AY : HPLOT AX + 4,AY - 5 TO AX + 8,AY - 5 : RETURN
+4240 HPLOT AX + 4,AY - 4 TO AX + 18,AY - 4 TO AX + 18,AY - 8 TO AX + 4,AY - 8 TO AX + 4,AY - 4 : HPLOT AX + 4,AY - 6 TO AX,AY : HPLOT AX + 18,AY - 8 TO AX + 18,AY - 12 : HPLOT AX + 6,AY - 4 TO AX + 6,AY : HPLOT AX + 16,AY - 4 TO AX + 16,AY : RETURN
+4244 HPLOT AX + 4,AY - 10 TO AX + 24,AY - 10 TO AX + 24,AY - 18 TO AX + 4,AY - 18 TO AX + 4,AY - 10 : HPLOT AX + 6,AY - 10 TO AX + 6,AY : HPLOT AX + 22,AY - 10 TO AX + 22,AY : HPLOT AX + 24,AY - 18 TO AX + 28,AY - 20 TO AX + 27,AY - 14 TO AX + 24,AY - 15 : RETURN
+4250 HCOLOR= 0 : GOSUB 4230 : AX = AX + AV : AY = AY + INT ( RND (1) * 3) - 1
+4255 IF AY < 45 THEN AY = 45
+4256 IF AY > 110 THEN AY = 110
+4260 IF AX < 2 OR AX > 270 - AW THEN AQ = 0 : RETURN
+4265 HCOLOR= AC : GOSUB 4230 : RETURN
+4270 HCOLOR= 0 : HPLOT QX - 5,QY - 3 TO QX,QY TO QX + 5,QY - 3
+4272 QX = QX + QU : QY = QY + QV : IF QX < 6 OR QX > 272 OR QY < 6 THEN EG = 0 : RETURN
+4275 IF AQ AND ABS (QX - AX - AW / 2) < AW / 2 + 4 AND ABS (QY - AY + AH / 2) < AH / 2 + 5 THEN 4280
+4277 HCOLOR= 3 : HPLOT QX - 5,QY - 3 TO QX,QY TO QX + 5,QY - 3 : RETURN
+4280 HCOLOR= 0 : GOSUB 4230 : AQ = 0 : EG = 0 : FOR J = 1 TO 40 : S = PEEK ( - 16336) : NEXT J
+4282 T = 4 : T$ = "A HARE" : IF AK = 2 THEN T = 8 : T$ = "A MARMOT"
+4284 IF AK = 3 THEN T = 0 : T$ = "A FOX (PELT: 3 RUBLES)" : M = M + 3
+4286 IF AK = 4 THEN T = 60 : T$ = "AN ARKHAR"
+4288 MT = MT + T : VTAB 24 : HTAB 1 : PRINT SPC( 39); : HTAB 1 : PRINT "THE EAGLE TAKES ";T$;"!"; : GOSUB 4360 : RETURN
+4300 K = K - 128 : IF (K = 74 OR K = 106 OR K = 8) AND DI > 0 THEN GOSUB 4355 : DI = DI - 1 : GOSUB 4350
+4305 IF (K = 76 OR K = 108 OR K = 21) AND DI < 4 THEN GOSUB 4355 : DI = DI + 1 : GOSUB 4350
+4310 IF K = 32 AND EG = 0 AND SK > 0 THEN EG = 1 : SK = SK - 1 : QX = HX : QY = HY - 24 : QU = VX(DI) * 12 : QV = VY(DI) * 12 : GOSUB 4360
+4315 IF K = 27 THEN QT = 1
+4320 RETURN
+4350 HCOLOR= 5 : HPLOT HX + VX(DI) * 6,HY - 20 + VY(DI) * 6 TO HX + VX(DI) * 15,HY - 20 + VY(DI) * 15 : RETURN
+4355 HCOLOR= 0 : HPLOT HX + VX(DI) * 6,HY - 20 + VY(DI) * 6 TO HX + VX(DI) * 15,HY - 20 + VY(DI) * 15 : RETURN
+4360 VTAB 23 : HTAB 1 : PRINT "STRIKES LEFT: ";SK;"   MEAT: ";MT;" FUNT    "; : RETURN
+4400 HCOLOR= 0 : IF EG THEN HPLOT QX - 5,QY - 3 TO QX,QY TO QX + 5,QY - 3
+4405 HOME : IF MT = 0 THEN PRINT "YOU RETURN TO CAMP WITH NOTHING." : GOTO 4420
+4410 PRINT "YOU BRING BACK ";MT;" FUNT OF MEAT."
+4415 IF MT > 100 THEN PRINT "YOU CAN ONLY CARRY 100 FUNT TO CAMP." : MT = 100
+4420 F = F + MT : GOSUB 7500 : GOSUB 1200 : RETURN
+4500 REM *** MAP ***
+4502 HGR : POKE 34,20 : HOME
+4505 HCOLOR= 6 : HPLOT 0,30 TO 120,26 TO 232,24 TO 279,20 : HPLOT 0,76 TO 60,72 TO 120,72 TO 200,66
+4510 HPLOT 215,104 TO 190,126 TO 180,140 : HPLOT 279,128 TO 230,132 TO 180,140 TO 130,146 TO 100,154 TO 60,158
+4515 HCOLOR= 2 : FOR I = 0 TO 8 : X = 20 + I * 28 : HPLOT X,46 TO X + 8,36 TO X + 16,46 : NEXT
+4520 FOR I = 0 TO 6 : X = 40 + I * 26 : HPLOT X,92 TO X + 8,82 TO X + 16,92 : NEXT
+4525 FOR I = 0 TO 4 : X = 160 + I * 22 : HPLOT X,117 TO X + 8,107 TO X + 16,117 : NEXT
+4530 HCOLOR= 3 : FOR I = 1 TO 12 : HPLOT MX(I),MY(I) TO MX(I + 1),MY(I + 1) : NEXT
+4535 FOR I = 1 TO 13 : HPLOT MX(I) - 1,MY(I) - 1 TO MX(I) + 1,MY(I) - 1 TO MX(I) + 1,MY(I) + 1 TO MX(I) - 1,MY(I) + 1 TO MX(I) - 1,MY(I) - 1 : NEXT
+4540 HPLOT 20,6 TO 20,16 : HPLOT 15,11 TO 25,11 : REM POLARIS MARKS NORTH
+4545 J = LN : IF J > 13 THEN J = 13
+4550 T = (D - L(J - 1)) / (L(J) - L(J - 1)) : X = MX(J - 1) + T * (MX(J) - MX(J - 1)) : Y = MY(J - 1) + T * (MY(J) - MY(J - 1))
+4555 HCOLOR= 5 : HPLOT X - 4,Y - 4 TO X + 4,Y - 4 TO X + 4,Y + 4 TO X - 4,Y + 4 TO X - 4,Y - 4
+4560 PRINT "THE ROAD FROM THE CHU TO IYIK JANYL." : PRINT "THE ORANGE BOX IS YOUR CARAVAN." : PRINT "NEXT: ";L$(J)
+4565 PRINT "PRESS RETURN"; : GET K$ : RETURN
+5000 REM *** EACH DAY: FOOD AND HEALTH ***
+5002 LC = 0 : FOR I = 1 TO 5 : LC = LC + HL(I) : NEXT
+5005 F = F - (4 - RA) * LC : IF F < 0 THEN F = 0
+5010 T = 1.5 + (P - 1) * 4 + (RA - 1) * 4 + CU * 2 : IF RS THEN T = 0
+5015 IF F = 0 THEN T = T + 12 : IF QA = 0 THEN GOSUB 5400
+5020 IF TP < 2 AND FE < LC THEN T = T + (LC - FE) * (2 - TP) * 2
+5025 IF TP = 4 THEN T = T + 2
+5030 IF PC THEN T = T + 1
+5035 HE = HE * (.88 - RS * .2) + T
+5040 FOR I = 1 TO 5 : IF HL(I) = 0 OR DS(I) = 0 THEN 5060
+5045 HE = HE + 1.5 : SD(I) = SD(I) - 1 - RS
+5050 IF RND (1) < .008 + HE / 1500 THEN K = DS(I) : GOSUB 5300 : IF EN THEN RETURN
+5055 IF HL(I) AND SD(I) < = 0 THEN DS(I) = 0 : M1$ = N$(I) + " IS WELL AGAIN." : GOSUB 7600
+5060 NEXT I
+5065 IF RND (1) < .012 + HE / 800 THEN GOSUB 5200
+5070 RETURN
+5200 I = INT ( RND (1) * 5) + 1 : IF HL(I) = 0 OR DS(I) THEN RETURN
+5205 K = INT ( RND (1) * 4) + 1 : IF K = 4 THEN K = 8
+5210 IF Z = 1 AND RND (1) < .4 THEN K = 4
+5215 IF TP < 2 AND FE < LC AND RND (1) < .5 THEN K = 5
+5250 DS(I) = K : SD(I) = 6 + INT ( RND (1) * 8)
+5255 M1$ = N$(I) + " HAS " + D$(K) + "." : GOSUB 7600 : RETURN
+5300 HL(I) = 0 : DS(I) = 0 : IF I = 1 THEN EN = 1 : DC$ = D$(K) : RETURN
+5305 M1$ = N$(I) + " HAS DIED OF " + D$(K) + "." : M2$ = "THE FAMILY BURIES THEM BESIDE THE ROAD." : M3$ = "THE RIDING HORSE IS LED BEHIND THE BIER."
+5310 GOSUB 7600 : RETURN
+5400 QA = 1 : IF H < 3 THEN RETURN
+5405 HOME : PRINT "THE FOOD IS GONE. A COUSIN LOOKS AT THE" : PRINT "LAME GREY MARE AND SAYS NOTHING." : PRINT "SLAUGHTER THE MARE? (Y/N) ";
+5410 GET K$ : IF K$ < > "Y" THEN M1$ = "NO. THE FAMILY GOES HUNGRY." : GOSUB 7600 : RETURN
+5415 H = H - 1 : F = F + 60 : CU = 1 : HM = 1
+5420 M1$ = "IT IS DONE. THE ELDERS WILL NOT EAT," : M2$ = "AND THE WOMEN COVER THEIR FACES. NO" : M3$ = "BLESSING WILL FOLLOW THIS CARAVAN." : GOSUB 7600 : RETURN
+5600 REM *** WEATHER ***
+5602 GOSUB 7000 : TP = TB(MM) + INT ( RND (1) * 3) - 1 : IF Z = 1 THEN TP = TP - 2
+5605 IF TP < 0 THEN TP = 0
+5610 IF TP > 4 THEN TP = 4
+5615 PC = 0 : IF RND (1) < .12 THEN PC = 1 + (TP < 2)
+5620 IF Z = 1 AND (DY < 125 OR DY > 263) AND RND (1) < .5 THEN PC = 2
+5625 WE$ = WT$(TP) : IF PC = 1 THEN WE$ = "RAIN"
+5630 IF PC = 2 THEN WE$ = "SNOW"
+5635 RETURN
+6000 REM *** TITLE PICTURE ***
+6002 GOSUB 6990 : HCOLOR= 3 : HPLOT 140,8 TO 140,24 : HPLOT 132,16 TO 148,16 : HPLOT 136,12 TO 144,20 : HPLOT 136,20 TO 144,12
+6005 FOR I = 1 TO 40 : HPLOT RND (1) * 279, RND (1) * 60 : NEXT
+6010 PX = 60 : PY = 55 : BW = 60 : GOSUB 6880 : PX = 210 : PY = 45 : BW = 69 : GOSUB 6880 : PX = 135 : PY = 70 : BW = 55 : GOSUB 6880
+6015 HCOLOR= 1 : FOR Y = 122 TO 158 STEP 3 : HPLOT 0,Y TO 279,Y : NEXT
+6020 HCOLOR= 3 : YB = 150 : F1 = 0 : X1 = 116 : GOSUB 6960 : RETURN
+6100 GOSUB 6990 : ON LN GOSUB 6200,6300,6400,6450,6500,6300,6400,6550,6400,6300,6600,6650,6700 : RETURN
+6200 PX = 50 : PY = 70 : BW = 50 : GOSUB 6880 : PX = 150 : PY = 60 : BW = 60 : GOSUB 6880 : PX = 240 : PY = 75 : BW = 39 : GOSUB 6880
+6205 HCOLOR= 1 : FOR Y = 122 TO 158 STEP 3 : HPLOT 0,Y TO 279,Y : NEXT
+6210 HCOLOR= 6 : FOR Y = 128 TO 134 : HPLOT 0,Y TO 279,Y : NEXT
+6215 YX = 30 : YY = 152 : GOSUB 6940 : YX = 62 : YY = 156 : GOSUB 6940 : YX = 94 : YY = 151 : GOSUB 6940
+6220 HCOLOR= 3 : YB = 156 : F1 = 0 : X2 = 170 : GOSUB 6970 : X2 = 196 : GOSUB 6970 : X2 = 224 : GOSUB 6970 : RETURN
+6300 PX = 70 : PY = 55 : BW = 60 : GOSUB 6880 : PX = 200 : PY = 45 : BW = 70 : GOSUB 6880
+6305 HCOLOR= 5 : FOR Y = 121 TO 125 : HPLOT 0,Y TO 279,Y : NEXT
+6310 HCOLOR= 6 : FOR Y = 126 TO 146 : HPLOT 0,Y TO 279,Y : NEXT
+6315 HCOLOR= 3 : FOR I = 1 TO 12 : X = RND (1) * 250 + 10 : Y = RND (1) * 18 + 127 : HPLOT X,Y TO X + 8,Y : NEXT
+6320 HCOLOR= 5 : FOR Y = 147 TO 159 STEP 2 : HPLOT 0,Y TO 279,Y : NEXT
+6325 HCOLOR= 3 : YB = 158 : F1 = 0 : X1 = 150 : GOSUB 6960 : RETURN
+6400 SN = 6 + 12 * (LN = 9) : PX = 60 : PY = 30 : BW = 60 : GOSUB 6880 : PX = 219 : PY = 28 : BW = 60 : GOSUB 6880 : PX = 140 : PY = 16 : BW = 90 : GOSUB 6880 : SN = 6
+6405 HCOLOR= 3 : FOR I = 1 TO 40 : HPLOT RND (1) * 279,121 + RND (1) * 38 : NEXT
+6410 IF LN = 9 THEN FOR Y = 123 TO 159 STEP 4 : HPLOT 0,Y TO 279,Y : NEXT
+6415 HCOLOR= 5 : HPLOT 40,159 TO 120,142 TO 90,132 TO 140,122 : HCOLOR= 3 : HPLOT 134,121 TO 140,112 TO 146,121 TO 134,121
+6420 YB = 150 : F1 = 1 : X1 = 160 : GOSUB 6960 : RETURN
+6450 PX = 50 : PY = 60 : BW = 50 : GOSUB 6880 : PX = 220 : PY = 55 : BW = 59 : GOSUB 6880
+6452 HCOLOR= 5 : FOR Y = 121 TO 159 STEP 2 : HPLOT 0,Y TO 279,Y : NEXT
+6455 HCOLOR= 3 : FOR Y = 100 TO 140 : HPLOT 66,Y TO 214,Y : NEXT : FOR Y = 90 TO 140 : HPLOT 56,Y TO 70,Y : HPLOT 210,Y TO 224,Y : NEXT
+6460 FOR Y = 0 TO 4 : HPLOT 58 + Y,89 - Y TO 68 - Y,89 - Y : HPLOT 212 + Y,89 - Y TO 222 - Y,89 - Y : NEXT
+6465 HCOLOR= 0 : FOR Y = 112 TO 140 : HPLOT 128,Y TO 152,Y : NEXT : FOR Y = 0 TO 6 : HPLOT 128 + Y,111 - Y TO 152 - Y,111 - Y : NEXT
+6470 FOR Y = 108 TO 136 STEP 8 : HPLOT 72,Y TO 124,Y : HPLOT 156,Y TO 208,Y : NEXT : FOR X = 74 TO 206 STEP 8 : HPLOT X,100 TO X + 3,100 : NEXT
+6475 HCOLOR= 3 : YB = 156 : F1 = 0 : X1 = 120 : GOSUB 6960 : RETURN
+6500 PX = 70 : PY = 50 : BW = 60 : GOSUB 6880 : PX = 210 : PY = 60 : BW = 60 : GOSUB 6880
+6502 HCOLOR= 1 : FOR Y = 121 TO 159 STEP 3 : HPLOT 0,Y TO 279,Y : NEXT
+6505 HCOLOR= 5 : FOR Y = 92 TO 140 : HPLOT 40,Y TO 240,Y : NEXT
+6510 HCOLOR= 0 : FOR Y = 116 TO 140 : HPLOT 130,Y TO 150,Y : NEXT : FOR X = 42 TO 236 STEP 10 : HPLOT X,92 TO X + 4,92 TO X + 4,95 TO X,95 : NEXT
+6515 HCOLOR= 3 : HPLOT 140,91 TO 140,58 : FOR Y = 58 TO 61 : HPLOT 141,Y TO 162,Y : NEXT : HCOLOR= 6 : FOR Y = 62 TO 65 : HPLOT 141,Y TO 162,Y : NEXT : HCOLOR= 5 : FOR Y = 66 TO 69 : HPLOT 141,Y TO 162,Y : NEXT
+6520 HCOLOR= 3 : YB = 156 : F1 = 0 : X1 = 160 : GOSUB 6960 : RETURN
+6550 SN = 10 : PX = 80 : PY = 50 : BW = 80 : GOSUB 6880 : PX = 210 : PY = 40 : BW = 69 : GOSUB 6880 : SN = 6
+6555 HCOLOR= 1 : FOR Y = 121 TO 159 STEP 2 : HPLOT 0,Y TO 279,Y : NEXT
+6560 YX = 40 : YY = 140 : GOSUB 6940 : YX = 76 : YY = 146 : GOSUB 6940 : YX = 210 : YY = 142 : GOSUB 6940
+6565 HCOLOR= 3 : F1 = 0 : YB = 156 : X2 = 120 : GOSUB 6970 : X2 = 150 : GOSUB 6970 : YB = 135 : X2 = 160 : GOSUB 6970 : X2 = 250 : YB = 154 : GOSUB 6970 : RETURN
+6600 HCOLOR= 2 : HPLOT 0,95 TO 40,80 TO 90,92 TO 140,74 TO 190,88 TO 240,76 TO 279,90
+6605 HCOLOR= 5 : FOR Y = 121 TO 159 STEP 2 : HPLOT 0,Y TO 279,Y : NEXT
+6610 FOR I = 0 TO 3 : SX = 16 + I * 66 : HCOLOR= 1 + 4 * (I = 1 OR I = 3) : FOR Y = 0 TO 10 : HPLOT SX + 10 - Y,104 + Y TO SX + 34 + Y,104 + Y : NEXT
+6615 HCOLOR= 3 : HPLOT SX + 2,115 TO SX + 2,140 : HPLOT SX + 42,115 TO SX + 42,140 : HPLOT SX + 4,132 TO SX + 40,132 : NEXT I
+6620 HCOLOR= 3 : FOR I = 0 TO 5 : X = 30 + I * 42 : HPLOT X,150 TO X,143 : HPLOT X - 2,141 TO X + 2,141 : HPLOT X - 3,146 TO X + 3,146 : HPLOT X,150 TO X - 2,155 : HPLOT X,150 TO X + 2,155 : NEXT : RETURN
+6650 FOR Y = 0 TO 158 STEP 2 : HCOLOR= 5 : HPLOT 0,Y TO 70 + 14 * SIN (Y / 9),Y : HCOLOR= 2 : HPLOT 205 + 14 * COS (Y / 11),Y TO 279,Y : NEXT
+6655 HCOLOR= 6 : FOR Y = 142 TO 159 : HPLOT 86,Y TO 190,Y : NEXT
+6660 HCOLOR= 3 : FOR I = 1 TO 8 : X = RND (1) * 90 + 92 : Y = RND (1) * 14 + 144 : HPLOT X,Y TO X + 6,Y : NEXT
+6665 HPLOT 86,138 TO 190,134 : YB = 133 : F1 = 0 : X1 = 110 : GOSUB 6960 : RETURN
+6700 HCOLOR= 3 : HPLOT 140,4 TO 140,14 : HPLOT 135,9 TO 145,9
+6705 HCOLOR= 1 : FOR Y = 70 TO 137 STEP 2 : W = (Y - 70) * 1.55 : HPLOT 140 - W,Y TO 140 + W,Y : NEXT
+6710 HCOLOR= 3 : FOR Y = 56 TO 70 : HPLOT 124,Y TO 156,Y : NEXT : FOR Y = 0 TO 10 : W = SQR (100 - Y * Y) * 1.4 : HPLOT 140 - W,56 - Y TO 140 + W,56 - Y : NEXT
+6715 HPLOT 140,46 TO 140,34 : HPLOT 135,39 TO 145,39 : HCOLOR= 0 : FOR Y = 62 TO 70 : HPLOT 138,Y TO 142,Y : NEXT
+6720 HCOLOR= 2 : HPLOT 162,60 TO 165,53 TO 162,46 TO 166,39 TO 163,32 TO 167,25
+6725 HCOLOR= 6 : FOR Y = 140 TO 159 : HPLOT 0,Y TO 279,Y : NEXT
+6730 HCOLOR= 3 : FOR I = 0 TO 3 : X = 4 + I * 9 : HPLOT X,137 TO X,131 TO X + 6,131 TO X + 6,137 : HPLOT 244 + I * 9,137 TO 244 + I * 9,131 TO 250 + I * 9,131 TO 250 + I * 9,137 : NEXT : RETURN
+6750 REM *** GRAVE ***
+6752 GOSUB 6990 : HCOLOR= 3 : HPLOT 140,6 TO 140,16 : HPLOT 135,11 TO 145,11
+6755 HCOLOR= 1 : FOR Y = 121 TO 159 STEP 3 : HPLOT 0,Y TO 279,Y : NEXT
+6760 HCOLOR= 5 : FOR Y = 0 TO 14 : W = SQR (225 - Y * Y) * 3 : HPLOT 110 - W,140 - Y TO 110 + W,140 - Y : NEXT
+6765 HCOLOR= 3 : HPLOT 110,124 TO 110,94 : HPLOT 100,104 TO 120,104 : HPLOT 104,124 TO 110,118 TO 116,124 : HPLOT 101,121 TO 106,116 : HPLOT 119,121 TO 114,116
+6770 YB = 150 : F1 = 0 : X2 = 190 : GOSUB 6970 : HPLOT X2 + 4,YB - 7 TO X2 + 8,YB - 7 TO X2 + 8,YB - 9 TO X2 + 4,YB - 9 TO X2 + 4,YB - 7 : RETURN
+6800 REM *** THE ROAD AHEAD ***
+6802 GOSUB 6990 : OX = - 1 : SN = 4
+6805 HCOLOR= 3 : HPLOT 140,8 TO 140,16 : HPLOT 136,12 TO 144,12
+6810 HCOLOR= 1 : FOR X = 4 TO 274 STEP 9 : HPLOT X,152 TO X + 4,152 : NEXT
+6815 ON TY(LN) GOSUB 6820,6830,6840,6850,6860,6870 : SN = 6 : RETURN
+6820 PX = 120 : PY = 85 : BW = 60 : GOSUB 6880 : PX = 220 : PY = 80 : BW = 59 : GOSUB 6880
+6825 HCOLOR= 6 : FOR Y = 121 TO 159 : HPLOT 0,Y TO 12,Y : NEXT : RETURN
+6830 PX = 60 : PY = 30 : BW = 60 : GOSUB 6880 : PX = 180 : PY = 40 : BW = 90 : GOSUB 6880 : RETURN
+6840 PX = 150 : PY = 80 : BW = 70 : GOSUB 6880 : HCOLOR= 3 : FOR Y = 126 TO 150 : HPLOT 0,Y TO 16,Y : NEXT : HCOLOR= 0 : FOR Y = 138 TO 150 : HPLOT 6,Y TO 10,Y : NEXT : RETURN
+6850 PX = 100 : PY = 70 : BW = 70 : GOSUB 6880 : PX = 210 : PY = 60 : BW = 69 : GOSUB 6880 : HCOLOR= 1 : FOR Y = 122 TO 146 STEP 3 : HPLOT 0,Y TO 279,Y : NEXT : RETURN
+6860 FOR Y = 20 TO 120 STEP 2 : HCOLOR= 5 : HPLOT 0,Y TO 40 + 10 * SIN (Y / 7),Y : HCOLOR= 2 : HPLOT 235 + 10 * COS (Y / 9),Y TO 279,Y : NEXT : RETURN
+6870 HCOLOR= 1 : FOR Y = 100 TO 150 STEP 2 : W = (Y - 100) * .6 : HPLOT 0,Y TO 2 + W,Y : NEXT : HCOLOR= 3 : HPLOT 4,100 TO 4,92 : HPLOT 1,95 TO 7,95 : RETURN
+6880 HCOLOR= 6 : FOR Y = PY TO 120 STEP 2 : W = (Y - PY) * BW / (120 - PY) : HPLOT PX - W,Y TO PX + W,Y : NEXT
+6885 HCOLOR= 3 : HPLOT PX - BW,120 TO PX,PY TO PX + BW,120
+6890 FOR Y = PY TO PY + SN : W = (Y - PY) * BW / (120 - PY) : HPLOT PX - W,Y TO PX + W,Y : NEXT : RETURN
+6900 X = 20 + INT (210 * (L(LN) - D) / (L(LN) - SS)) : IF X < 20 THEN X = 20
+6905 IF X > 230 THEN X = 230
+6910 YB = 150 : IF OX > = 0 THEN HCOLOR= 0 : X1 = OX : F1 = OF : GOSUB 6960
+6915 LF = 1 - LF : HCOLOR= 3 : X1 = X : F1 = LF : GOSUB 6960 : OX = X : OF = LF : RETURN
+6940 HCOLOR= 3 : HPLOT YX,YY TO YX,YY - 6 TO YX + 3,YY - 10 TO YX + 13,YY - 10 TO YX + 16,YY - 6 TO YX + 16,YY TO YX,YY
+6945 HPLOT YX + 6,YY TO YX + 6,YY - 4 TO YX + 10,YY - 4 TO YX + 10,YY : HPLOT YX,YY - 6 TO YX + 16,YY - 6 : RETURN
+6960 FOR J = 0 TO 2 : X2 = X1 + J * 16 : GOSUB 6970
+6962 IF J = 0 THEN HPLOT X2 + 6,YB - 7 TO X2 + 6,YB - 12 : HPLOT X2 + 5,YB - 13 TO X2 + 7,YB - 13
+6964 IF J > 0 THEN HPLOT X2 + 4,YB - 7 TO X2 + 8,YB - 7 TO X2 + 8,YB - 10 TO X2 + 4,YB - 10 TO X2 + 4,YB - 7
+6966 NEXT J : RETURN
+6970 HPLOT X2 + 2,YB - 6 TO X2 + 10,YB - 6 TO X2 + 10,YB - 4 TO X2 + 2,YB - 4 TO X2 + 2,YB - 6 TO X2,YB - 9 TO X2 - 2,YB - 8 : HPLOT X2 + 10,YB - 6 TO X2 + 12,YB - 3
+6975 IF F1 THEN HPLOT X2 + 3,YB - 3 TO X2 + 2,YB : HPLOT X2 + 9,YB - 3 TO X2 + 10,YB : RETURN
+6978 HPLOT X2 + 3,YB - 3 TO X2 + 4,YB : HPLOT X2 + 9,YB - 3 TO X2 + 8,YB : RETURN
+6990 HGR : POKE 34,20 : HOME : RETURN
+7000 MM = 12
+7005 IF DY < = MS(MM) THEN MM = MM - 1 : GOTO 7005
+7010 DT$ = MO$(MM) + " " + STR$ (DY - MS(MM)) + ", 1877" : RETURN
+7200 HOME : GOSUB 7000 : GOSUB 7400
+7205 PRINT "DATE: ";DT$; : HTAB 27 : PRINT WE$
+7210 PRINT "HEALTH: ";HE$; : HTAB 27 : PRINT "FOOD: ";INT (F)
+7215 PRINT "NEXT LANDMARK: ";INT (L(LN) - D);" VERSTS"
+7220 PRINT "VERSTS TRAVELED: ";INT (D); : HTAB 27 : PRINT "RETURN: STOP"; : RETURN
+7400 HE$ = "GOOD" : IF HE > 25 THEN HE$ = "FAIR"
+7405 IF HE > 50 THEN HE$ = "POOR"
+7410 IF HE > 80 THEN HE$ = "VERY POOR"
+7415 RETURN
+7500 VTAB 24 : HTAB 1 : PRINT "      PRESS RETURN TO CONTINUE";
+7505 GET K$ : IF K$ < > CHR$ (13) AND K$ < > " " THEN 7505
+7510 RETURN
+7600 HOME : PRINT M1$ : IF M2$ < > "" THEN PRINT M2$
+7605 IF M3$ < > "" THEN PRINT M3$
+7610 M1$ = "" : M2$ = "" : M3$ = ""
+7615 VTAB 24 : HTAB 1 : PRINT "PRESS RETURN";
+7620 GET K$ : IF K$ < > CHR$ (13) AND K$ < > " " THEN 7620
+7625 RETURN
+7700 T$ = "" : FOR J = 1 TO LEN (S$) : C$ = MID$ (S$,J,1) : IF C$ = "/" THEN PRINT T$ : T$ = "" : GOTO 7710
+7705 T$ = T$ + C$
+7710 NEXT J : PRINT T$ : RETURN
+8000 REM *** IYIK JANYL ***
+8002 PRINT "THE NARYN RUNS BELOW CATHEDRAL HILL." : PRINT "1 FORD IT    2 PAY THE FERRY (10 R)";
+8005 GET K$ : K = VAL (K$) : IF K < 1 OR K > 2 THEN 8005
+8010 IF K = 2 AND M < 10 THEN K = 1
+8015 IF K = 2 THEN M = M - 10 : M1$ = "THE FERRY CREAKS ACROSS." : GOSUB 7600 : GOTO 8100
+8020 IF RND (1) < .75 THEN M1$ = "COLD AND WET, BUT ACROSS." : GOSUB 7600 : GOTO 8100
+8025 H = H - 2 : F = F - 50 : M1$ = "THE NARYN TAKES TWO PACKHORSES." : IF H < 0 THEN H = 0
+8030 IF F < 0 THEN F = 0
+8035 GOSUB 7600 : IF RND (1) < .2 THEN GOSUB 3150 : IF EN THEN 8500
+8100 TEXT : HOME : PRINT : PRINT "CONGRATULATIONS! YOU HAVE REACHED" : PRINT "IYIK JANYL." : GOSUB 7000 : PRINT DT$ : PRINT
+8105 IF DY < = 236 THEN PRINT "YOU ARE IN TIME FOR THE FEAST OF" : PRINT "ST. JANYL." : PRINT
+8110 PRINT "JUNIPER SMOKE RISES OVER CATHEDRAL" : PRINT "HILL. THE KASHYSH BLESSES YOUR" : PRINT "HOUSEHOLD, AND YOUR FAMILY ANSWERS:" : PRINT "OOMIN." : PRINT
+8115 IF HM THEN PRINT "BUT THE ELDERS DO NOT FORGET THE" : PRINT "GREY MARE." : PRINT
+8120 GOSUB 7500
+8130 HOME : GOSUB 7400 : T = 500 - 100 * ((HE > 25) + (HE > 50) + (HE > 80)) : LC = 0 : FOR I = 1 TO 5 : LC = LC + HL(I) : NEXT
+8135 PRINT "POINTS FOR ARRIVING" : PRINT
+8140 PRINT LC;" PEOPLE IN ";HE$;" HEALTH"; : HTAB 33 : PRINT LC * T
+8145 PRINT H;" HORSES"; : HTAB 33 : PRINT H * 4
+8150 PRINT INT (F);" FUNT OF FOOD"; : HTAB 33 : PRINT INT (F / 25)
+8155 PRINT FE;" FELT COATS"; : HTAB 33 : PRINT FE * 2
+8160 PRINT PW;" BOXES OF POWDER"; : HTAB 33 : PRINT PW
+8165 PRINT SH + SA;" SPARE SHOES AND SADDLES"; : HTAB 33 : PRINT (SH + SA) * 2
+8170 PRINT INT (M);" RUBLES"; : HTAB 33 : PRINT INT (M / 5)
+8175 SC = LC * T + H * 4 + INT (F / 25) + FE * 2 + PW + (SH + SA) * 2 + INT (M / 5)
+8180 IF DY < = 236 THEN PRINT "FEAST OF ST. JANYL"; : HTAB 33 : PRINT 500 : SC = SC + 500
+8185 PRINT : PRINT "TOTAL"; : HTAB 33 : PRINT SC
+8190 IF OC = 2 THEN PRINT : PRINT "AS A FELT MERCHANT, YOUR POINTS ARE" : PRINT "DOUBLED." : SC = SC * 2
+8192 IF OC = 3 THEN PRINT : PRINT "AS A HERDER, YOUR POINTS ARE TRIPLED." : SC = SC * 3
+8195 PRINT : PRINT "FINAL SCORE"; : HTAB 33 : PRINT SC
+8199 GOSUB 7500 : GOTO 8900
+8500 REM *** THE END OF THE ROAD ***
+8502 IF EN = 1 THEN 8600
+8505 TEXT : HOME : PRINT
+8510 IF EN = 2 THEN PRINT "SNOW CLOSES THE PASS IN FRONT OF YOU." : PRINT "THE FAMILY TURNS BACK TO WINTER IN THE" : PRINT "VALLEYS. PERHAPS NEXT SPRING."
+8515 IF EN = 3 THEN PRINT "WITH ONE HORSE LEFT, THE CARAVAN" : PRINT "CANNOT GO ON. YOU WINTER WITH" : PRINT "STRANGERS AND PRAY FOR SPRING."
+8520 GOSUB 7500 : GOTO 8900
+8600 GOSUB 6750 : PRINT N$(1);" HAS DIED OF ";DC$;"."
+8605 PRINT "WHAT WORDS FOR THE GRAVE?" : INPUT "> ";A$ : A$ = LEFT$ (A$,38)
+8610 HOME : PRINT "HERE LIES ";N$(1);"." : PRINT A$ : PRINT "THE RIDING HORSE STANDS BESIDE THE" : PRINT "GRAVE. ITS SADDLE IS EMPTY."; : GET K$
+8615 TEXT : HOME : PRINT : PRINT "THE WOMEN SING THE KOSHOK FOR ";N$(1);"." : PRINT : PRINT "WITHOUT ITS LEADER, THE FAMILY TURNS" : PRINT "BACK TOWARD THE CHU."
+8620 GOSUB 7500
+8900 TEXT : HOME : PRINT "WOULD YOU LIKE TO PLAY AGAIN? (Y/N) "; : GET K$ : PRINT K$
+8905 IF K$ = "Y" THEN RUN
+8910 HOME : PRINT "JOLUNG BOLSUN. MAY YOUR ROAD BE OPEN." : END
+9000 DATA JANUARY,0,0,FEBRUARY,31,0,MARCH,59,1,APRIL,90,2,MAY,120,2,JUNE,151,3
+9005 DATA JULY,181,4,AUGUST,212,4,SEPTEMBER,243,3,OCTOBER,273,1,NOVEMBER,304,0,DECEMBER,334,0
+9010 DATA 0,0,THE LOWER CHU,250,10
+9011 DATA 25,1,THE CHU RIVER,232,24
+9012 DATA 140,2,THE KOK-BEL PASS,210,42
+9013 DATA 215,3,RABAT-I-SAFED,160,58
+9014 DATA 240,3,THE TALAS FORT,128,62
+9015 DATA 255,1,THE TALAS RIVER,120,72
+9016 DATA 330,2,THE OTMEK PASS,140,88
+9017 DATA 400,4,THE SUUSAMYR VALLEY,170,100
+9018 DATA 450,2,THE ALA-BEL PASS,195,112
+9019 DATA 500,1,THE CHYCHKAN RIVER,190,126
+9020 DATA 570,3,KETMEN-TOBO,165,136
+9021 DATA 620,5,THE NARYN GORGE,130,146
+9022 DATA 690,6,IYIK JANYL,100,154
+9030 DATA "OSMON THE SHOPKEEPER:/'TAKE MORE FELTS THAN YOU THINK YOU/NEED. EVEN IN JUNE THE KOK-BEL BITES.'"
+9031 DATA "A RIVERMAN:/'WE BLOW UP GOATSKINS AND LASH THEM/UNDER A FRAME. A TURSUK RAFT WILL/CARRY A WHOLE YURT ACROSS.'"
+9032 DATA "A SHEPHERD:/'WHEN THE CAIRN ON TOP SHOWS BLACK,/THE PASS IS OPEN. WHEN IT IS WHITE,/WAIT A WEEK.'"
+9033 DATA "THE KEEPER OF THE CARAVANSERAI:/'SOGDIAN MERCHANTS BUILT THESE WALLS./THREE HUNDRED HORSES ONCE SLEPT IN/THESE STABLES. NOW IT IS QUIET.'"
+9034 DATA "A RUSSIAN CLERK:/'YOUR PAPERS. THE GOVERNOR-GENERAL/WANTS EVERY HERD COUNTED AND EVERY/HEAD TAXED.'"
+9035 DATA "AN OLD WOMAN AT THE WELL:/'DO NOT DRINK BELOW THE CAMPS. THE/FLUX LIVES IN STILL WATER.'"
+9036 DATA "A HUNTER WITH A BERKUT:/'THE ARKHAR COME DOWN TO GRAZE AT/DAWN. KEEP THE EAGLE HOODED UNTIL/YOU SEE HORNS.'"
+9037 DATA "AN AKSAKAL OF THE ZHAYLOO:/'SIT, DRINK. A GUEST IS A GIFT FROM/GOD. THE ALA-BEL WILL STILL BE THERE/TOMORROW.'"
+9038 DATA "A PILGRIM AT THE CAIRN:/'FROM HERE THE ROAD RUNS DOWNHILL TO/ST. JANYL. SAY A BATA FOR THOSE WHO/DID NOT ARRIVE.'"
+9039 DATA "A BOY WITH A FISHING LINE:/'THE RIVER IS LOWEST AT FIRST LIGHT./CROSS EARLY.'"
+9040 DATA "A MERCHANT FROM KOKAND:/'MY PRICES? THE ROAD IS LONG, AND THE/TSAR'S TAX IS LONGER.'"
+9041 DATA "A HORSE DRIVER:/'WALK THE HORSES HERE. THE ROCKS FALL/WHEN THE SUN WARMS THE CLIFFS.'"
+9042 DATA "THE KASHYSH:/'WELCOME HOME.'"
+9050 DATA CAMP FEVER,THE FLUX,TYPHUS,MOUNTAIN SICKNESS,FROSTBITE,A BROKEN ARM,A VIPER BITE,EXHAUSTION,DROWNING,A SABRE WOUND,HUNGER,COLD
+9060 DATA HORSES,20,"FOOD, 10-FUNT SACKS",1,FELT COATS,5,BOXES OF POWDER,2,SPARE HORSESHOES,2,PACK SADDLES,5
+9070 DATA VERY COLD,COLD,COOL,WARM,HOT
+9080 DATA STEADY,FILLING,STRENUOUS,MEAGER,GRUELING,BARE BONES
+9090 DATA -1,0,-.7,-.7,0,-1,.7,-.7,1,0
+9095 DATA ASAN,SAIRA,TEMIR,KANYKEI,BOLOT</script>
 <script>
 "use strict";
-/* ---------- Commodore BASIC V2 tokens ---------- */
-const KW = ["END","FOR","NEXT","DATA","INPUT#","INPUT","DIM","READ","LET","GOTO","RUN","IF","RESTORE","GOSUB","RETURN","REM",
-  "STOP","ON","WAIT","LOAD","SAVE","VERIFY","DEF","POKE","PRINT#","PRINT","CONT","LIST","CLR","CMD","SYS","OPEN","CLOSE",
-  "GET","NEW","TAB(","TO","FN","SPC(","THEN","NOT","STEP","+","-","*","/","^","AND","OR",">","=","<","SGN","INT","ABS",
-  "USR","FRE","POS","SQR","RND","LOG","EXP","COS","SIN","TAN","ATN","PEEK","LEN","STR$","VAL","ASC","CHR$","LEFT$",
-  "RIGHT$","MID$","GO"];
+/* ================= Applesoft tokens ================= */
+const KW = ["END","FOR","NEXT","DATA","INPUT","DEL","DIM","READ","GR","TEXT","PR#","IN#","CALL","PLOT","HLIN","VLIN","HGR2","HGR",
+  "HCOLOR=","HPLOT","DRAW","XDRAW","HTAB","HOME","ROT=","SCALE=","SHLOAD","TRACE","NOTRACE","NORMAL","INVERSE","FLASH","COLOR=","POP",
+  "VTAB","HIMEM:","LOMEM:","ONERR","RESUME","RECALL","STORE","SPEED=","LET","GOTO","RUN","IF","RESTORE","&","GOSUB","RETURN","REM",
+  "STOP","ON","WAIT","LOAD","SAVE","DEF","POKE","PRINT","CONT","LIST","CLEAR","GET","NEW","TAB(","TO","FN","SPC(","THEN","AT","NOT",
+  "STEP","+","-","*","/","^","AND","OR",">","=","<","SGN","INT","ABS","USR","FRE","SCRN(","PDL","POS","SQR","RND","LOG","EXP","COS",
+  "SIN","TAN","ATN","PEEK","LEN","STR$","VAL","ASC","CHR$","LEFT$","RIGHT$","MID$"];
 const T = {}; KW.forEach((k, i) => T[k] = 0x80 + i);
 
+function matchKw(s, i, kw) { let j = i; for (let k = 0; k < kw.length; k++) { while (s[j] === " ") j++; if (s[j] !== kw[k]) return 0; j++; } return j; }
+// Applesoft's PARSE: drops spaces outside strings, REM and DATA; "AT" is special-cased against ATN and "A TO".
 function crunch(s) {
   const out = []; let q = false, rem = false, data = false;
   for (let i = 0; i < s.length;) {
     const c = s[i], cc = s.charCodeAt(i);
     if (rem) { out.push(cc); i++; continue; }
-    if (c === '"') { q = !q; out.push(34); i++; continue; }
-    if (q) { out.push(cc); i++; continue; }
+    if (q) { out.push(cc); if (c === '"') q = false; i++; continue; }
+    if (c === '"') { q = true; out.push(34); i++; continue; }
     if (data) { if (c === ":") data = false; out.push(cc); i++; continue; }
-    if (c === " ") { out.push(32); i++; continue; }
-    let m = -1;
-    for (let k = 0; k < KW.length; k++) if (s.startsWith(KW[k], i)) { m = k; break; }
-    if (m >= 0) { out.push(0x80 + m); i += KW[m].length; if (KW[m] === "REM") rem = true; if (KW[m] === "DATA") data = true; continue; }
+    if (c === " ") { i++; continue; }
+    if (c === "?") { out.push(T.PRINT); i++; continue; }
+    if (cc >= 0x30 && cc <= 0x3b) { out.push(cc); i++; continue; }
+    let m = -1, end = 0;
+    for (let k = 0; k < KW.length; k++) { const e = matchKw(s, i, KW[k]); if (e) { m = k; end = e; break; } }
+    if (m >= 0) {
+      if (KW[m] === "AT") { let j = end; while (s[j] === " ") j++;
+        if (s[j] === "N") { m = T.ATN - 0x80; end = j + 1; } else if (s[j] === "O") { out.push(65); i++; continue; } }
+      out.push(0x80 + m); i = end;
+      if (KW[m] === "REM") rem = true; if (KW[m] === "DATA") data = true;
+      continue;
+    }
     out.push(cc); i++;
   }
   return out;
 }
 function parseProgram(src) {
   const lines = [];
-  for (const raw of src.split(/\r?\n/)) {
-    const m = /^\s*(\d+)\s*(.*)$/.exec(raw);
-    if (!m) continue;
-    lines.push({ num: +m[1], b: crunch(m[2]) });
-  }
-  lines.sort((a, b) => a.num - b.num);
-  return lines;
+  for (const raw of src.split(/\r?\n/)) { const m = /^\s*(\d+)\s*(.*)$/.exec(raw); if (m) lines.push({ num: +m[1], b: crunch(m[2]) }); }
+  lines.sort((a, b) => a.num - b.num); return lines;
 }
-function detok(b) { let s = ""; for (const x of b) s += x >= 0x80 ? (KW[x - 0x80] || "?") : String.fromCharCode(x); return s; }
+function detok(b) { let s = ""; for (const x of b) { if (x >= 0x80) { const k = KW[x - 0x80] || "?"; s += (/^[A-Z]/.test(k) ? " " + k + " " : k); } else s += String.fromCharCode(x); } return s.replace(/\s+/g, " ").trim(); }
 
-/* ---------- Screen: 40 x 25, C64 colours ---------- */
-const PAL = ["#000000","#ffffff","#813338","#75cec8","#8e3c97","#56ac4d","#2e2c9b","#edf171","#8e5029","#553800","#c46c71","#4a4a4a","#7b7b7b","#a9ff9f","#706deb","#b2b2b2"];
-const COLCODE = {144:0,5:1,28:2,159:3,156:4,30:5,31:6,158:7,129:8,149:9,150:10,151:11,152:12,153:13,154:14,155:15};
-class Screen {
-  constructor() { this.W = 40; this.H = 25; this.fg = 14; this.border = 14; this.bg = 6; this.rev = false; this.clear(); }
-  clear() { this.ch = []; this.co = []; this.rv = [];
-    for (let i = 0; i < this.W * this.H; i++) { this.ch.push(32); this.co.push(this.fg); this.rv.push(false); }
-    this.x = 0; this.y = 0; this.dirty = true; }
-  scroll() { const W = this.W;
-    this.ch.splice(0, W); this.co.splice(0, W); this.rv.splice(0, W);
-    for (let i = 0; i < W; i++) { this.ch.push(32); this.co.push(this.fg); this.rv.push(false); }
-    this.y = this.H - 1; }
-  nl() { this.x = 0; this.y++; if (this.y >= this.H) this.scroll(); this.rev = false; this.dirty = true; }
-  put(c) {
-    if (c === 13) { this.nl(); return; }
-    if (c === 147) { this.clear(); return; }
-    if (c === 19) { this.x = 0; this.y = 0; return; }
-    if (c in COLCODE) { this.fg = COLCODE[c]; return; }
-    if (c === 18) { this.rev = true; return; }
-    if (c === 146) { this.rev = false; return; }
-    if (c === 17) { this.y++; if (this.y >= this.H) this.scroll(); return; }
-    if (c === 145) { if (this.y > 0) this.y--; return; }
-    if (c === 29) { this.x++; if (this.x >= this.W) { this.x = 0; this.y++; if (this.y >= this.H) this.scroll(); } return; }
-    if (c === 157) { if (this.x > 0) this.x--; else if (this.y > 0) { this.y--; this.x = this.W - 1; } return; }
-    if (c < 32 || (c > 95 && c < 160)) return;
-    const i = this.y * this.W + this.x;
-    this.ch[i] = c; this.co[i] = this.fg; this.rv[i] = this.rev;
-    this.x++; if (this.x >= this.W) { this.x = 0; this.y++; if (this.y >= this.H) this.scroll(); }
+/* ================= Machine: text page, hi-res pages, keyboard, speaker ================= */
+const FONT = {}; (function () {
+  const g = " 00000000000000|!04040404040004|\"0A0A0A00000000|#0A0A1F0A1F0A0A|$040F140E051E04|%18190204081303|&0C12140815120D|'04040800000000|(02040808080402|)08040202020408|*0004150E150400|+0004041F040400|,00000000040408|-0000001F000000|.00000000000004|/00010204081000|00E11131519110E|1040C040404040E|20E11010608101F|31F01020601110E|402060A121F0202|51F101E0101110E|6070810" +
+    "1E11110E|71F010204080808|80E11110E11110E|90E11110F01021C|:00000400040000|;00000400040408|<02040810080402|=00001F001F0000|>08040201020408|?0E110204040004|@0E11151716100F|A040A11111F1111|B1E11111E11111E|C0E11101010110E|D1E11111111111E|E1F10101E10101F|F1F10101E101010|G0F10101311110F|H1111111F111111|I0E04040404040E|J0101010101110E|K11121418141211|L1010101010101F|M111B1515111111|N11111915131111|O0E11111111110E|P1E11111E101010|Q0E11111115120D|R1E11111E141211|S0E11100E01110E|T1F040404040404|U1111111111110E|V1111111111" +
+    "0A04|W11111115151B11|X11110A040A1111|Y11110A04040404|Z1F01020408101F|[1F18181818181F|\\00100804020100|]1F03030303031F|^0000040A110000|_0000000000001F";
+  // Each entry: one character, then seven 5-bit rows in hex.
+  for (const e of g.split("|")) { const ch = e[0], hex = e.slice(1); FONT[ch.charCodeAt(0)] = [0,1,2,3,4,5,6].map(r => parseInt(hex.substr(r * 2, 2), 16)); }
+  FONT[32] = [0,0,0,0,0,0,0];
+})();
+const HCOL = { black: [0,0,0], white: [255,255,255], green: [32,224,64], violet: [214,74,255], orange: [255,112,48], blue: [24,170,255] };
+
+class Machine {
+  constructor() {
+    this.text = new Uint8Array(960).fill(32); this.attr = new Uint8Array(960);
+    this.hgr = [new Uint8Array(280 * 192), new Uint8Array(280 * 192)]; this.hib = [new Uint8Array(40 * 192), new Uint8Array(40 * 192)];
+    this.textMode = true; this.mixed = false; this.page2 = false;
+    this.wl = 0; this.ww = 40; this.wt = 0; this.wb = 24; this.ch = 0; this.cv = 0; this.mode = 0;
+    this.lastKey = 0; this.keyq = []; this.dirty = true; this.cursorOn = false;
+    this.onToggle = null; this.onBell = null;
+  }
+  scroll() { for (let r = this.wt; r < this.wb - 1; r++) for (let c = this.wl; c < this.wl + this.ww; c++) { this.text[r * 40 + c] = this.text[(r + 1) * 40 + c]; this.attr[r * 40 + c] = this.attr[(r + 1) * 40 + c]; }
+    for (let c = this.wl; c < this.wl + this.ww; c++) { this.text[(this.wb - 1) * 40 + c] = 32; this.attr[(this.wb - 1) * 40 + c] = 0; } this.scrolled = true; }
+  lf() { this.cv++; if (this.cv >= this.wb) { this.cv = this.wb - 1; this.scroll(); } }
+  cout(c) {
     this.dirty = true;
+    if (c === 13) { this.ch = this.wl; this.lf(); return; }
+    if (c === 7) { this.onBell && this.onBell(); return; }
+    if (c === 8) { if (this.ch > this.wl) this.ch--; return; }
+    if (c === 10) { this.lf(); return; }
+    if (c < 32) return;
+    if (c >= 96 && c < 128) c -= 32;
+    const i = this.cv * 40 + this.ch; this.text[i] = c; this.attr[i] = this.mode;
+    this.ch++; if (this.ch >= this.wl + this.ww) { this.ch = this.wl; this.lf(); }
   }
-  print(s) { for (let i = 0; i < s.length; i++) this.put(s.charCodeAt(i)); }
-  back() { if (this.x > 0) this.x--; else if (this.y > 0) { this.y--; this.x = this.W - 1; }
-    const i = this.y * this.W + this.x; this.ch[i] = 32; this.dirty = true; }
-  text() { let s = ""; for (let y = 0; y < this.H; y++) { let r = ""; for (let x = 0; x < this.W; x++) r += String.fromCharCode(this.ch[y * this.W + x]); s += r.replace(/\s+$/, "") + "\n"; } return s; }
+  print(s) { for (let i = 0; i < s.length; i++) this.cout(s.charCodeAt(i)); }
+  home() { for (let r = this.wt; r < this.wb; r++) for (let c = this.wl; c < this.wl + this.ww; c++) { this.text[r * 40 + c] = 32; this.attr[r * 40 + c] = 0; } this.ch = this.wl; this.cv = this.wt; this.dirty = true; }
+  hclear(pg) { this.hgr[pg].fill(0); this.hib[pg].fill(0); this.dirty = true; }
+  plot(pg, x, y, color) {
+    const c = color & 3; let on = 0;
+    if (c === 3) on = 1; else if (c === 1) on = x & 1; else if (c === 2) on = (x & 1) ^ 1;
+    this.hgr[pg][y * 280 + x] = on; this.hib[pg][y * 40 + ((x / 7) | 0)] = color >= 4 ? 1 : 0;
+  }
+  line(pg, x0, y0, x1, y1, color) {
+    let dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1, dy = -Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1, err = dx + dy, n = 0;
+    for (;;) { this.plot(pg, x0, y0, color); n++; if (x0 === x1 && y0 === y1) break; const e2 = 2 * err; if (e2 >= dy) { err += dy; x0 += sx; } if (e2 <= dx) { err += dx; y0 += sy; } }
+    this.dirty = true; return n;
+  }
+  render(img, flashOn) {
+    const d = img.data, W = 560;
+    const put = (x, y, rgb) => { for (let dy = 0; dy < 2; dy++) { let o = ((y * 2 + dy) * W + x * 2) * 4; for (let dx = 0; dx < 2; dx++) { d[o] = rgb[0]; d[o + 1] = rgb[1]; d[o + 2] = rgb[2]; d[o + 3] = 255; o += 4; } } };
+    const gfxRows = this.textMode ? 0 : (this.mixed ? 160 : 192), pg = this.page2 ? 1 : 0, bits = this.hgr[pg], hib = this.hib[pg];
+    for (let y = 0; y < gfxRows; y++) {
+      const row = y * 280;
+      for (let x = 0; x < 280; x++) {
+        const on = bits[row + x], l = x > 0 ? bits[row + x - 1] : 0, r = x < 279 ? bits[row + x + 1] : 0;
+        let rgb = HCOL.black;
+        if (on) rgb = (l || r) ? HCOL.white : this.pcol(x, hib[y * 40 + ((x / 7) | 0)]);
+        else if (l && r) rgb = this.pcol(x - 1, hib[y * 40 + (((x - 1) / 7) | 0)]);
+        put(x, y, rgb);
+      }
+    }
+    const firstRow = this.textMode ? 0 : (this.mixed ? 20 : 24);
+    for (let r = firstRow; r < 24; r++) for (let c = 0; c < 40; c++) {
+      const i = r * 40 + c; const glyph = FONT[this.text[i]] || FONT[32];
+      let inv = this.attr[i] === 1 || (this.attr[i] === 2 && flashOn);
+      if (this.cursorOn && r === this.cv && c === this.ch && flashOn) inv = !inv;
+      for (let gy = 0; gy < 8; gy++) { const bitsRow = gy < 7 ? glyph[gy] : 0;
+        for (let gx = 0; gx < 7; gx++) { const lit = gx >= 1 && gx <= 5 && (bitsRow >> (5 - gx)) & 1; put(c * 7 + gx, r * 8 + gy, (lit ? !inv : inv) ? HCOL.white : HCOL.black); } }
+    }
+  }
+  pcol(x, h) { return h ? ((x & 1) ? HCOL.orange : HCOL.blue) : ((x & 1) ? HCOL.green : HCOL.violet); }
 }
 
-/* ---------- Interpreter ---------- */
+/* ================= Applesoft interpreter ================= */
 class BasicError extends Error { constructor(code) { super(code); this.code = code; } }
 function fmtNum(n) {
-  if (n === 0) return " 0";
+  if (n === 0) return "0";
   const a = Math.abs(n); let s;
-  if (a >= 1e9 || a < 0.01) {
-    let [m, e] = a.toExponential(8).split("e");
-    m = m.replace(/\.?0+$/, ""); const ei = +e;
-    s = m + "E" + (ei < 0 ? "-" : "+") + String(Math.abs(ei)).padStart(2, "0");
-  } else { s = String(parseFloat(a.toPrecision(9))); if (s.startsWith("0.")) s = s.slice(1); }
-  return (n < 0 ? "-" : " ") + s;
+  if (a >= 1e9 || a < 0.01) { let [m, e] = a.toExponential(8).split("e"); m = m.replace(/\.?0+$/, ""); const ei = +e; s = m + "E" + (ei < 0 ? "-" : "+") + String(Math.abs(ei)).padStart(2, "0"); }
+  else { s = String(parseFloat(a.toPrecision(9))); if (s.startsWith("0.")) s = s.slice(1); }
+  return (n < 0 ? "-" : "") + s;
 }
-function int16(v) { v = Math.floor(v); if (v < -32768 || v > 32767) throw new BasicError("ILLEGAL QUANTITY"); return v; }
 const isDigit = c => c >= 48 && c <= 57, isAlpha = c => c >= 65 && c <= 90;
 const NUMRE = /^\s*[+-]?(\d+\.?\d*|\.\d+)(E[+-]?\d+)?\s*$/;
 
-class Interp {
-  constructor(screen, io, seed) { this.scr = screen; this.io = io; this.prog = []; this.idx = new Map(); this.seed(seed ?? (Math.random() * 1e9)); this.border = 14; this.bg = 6; }
-  seed(x) { let h = 2166136261 ^ Math.floor(Math.abs(x) * 1000); h = Math.imul(h ^ (h >>> 16), 2246822507); this.rs = (h >>> 0) || 1; }
+class Applesoft {
+  constructor(mc, io, seed) { this.mc = mc; this.io = io; this.prog = []; this.idx = new Map(); this.seed(seed ?? Math.random() * 1e9); this.hcolor = 0; this.hpage = 0; this.lastX = 0; this.lastY = 0; this.vt = 0; }
+  seed(x) { let h = 2166136261 ^ Math.floor(Math.abs(x) * 1000 + 7); h = Math.imul(h ^ (h >>> 16), 2246822507); this.rs = (h >>> 0) || 1; }
   rand() { let t = (this.rs += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
   load(lines) { this.prog = lines; this.idx = new Map(lines.map((l, i) => [l.num, i])); }
   clearVars() { this.v = new Map(); this.arr = new Map(); this.stack = []; this.dp = 0; this.buildData(); this.lastRnd = this.rand(); }
   buildData() {
     this.data = [];
-    for (const ln of this.prog) {
-      const b = ln.b; let q = false;
-      for (let p = 0; p < b.length; p++) {
-        if (b[p] === 34) q = !q;
-        if (q || b[p] !== T.DATA) continue;
-        p++;
-        for (;;) {
-          while (b[p] === 32) p++;
-          let item = "";
+    for (const ln of this.prog) { const b = ln.b; let q = false;
+      for (let p = 0; p < b.length; p++) { if (b[p] === 34) q = !q; if (q || b[p] !== T.DATA) continue; p++;
+        for (;;) { while (b[p] === 32) p++; let item = "";
           if (b[p] === 34) { p++; while (p < b.length && b[p] !== 34) item += String.fromCharCode(b[p++]); p++; while (p < b.length && b[p] !== 44 && b[p] !== 58) p++; }
           else { while (p < b.length && b[p] !== 44 && b[p] !== 58) item += String.fromCharCode(b[p++]); item = item.replace(/\s+$/, ""); }
-          this.data.push({ s: item, line: ln.num });
-          if (b[p] === 44) { p++; continue; }
-          break;
-        }
-      }
-    }
+          this.data.push(item); if (b[p] === 44) { p++; continue; } break; } } }
   }
   get b() { return this.prog[this.li].b; }
-  skip() { const b = this.b; while (this.p < b.length && b[this.p] === 32) this.p++; }
-  peek() { this.skip(); return this.p < this.b.length ? this.b[this.p] : -1; }
+  peek() { return this.p < this.b.length ? this.b[this.p] : -1; }
   accept(c) { if (this.peek() === c) { this.p++; return true; } return false; }
   expect(c) { if (!this.accept(c)) throw new BasicError("SYNTAX"); }
-  lineNum() { this.skip(); const b = this.b; let s = "";
-    while (this.p < b.length && (isDigit(b[this.p]) || b[this.p] === 32)) { if (b[this.p] !== 32) s += String.fromCharCode(b[this.p]); this.p++; }
-    if (!s) throw new BasicError("SYNTAX"); return +s; }
+  lineNum() { const b = this.b; let s = ""; while (this.p < b.length && isDigit(b[this.p])) s += String.fromCharCode(b[this.p++]); if (!s) throw new BasicError("SYNTAX"); return +s; }
   jump(n) { const i = this.idx.get(n); if (i === undefined) throw new BasicError("UNDEF'D STATEMENT"); this.li = i; this.p = 0; this.jumped = true; }
-  /* variables */
-  name() { this.skip(); const b = this.b; let s = "";
-    if (!isAlpha(b[this.p])) throw new BasicError("SYNTAX");
+  name() { const b = this.b; let s = ""; if (!isAlpha(b[this.p])) throw new BasicError("SYNTAX");
     while (this.p < b.length && (isAlpha(b[this.p]) || isDigit(b[this.p]))) s += String.fromCharCode(b[this.p++]);
-    let str = false; if (b[this.p] === 36) { str = true; this.p++; }
-    return { key: s.slice(0, 2) + (str ? "$" : ""), str }; }
-  ref() { const n = this.name(); if (this.peek() === 40) { this.p++; const ix = [this.expr()];
-      while (this.accept(44)) ix.push(this.expr()); this.expect(41); n.ix = ix.map(v => { if (typeof v !== "number") throw new BasicError("TYPE MISMATCH"); return Math.floor(v); }); }
-    return n; }
-  array(key, dims) { let a = this.arr.get(key);
-    if (!a) { dims = dims || [10]; let size = 1; dims.forEach(d => size *= d + 1);
-      a = { dims, data: new Array(size).fill(key.endsWith("$") ? "" : 0) }; this.arr.set(key, a); }
-    return a; }
-  offset(a, ix) { if (ix.length !== a.dims.length) throw new BasicError("BAD SUBSCRIPT"); let o = 0;
-    for (let i = 0; i < ix.length; i++) { if (ix[i] < 0 || ix[i] > a.dims[i]) throw new BasicError("BAD SUBSCRIPT"); o = o * (a.dims[i] + 1) + ix[i]; } return o; }
-  get(r) {
-    if (r.ix) { const a = this.array(r.key, r.ix.map(() => 10)); return a.data[this.offset(a, r.ix)]; }
-    if (r.key === "TI") return this.io.now();
-    if (r.key === "ST") return 0;
-    if (r.key === "TI$") { const t = Math.floor(this.io.now() / 60); return [t / 3600 % 24, t / 60 % 60, t % 60].map(x => String(Math.floor(x)).padStart(2, "0")).join(""); }
-    return this.v.has(r.key) ? this.v.get(r.key) : (r.str ? "" : 0); }
-  set(r, val) {
-    if (r.str !== (typeof val === "string")) throw new BasicError("TYPE MISMATCH");
-    if (typeof val === "string" && val.length > 255) throw new BasicError("STRING TOO LONG");
-    if (r.ix) { const a = this.array(r.key, r.ix.map(() => 10)); a.data[this.offset(a, r.ix)] = val; return; }
-    if (r.key === "TI" || r.key === "ST") throw new BasicError("SYNTAX");
-    this.v.set(r.key, val); }
-  /* expressions */
-  expr() { let a = this.andE(); while (this.accept(T.OR)) { const b = this.andE(); a = int16(this.num(a)) | int16(this.num(b)); } return a; }
-  andE() { let a = this.notE(); while (this.accept(T.AND)) { const b = this.notE(); a = int16(this.num(a)) & int16(this.num(b)); } return a; }
-  notE() { if (this.accept(T.NOT)) return ~int16(this.num(this.notE())); return this.rel(); }
+    let t = ""; if (b[this.p] === 36) { t = "$"; this.p++; } else if (b[this.p] === 37) { t = "%"; this.p++; }
+    return { key: s.slice(0, 2) + t, str: t === "$", int: t === "%" }; }
+  ref() { const n = this.name(); if (this.peek() === 40) { this.p++; const ix = [this.num(this.expr())]; while (this.accept(44)) ix.push(this.num(this.expr())); this.expect(41); n.ix = ix.map(Math.floor); } return n; }
+  array(key, dims) { let a = this.arr.get(key); if (!a) { dims = dims || [10]; let size = 1; dims.forEach(d => size *= d + 1); a = { dims, data: new Array(size).fill(key.endsWith("$") ? "" : 0) }; this.arr.set(key, a); } return a; }
+  offset(a, ix) { if (ix.length !== a.dims.length) throw new BasicError("BAD SUBSCRIPT"); let o = 0; for (let i = 0; i < ix.length; i++) { if (ix[i] < 0 || ix[i] > a.dims[i]) throw new BasicError("BAD SUBSCRIPT"); o = o * (a.dims[i] + 1) + ix[i]; } return o; }
+  get(r) { if (r.ix) { const a = this.array(r.key, r.ix.map(() => 10)); return a.data[this.offset(a, r.ix)]; } return this.v.has(r.key) ? this.v.get(r.key) : (r.str ? "" : 0); }
+  set(r, val) { if (r.str !== (typeof val === "string")) throw new BasicError("TYPE MISMATCH"); if (typeof val === "string" && val.length > 255) throw new BasicError("STRING TOO LONG");
+    if (r.int) val = Math.trunc(val);
+    if (r.ix) { const a = this.array(r.key, r.ix.map(() => 10)); a.data[this.offset(a, r.ix)] = val; return; } this.v.set(r.key, val); }
+  num(v) { if (typeof v !== "number") throw new BasicError("TYPE MISMATCH"); return v; }
+  str(v) { if (typeof v !== "string") throw new BasicError("TYPE MISMATCH"); return v; }
+  truth(v) { return typeof v === "string" ? v.length > 0 : v !== 0; }
+  expr() { let a = this.andE(); while (this.accept(T.OR)) { const b = this.andE(); a = (this.truth(a) || this.truth(b)) ? 1 : 0; } return a; }
+  andE() { let a = this.notE(); while (this.accept(T.AND)) { const b = this.notE(); a = (this.truth(a) && this.truth(b)) ? 1 : 0; } return a; }
+  notE() { if (this.accept(T.NOT)) return this.truth(this.notE()) ? 0 : 1; return this.rel(); }
   rel() { let a = this.add();
     for (;;) { const c = this.peek(); if (c !== T["<"] && c !== T["="] && c !== T[">"]) return a;
       let lt = false, eq = false, gt = false;
       while ([T["<"], T["="], T[">"]].includes(this.peek())) { const d = this.b[this.p++]; if (d === T["<"]) lt = true; if (d === T["="]) eq = true; if (d === T[">"]) gt = true; }
-      const b = this.add();
-      if ((typeof a === "string") !== (typeof b === "string")) throw new BasicError("TYPE MISMATCH");
-      const r = (lt && a < b) || (eq && a === b) || (gt && a > b); a = r ? -1 : 0; } }
+      const b = this.add(); if ((typeof a === "string") !== (typeof b === "string")) throw new BasicError("TYPE MISMATCH");
+      a = ((lt && a < b) || (eq && a === b) || (gt && a > b)) ? 1 : 0; } }
   add() { let a = this.mul();
-    for (;;) { if (this.accept(T["+"])) { const b = this.mul();
-        if (typeof a === "string" && typeof b === "string") { a = a + b; if (a.length > 255) throw new BasicError("STRING TOO LONG"); }
-        else a = this.num(a) + this.num(b); }
+    for (;;) { if (this.accept(T["+"])) { const b = this.mul(); if (typeof a === "string" && typeof b === "string") { a += b; if (a.length > 255) throw new BasicError("STRING TOO LONG"); } else a = this.num(a) + this.num(b); }
       else if (this.accept(T["-"])) a = this.num(a) - this.num(this.mul()); else return a; } }
   mul() { let a = this.unary();
     for (;;) { if (this.accept(T["*"])) a = this.num(a) * this.num(this.unary());
-      else if (this.accept(T["/"])) { const b = this.num(this.unary()); if (b === 0) throw new BasicError("DIVISION BY ZERO"); a = this.num(a) / b; }
-      else return a; } }
-  unary() { if (this.accept(T["-"])) return -this.num(this.unary()); if (this.accept(T["+"])) return this.unary(); return this.pow(); }
+      else if (this.accept(T["/"])) { const b = this.num(this.unary()); if (b === 0) throw new BasicError("DIVISION BY ZERO"); a = this.num(a) / b; } else return a; } }
+  unary() { if (this.accept(T["-"])) return -this.num(this.unary()); if (this.accept(T["+"])) return this.unary(); if (this.accept(T.NOT)) return this.truth(this.unary()) ? 0 : 1; return this.pow(); }
   pow() { let a = this.prim(); while (this.accept(T["^"])) { const neg = this.accept(T["-"]); let b = this.num(this.prim()); if (neg) b = -b; a = Math.pow(this.num(a), b); } return a; }
-  num(v) { if (typeof v !== "number") throw new BasicError("TYPE MISMATCH"); return v; }
-  str(v) { if (typeof v !== "string") throw new BasicError("TYPE MISMATCH"); return v; }
   arg() { this.expect(40); const v = this.expr(); this.expect(41); return v; }
   prim() {
-    const c = this.peek(), b = this.b;
-    if (c === -1) throw new BasicError("SYNTAX");
-    if (isDigit(c) || c === 46) { let s = "";
-      while (this.p < b.length && (isDigit(b[this.p]) || b[this.p] === 46)) s += String.fromCharCode(b[this.p++]);
-      if (b[this.p] === 69) { let e = "E"; let q = this.p + 1; if (b[q] === T["-"] || b[q] === T["+"]) { e += b[q] === T["-"] ? "-" : "+"; q++; }
-        if (isDigit(b[q])) { while (isDigit(b[q])) e += String.fromCharCode(b[q++]); s += e; this.p = q; } }
+    const c = this.peek(), b = this.b; if (c === -1) throw new BasicError("SYNTAX");
+    if (isDigit(c) || c === 46) { let s = ""; while (this.p < b.length && (isDigit(b[this.p]) || b[this.p] === 46)) s += String.fromCharCode(b[this.p++]);
+      if (b[this.p] === 69) { let q = this.p + 1, e = "E"; if (b[q] === T["-"] || b[q] === T["+"]) { e += b[q] === T["-"] ? "-" : "+"; q++; } if (isDigit(b[q])) { while (isDigit(b[q])) e += String.fromCharCode(b[q++]); s += e; this.p = q; } }
       return parseFloat(s === "." ? "0" : s); }
     if (c === 34) { this.p++; let s = ""; while (this.p < b.length && b[this.p] !== 34) s += String.fromCharCode(b[this.p++]); if (this.p < b.length) this.p++; return s; }
     if (c === 40) { this.p++; const v = this.expr(); this.expect(41); return v; }
@@ -734,9 +968,10 @@ class Interp {
       case T.SIN: return Math.sin(this.num(this.arg()));
       case T.TAN: return Math.tan(this.num(this.arg()));
       case T.ATN: return Math.atan(this.num(this.arg()));
-      case T.PEEK: this.arg(); return 0;
-      case T.FRE: this.arg(); return 38911;
-      case T.POS: this.arg(); return this.scr.x;
+      case T.PEEK: return this.peekMem(Math.floor(this.num(this.arg())));
+      case T.FRE: this.arg(); return 20000;
+      case T.POS: this.arg(); return this.mc.ch;
+      case T.PDL: this.arg(); return 128;
       case T.LEN: return this.str(this.arg()).length;
       case T["STR$"]: return fmtNum(this.num(this.arg()));
       case T.VAL: { const s = this.str(this.arg()); const m = /^\s*[+-]?(\d+\.?\d*|\.\d+)(E[+-]?\d+)?/.exec(s); return m ? parseFloat(m[0]) : 0; }
@@ -744,28 +979,50 @@ class Interp {
       case T["CHR$"]: { const v = Math.floor(this.num(this.arg())); if (v < 0 || v > 255) throw new BasicError("ILLEGAL QUANTITY"); return String.fromCharCode(v); }
       case T["LEFT$"]: case T["RIGHT$"]: { this.expect(40); const s = this.str(this.expr()); this.expect(44); const n = Math.floor(this.num(this.expr())); this.expect(41);
         if (n < 0 || n > 255) throw new BasicError("ILLEGAL QUANTITY"); return c === T["LEFT$"] ? s.slice(0, n) : (n === 0 ? "" : s.slice(-n)); }
-      case T["MID$"]: { this.expect(40); const s = this.str(this.expr()); this.expect(44); const st = Math.floor(this.num(this.expr())); let n = 255;
-        if (this.accept(44)) n = Math.floor(this.num(this.expr())); this.expect(41);
+      case T["MID$"]: { this.expect(40); const s = this.str(this.expr()); this.expect(44); const st = Math.floor(this.num(this.expr())); let n = 255; if (this.accept(44)) n = Math.floor(this.num(this.expr())); this.expect(41);
         if (st < 1 || st > 255 || n < 0) throw new BasicError("ILLEGAL QUANTITY"); return s.substr(st - 1, n); }
-      case T["-"]: return -this.num(this.prim());
     }
     throw new BasicError("SYNTAX");
   }
-  /* statements */
-  endStmt() { const c = this.peek(); if (c !== -1 && c !== 58) throw new BasicError("SYNTAX"); }
+  peekMem(a) {
+    if (a < 0) a += 65536; const mc = this.mc;
+    if (a === 0xC000) return mc.keyq.length ? (mc.keyq[0] | 0x80) : mc.lastKey;
+    if (a === 0xC010) { if (mc.keyq.length) mc.lastKey = mc.keyq.shift(); return mc.lastKey; }
+    if (a === 0xC030) { mc.onToggle && mc.onToggle(this.vt); return 0; }
+    if (a === 78 || a === 79) return Math.floor(Math.random() * 256);
+    if (a === 32) return mc.wl; if (a === 33) return mc.ww; if (a === 34) return mc.wt; if (a === 35) return mc.wb; if (a === 36) return mc.ch; if (a === 37) return mc.cv;
+    return 0;
+  }
+  pokeMem(a, v) {
+    if (a < 0) a += 65536; const mc = this.mc; if (v < 0 || v > 255) throw new BasicError("ILLEGAL QUANTITY");
+    switch (a) {
+      case 0xC010: if (mc.keyq.length) mc.lastKey = mc.keyq.shift(); break;
+      case 0xC030: mc.onToggle && mc.onToggle(this.vt); break;
+      case 0xC050: mc.textMode = false; break; case 0xC051: mc.textMode = true; break;
+      case 0xC052: mc.mixed = false; break; case 0xC053: mc.mixed = true; break;
+      case 0xC054: mc.page2 = false; break; case 0xC055: mc.page2 = true; break;
+      case 32: mc.wl = Math.min(v, 39); break; case 33: mc.ww = Math.max(1, Math.min(v, 40 - mc.wl)); break;
+      case 34: mc.wt = Math.min(v, 23); if (mc.cv < mc.wt) mc.cv = mc.wt; break;
+      case 35: mc.wb = Math.max(mc.wt + 1, Math.min(v, 24)); break;
+      case 36: mc.ch = Math.min(v, 39); break; case 37: mc.cv = Math.min(v, 23); break;
+    }
+    mc.dirty = true;
+  }
   skipStmt() { const b = this.b; let q = false; while (this.p < b.length) { if (b[this.p] === 34) q = !q; else if (!q && b[this.p] === 58) return; this.p++; } }
+  endStmt() { const c = this.peek(); if (c !== -1 && c !== 58) throw new BasicError("SYNTAX"); }
   async run() {
-    this.clearVars(); this.li = 0; this.p = 0; this.running = true; this.steps = 0;
+    this.clearVars(); this.li = 0; this.p = 0; this.running = true; this.steps = 0; this.error = null;
     try {
       while (this.running && this.li < this.prog.length) {
-        await this.stmt();
-        if (++this.steps % 400 === 0 && this.io.yield) await this.io.yield();
+        const p0 = this.p; await this.stmt();
+        this.vt += 0.4 + 0.045 * Math.max(1, (this.jumped ? 4 : this.p - p0));
+        if (++this.steps % 64 === 0 || this.mc.scrolled) { this.mc.scrolled = false; await this.io.sync(this); }
         if (this.io.limit && this.steps > this.io.limit) throw new BasicError("RUNAWAY");
       }
     } catch (e) {
       if (!(e instanceof BasicError)) throw e;
-      if (this.scr.x) this.scr.put(13);
-      this.scr.print("?" + e.code + "  ERROR" + (this.li < this.prog.length ? " IN " + this.prog[this.li].num : "")); this.scr.put(13);
+      const mc = this.mc; if (mc.ch !== mc.wl) mc.cout(13);
+      mc.print("?" + e.code + " ERROR" + (this.li < this.prog.length ? " IN " + this.prog[this.li].num : "")); mc.cout(13); mc.cout(7);
       this.error = { code: e.code, line: this.li < this.prog.length ? this.prog[this.li].num : null };
     }
     this.running = false;
@@ -777,39 +1034,33 @@ class Interp {
     this.jumped = false;
     if (isAlpha(c)) { this.doLet(); this.endStmt(); return; }
     this.p++;
+    const mc = this.mc;
     switch (c) {
       case T.REM: this.li++; this.p = 0; return;
       case T.DATA: this.skipStmt(); return;
       case T.LET: this.doLet(); break;
       case T.PRINT: this.doPrint(); break;
       case T.INPUT: await this.doInput(); break;
-      case T.GET: { const r = this.ref(); const k = this.io.key ? this.io.key() : ""; this.set(r, r.str ? k : (k ? +k || 0 : 0)); break; }
-      case T.IF: {
-        const v = this.expr();
+      case T.GET: { const r = this.ref(); mc.cursorOn = true; const k = await this.io.getKey(); mc.cursorOn = false; const ch = String.fromCharCode(k);
+        if (r.str) this.set(r, ch); else { if (!isDigit(k)) throw new BasicError("SYNTAX"); this.set(r, k - 48); } break; }
+      case T.IF: { const v = this.truth(this.expr());
         if (this.accept(T.THEN)) { if (isDigit(this.peek())) { const n = this.lineNum(); if (v) this.jump(n); else { this.li++; this.p = 0; this.jumped = true; } return; } }
         else if (this.accept(T.GOTO)) { const n = this.lineNum(); if (v) this.jump(n); else { this.li++; this.p = 0; this.jumped = true; } return; }
         else throw new BasicError("SYNTAX");
-        if (!v) { this.li++; this.p = 0; }
-        return; }
+        if (!v) { this.li++; this.p = 0; this.jumped = true; } return; }
       case T.GOTO: this.jump(this.lineNum()); return;
-      case T.GO: this.expect(T.TO); this.jump(this.lineNum()); return;
       case T.GOSUB: { const n = this.lineNum(); this.stack.push({ t: "g", li: this.li, p: this.p }); this.jump(n); return; }
-      case T.RETURN: {
-        while (this.stack.length && this.stack[this.stack.length - 1].t !== "g") this.stack.pop();
-        const f = this.stack.pop(); if (!f) throw new BasicError("RETURN WITHOUT GOSUB");
-        this.li = f.li; this.p = f.p; this.skipStmt(); return; }
-      case T.ON: {
-        const v = Math.floor(this.num(this.expr())); let sub;
+      case T.RETURN: { while (this.stack.length && this.stack[this.stack.length - 1].t !== "g") this.stack.pop();
+        const f = this.stack.pop(); if (!f) throw new BasicError("RETURN WITHOUT GOSUB"); this.li = f.li; this.p = f.p; this.skipStmt(); return; }
+      case T.POP: { while (this.stack.length && this.stack[this.stack.length - 1].t !== "g") this.stack.pop(); if (!this.stack.pop()) throw new BasicError("RETURN WITHOUT GOSUB"); break; }
+      case T.ON: { const v = Math.floor(this.num(this.expr())); let sub;
         if (this.accept(T.GOTO)) sub = false; else if (this.accept(T.GOSUB)) sub = true; else throw new BasicError("SYNTAX");
         const list = [this.lineNum()]; while (this.accept(44)) list.push(this.lineNum());
         if (v < 0 || v > 255) throw new BasicError("ILLEGAL QUANTITY");
-        if (v >= 1 && v <= list.length) { if (sub) this.stack.push({ t: "g", li: this.li, p: this.p }); this.jump(list[v - 1]); return; }
-        break; }
-      case T.FOR: {
-        const r = this.name(); if (r.str) throw new BasicError("TYPE MISMATCH");
+        if (v >= 1 && v <= list.length) { if (sub) this.stack.push({ t: "g", li: this.li, p: this.p }); this.jump(list[v - 1]); return; } break; }
+      case T.FOR: { const r = this.name(); if (r.str || r.int) throw new BasicError("TYPE MISMATCH");
         this.expect(T["="]); this.set(r, this.num(this.expr())); this.expect(T.TO); const lim = this.num(this.expr());
-        let step = 1; if (this.accept(T.STEP)) step = this.num(this.expr());
-        this.endStmt();
+        let step = 1; if (this.accept(T.STEP)) step = this.num(this.expr()); this.endStmt();
         for (let i = this.stack.length - 1; i >= 0; i--) { const f = this.stack[i]; if (f.t === "g") break; if (f.key === r.key) { this.stack.length = i; break; } }
         this.stack.push({ t: "f", key: r.key, lim, step, li: this.li, p: this.p }); return; }
       case T.NEXT: {
@@ -818,184 +1069,180 @@ class Interp {
           let i = this.stack.length - 1;
           for (; i >= 0; i--) { const f = this.stack[i]; if (f.t === "g") { i = -1; break; } if (!key || f.key === key) break; }
           if (i < 0) throw new BasicError("NEXT WITHOUT FOR");
-          this.stack.length = i + 1; const f = this.stack[i];
-          const nv = this.v.get(f.key) + f.step; this.v.set(f.key, nv);
+          this.stack.length = i + 1; const f = this.stack[i]; const nv = this.v.get(f.key) + f.step; this.v.set(f.key, nv);
           if (f.step >= 0 ? nv <= f.lim : nv >= f.lim) { this.li = f.li; this.p = f.p; this.jumped = true; return; }
-          this.stack.pop();
-          if (!this.accept(44)) break;
-        }
-        break; }
+          this.stack.pop(); if (!this.accept(44)) break;
+        } break; }
       case T.DIM: do { const n = this.name(); this.expect(40); const d = [Math.floor(this.num(this.expr()))]; while (this.accept(44)) d.push(Math.floor(this.num(this.expr()))); this.expect(41);
           if (this.arr.has(n.key)) throw new BasicError("REDIM'D ARRAY"); this.array(n.key, d); } while (this.accept(44)); break;
       case T.READ: do { const r = this.ref(); if (this.dp >= this.data.length) throw new BasicError("OUT OF DATA"); const it = this.data[this.dp++];
-          if (r.str) this.set(r, it.s); else { if (it.s !== "" && !NUMRE.test(it.s)) throw new BasicError("SYNTAX"); this.set(r, it.s === "" ? 0 : parseFloat(it.s)); } } while (this.accept(44)); break;
+          if (r.str) this.set(r, it); else { if (it !== "" && !NUMRE.test(it)) throw new BasicError("SYNTAX"); this.set(r, it === "" ? 0 : parseFloat(it)); } } while (this.accept(44)); break;
       case T.RESTORE: this.dp = 0; break;
-      case T.POKE: { const a = Math.floor(this.num(this.expr())); this.expect(44); const v = Math.floor(this.num(this.expr()));
-        if (a === 53280) this.io.setBorder && this.io.setBorder(v & 15); else if (a === 53281) this.io.setBg && this.io.setBg(v & 15); else if (a === 646) this.scr.fg = v & 15; break; }
+      case T.POKE: { const a = Math.floor(this.num(this.expr())); this.expect(44); this.pokeMem(a, Math.floor(this.num(this.expr()))); break; }
+      case T.CALL: { const a = Math.floor(this.num(this.expr())); if (a === -936) mc.home(); break; }
       case T.END: this.running = false; return;
-      case T.STOP: this.scr.put(13); this.scr.print("BREAK IN " + this.prog[this.li].num); this.scr.put(13); this.running = false; return;
+      case T.STOP: mc.cout(13); mc.print("BREAK IN " + this.prog[this.li].num); mc.cout(13); this.running = false; return;
       case T.RUN: this.clearVars(); this.li = 0; this.p = 0; this.jumped = true; return;
-      case T.CLR: this.clearVars(); break;
+      case T.CLEAR: this.clearVars(); break;
+      case T.TEXT: mc.textMode = true; mc.mixed = false; mc.page2 = false; mc.wl = 0; mc.ww = 40; mc.wt = 0; mc.wb = 24; mc.cv = 23; mc.ch = 0; mc.dirty = true; break;
+      case T.HOME: mc.home(); this.vt += 2; break;
+      case T.NORMAL: mc.mode = 0; break;
+      case T.INVERSE: mc.mode = 1; break;
+      case T.FLASH: mc.mode = 2; break;
+      case T.HGR: mc.textMode = false; mc.mixed = true; mc.page2 = false; this.hpage = 0; mc.hclear(0); this.vt += 60; break;
+      case T.HGR2: mc.textMode = false; mc.mixed = false; mc.page2 = true; this.hpage = 1; mc.hclear(1); this.vt += 60; break;
+      case T["HCOLOR="]: { const v = Math.floor(this.num(this.expr())); if (v < 0 || v > 7) throw new BasicError("ILLEGAL QUANTITY"); this.hcolor = v; break; }
+      case T.HPLOT: this.doHplot(); break;
+      case T.VTAB: { const v = Math.floor(this.num(this.expr())); if (v < 1 || v > 24) throw new BasicError("ILLEGAL QUANTITY"); mc.cv = v - 1; break; }
+      case T.HTAB: { const v = Math.floor(this.num(this.expr())); if (v < 1 || v > 255) throw new BasicError("ILLEGAL QUANTITY"); mc.ch = Math.min(v - 1, 39); break; }
+      case T["SPEED="]: this.num(this.expr()); break;
+      case T.ONERR: this.skipStmt(); break;
       default: throw new BasicError("SYNTAX");
     }
     if (!this.jumped) this.endStmt();
   }
+  coord() { const x = Math.floor(this.num(this.expr())); this.expect(44); const y = Math.floor(this.num(this.expr()));
+    if (x < 0 || x > 279 || y < 0 || y > 191) throw new BasicError("ILLEGAL QUANTITY"); return [x, y]; }
+  doHplot() {
+    const mc = this.mc;
+    if (!this.accept(T.TO)) { const [x, y] = this.coord(); mc.plot(this.hpage, x, y, this.hcolor); mc.dirty = true; this.lastX = x; this.lastY = y; this.vt += 0.3; }
+    else this.p--;
+    while (this.accept(T.TO)) { const [x, y] = this.coord(); const n = mc.line(this.hpage, this.lastX, this.lastY, x, y, this.hcolor); this.vt += 0.3 + n * 0.035; this.lastX = x; this.lastY = y; }
+  }
   doLet() { const r = this.ref(); this.expect(T["="]); this.set(r, this.expr()); }
   doPrint() {
-    let sep = false; const scr = this.scr;
+    const mc = this.mc; let sep = false;
     for (;;) {
       const c = this.peek();
-      if (c === -1 || c === 58) { if (!sep) scr.put(13); return; }
+      if (c === -1 || c === 58) { if (!sep) mc.cout(13); return; }
       if (c === 59) { this.p++; sep = true; continue; }
-      if (c === 44) { this.p++; const n = 10 - (scr.x % 10); for (let i = 0; i < n; i++) scr.put(29); sep = true; continue; }
-      if (c === T["TAB("] || c === T["SPC("]) { this.p++; const n = Math.floor(this.num(this.expr())); this.expect(41);
-        if (n < 0 || n > 255) throw new BasicError("ILLEGAL QUANTITY");
-        if (c === T["TAB("]) { while (scr.x < n % 40 && scr.x < 39) scr.put(29); } else for (let i = 0; i < n; i++) scr.put(29);
-        sep = true; continue; }
-      const v = this.expr();
-      scr.print(typeof v === "number" ? fmtNum(v) + " " : v); sep = false;
+      if (c === 44) { this.p++; const next = (Math.floor(mc.ch / 16) + 1) * 16; if (next >= 40) mc.cout(13); else while (mc.ch < next) mc.cout(32); sep = true; continue; }
+      if (c === T["TAB("] || c === T["SPC("]) { this.p++; const n = Math.floor(this.num(this.expr())); this.expect(41); if (n < 0 || n > 255) throw new BasicError("ILLEGAL QUANTITY");
+        if (c === T["TAB("]) { while (mc.ch < n - 1 && mc.ch < 39) mc.cout(32); } else for (let i = 0; i < n; i++) mc.cout(32); sep = true; continue; }
+      const v = this.expr(); const s = typeof v === "number" ? fmtNum(v) : v; mc.print(s); this.vt += s.length * 0.08; sep = false;
     }
   }
   async doInput() {
-    let prompt = "";
+    const mc = this.mc; let prompt = null;
     if (this.peek() === 34) { prompt = this.str(this.prim()); this.expect(59); }
     const refs = [this.ref()]; while (this.accept(44)) refs.push(this.ref());
-    this.scr.print(prompt);
-    let pre = "? ";
     for (;;) {
-      this.scr.print(pre);
+      mc.print(prompt === null ? "?" : prompt);
       const line = await this.io.readLine();
-      if (line.trim() === "") return;
       const parts = []; let cur = "", q = false;
-      for (const ch of line) { if (ch === '"') { q = !q; continue; } if (ch === "," && !q) { parts.push(cur); cur = ""; } else cur += ch; }
-      parts.push(cur);
-      let ok = true;
-      for (let i = 0; i < refs.length && i < parts.length; i++) if (!refs[i].str && !NUMRE.test(parts[i])) ok = false;
-      if (!ok) { this.scr.print("?REDO FROM START"); this.scr.put(13); continue; }
-      for (let i = 0; i < refs.length && i < parts.length; i++) this.set(refs[i], refs[i].str ? parts[i].replace(/^\s+/, "") : parseFloat(parts[i]));
-      if (parts.length > refs.length) { this.scr.print("?EXTRA IGNORED"); this.scr.put(13); }
+      for (const ch of line) { if (ch === '"') { q = !q; continue; } if (ch === "," && !q) { parts.push(cur); cur = ""; } else cur += ch; } parts.push(cur);
+      let ok = true; for (let i = 0; i < refs.length && i < parts.length; i++) if (!refs[i].str && parts[i].trim() !== "" && !NUMRE.test(parts[i])) ok = false;
+      if (!ok) { mc.print("?REENTER"); mc.cout(13); continue; }
+      for (let i = 0; i < refs.length; i++) { const s = i < parts.length ? parts[i] : ""; this.set(refs[i], refs[i].str ? s.replace(/^\s+/, "") : (s.trim() === "" ? 0 : parseFloat(s))); }
+      if (parts.length > refs.length) { mc.print("?EXTRA IGNORED"); mc.cout(13); }
       return;
     }
   }
 }
 
-/* ---------- Browser UI ---------- */
+/* ================= Browser wiring ================= */
 const SRC = document.getElementById("bas").textContent.replace(/^\s+/, "");
 const PROGRAM = parseProgram(SRC);
-window.IradBasic = { KW, crunch, parseProgram, detok, Screen, Interp, PROGRAM, SRC, fmtNum };
+window.IradApple = { KW, T, crunch, parseProgram, detok, Machine, Applesoft, PROGRAM, SRC, fmtNum };
 
 (function () {
-  const gridEl = document.getElementById("grid"), borderEl = document.getElementById("border");
+  const canvas = document.getElementById("crt"), ctx = canvas.getContext("2d"), img = ctx.createImageData(560, 384);
   const screenEl = document.getElementById("screen"), kbd = document.getElementById("kbd");
-  const scr = new Screen();
-  let pending = null, buf = "";
-  const t0 = performance.now(), tiBase = Math.floor(Math.random() * 4000000);
-  const esc = c => c === 60 ? "&lt;" : c === 62 ? "&gt;" : c === 38 ? "&amp;" : String.fromCharCode(c);
-  function render() {
-    if (scr.dirty || pending) {
-      scr.dirty = false; let html = "";
-      for (let y = 0; y < scr.H; y++) {
-        html += "<div>"; let run = "", key = null;
-        for (let x = 0; x < scr.W; x++) {
-          const i = y * scr.W + x; const isCur = pending && x === scr.x && y === scr.y;
-          const rev = scr.rv[i] !== isCur; const k = scr.co[i] + (rev ? "r" : "") + (isCur ? "c" : "");
-          if (k !== key) { if (key !== null) html += run + "</span>"; key = k; run = "";
-            const fgc = PAL[scr.co[i]], bgc = PAL[interp.bg];
-            html += `<span${isCur ? ' class="cur"' : ""} style="color:${rev ? bgc : fgc};${rev ? "background:" + fgc : ""}">`; }
-          run += esc(scr.ch[i]);
-        }
-        html += run + "</span></div>";
-      }
-      gridEl.innerHTML = html;
-    }
-    requestAnimationFrame(render);
+  const fastBox = document.getElementById("fast"), soundBox = document.getElementById("sound");
+  let mc = new Machine(), basic = null, waiter = null, lineBuf = null, base = performance.now();
+
+  /* sound: speaker clicks become a square wave */
+  let actx = null, toggles = [];
+  function audio() { if (!actx) { try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { actx = null; } } if (actx && actx.state === "suspended") actx.resume(); return actx; }
+  function flushSound() {
+    if (!toggles.length || !actx || !soundBox.checked) { toggles = []; return; }
+    const sr = actx.sampleRate, t0 = toggles[0], dur = Math.min(0.5, (toggles[toggles.length - 1] - t0) / 1000 + 0.004);
+    const n = Math.max(1, Math.floor(dur * sr)), buf = actx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    let level = 0.12, ti = 0;
+    for (let i = 0; i < n; i++) { const t = t0 + i * 1000 / sr; while (ti < toggles.length && toggles[ti] <= t) { level = -level; ti++; } d[i] = level; }
+    const src = actx.createBufferSource(); src.buffer = buf; src.connect(actx.destination); src.start(); toggles = [];
   }
+  function bell() { const a = audio(); if (!a || !soundBox.checked) return; const o = a.createOscillator(), g = a.createGain(); o.type = "square"; o.frequency.value = 1000; g.gain.value = 0.06; o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime + 0.1); }
+  setInterval(flushSound, 40);
+
+  function wire(m) {
+    m.onToggle = vt => { if (!soundBox.checked) return; const last = toggles[toggles.length - 1]; toggles.push(last !== undefined && vt - last < 0.6 ? last + 0.6 : vt); };
+    m.onBell = bell;
+  }
+  wire(mc);
+
+  let flashOn = true; setInterval(() => { flashOn = !flashOn; mc.dirty = true; }, 270);
+  function frame() { if (mc.dirty) { mc.dirty = false; mc.render(img, flashOn); ctx.putImageData(img, 0, 0); } requestAnimationFrame(frame); }
+
   const io = {
-    now: () => tiBase + Math.floor((performance.now() - t0) * 0.06),
-    yield: () => new Promise(r => setTimeout(r, 0)),
-    readLine: () => new Promise(res => { buf = ""; pending = res; scr.dirty = true; }),
-    setBorder: c => { interp.border = c; borderEl.style.backgroundColor = PAL[c]; },
-    setBg: c => { interp.bg = c; screenEl.style.backgroundColor = PAL[c]; gridEl.style.backgroundColor = PAL[c]; scr.dirty = true; },
+    sync: b => new Promise(res => {
+      if (fastBox.checked) { base = performance.now() - b.vt; setTimeout(res, 0); return; }
+      const real = performance.now() - base;
+      if (real > b.vt + 80) { base = performance.now() - b.vt; setTimeout(res, 0); return; }
+      setTimeout(res, Math.max(0, b.vt - real));
+    }),
+    getKey: () => new Promise(res => { if (mc.keyq.length) { mc.lastKey = mc.keyq.shift(); res(mc.lastKey); return; } waiter = k => { mc.lastKey = k; res(k); }; }).then(k => { base = performance.now() - (basic ? basic.vt : 0); return k; }),
+    readLine: () => new Promise(res => { lineBuf = { s: "", res }; mc.cursorOn = true; mc.dirty = true; const q = mc.keyq.splice(0); for (const k of q) keyIn(k); }).then(s => { base = performance.now() - (basic ? basic.vt : 0); return s; }),
   };
-  let interp = new Interp(scr, io);
-  interp.load(PROGRAM);
-  io.setBorder(14); io.setBg(6);
 
-  function typeChar(ch) {
-    if (!pending) return;
-    ch = ch.toUpperCase(); const c = ch.charCodeAt(0);
-    if (c < 32 || c > 95 || buf.length >= 78) return;
-    buf += ch; scr.put(c);
+  function keyIn(code) {
+    audio();
+    if (code >= 97 && code <= 122) code -= 32;
+    if (lineBuf) {
+      if (code === 13) { const lb = lineBuf; lineBuf = null; mc.cursorOn = false; mc.cout(13); lb.res(lb.s); return; }
+      if (code === 8) { if (lineBuf.s) { lineBuf.s = lineBuf.s.slice(0, -1); mc.cout(8); const i = mc.cv * 40 + mc.ch; mc.text[i] = 32; mc.dirty = true; } return; }
+      if (code >= 32 && code < 96 && lineBuf.s.length < 239) { lineBuf.s += String.fromCharCode(code); mc.cout(code); }
+      return;
+    }
+    if (waiter) { const w = waiter; waiter = null; w(code); return; }
+    if (mc.keyq.length < 16) mc.keyq.push(code);
   }
-  function backspace() { if (!pending || !buf) return; buf = buf.slice(0, -1); scr.back(); }
-  function enter() { if (!pending) return; const r = pending; pending = null; scr.put(13); r(buf); }
-
-  kbd.addEventListener("input", () => { const v = kbd.value; kbd.value = ""; for (const ch of v) typeChar(ch); });
+  const KEYMAP = { Enter: 13, Backspace: 8, ArrowLeft: 8, ArrowRight: 21, ArrowUp: 11, ArrowDown: 10, Escape: 27, Tab: 9 };
   function onKey(e) {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (e.key === "Enter") { e.preventDefault(); enter(); }
-    else if (e.key === "Backspace") { e.preventDefault(); backspace(); }
-    else if (e.key.length === 1) { e.preventDefault(); typeChar(e.key); }
+    let code = KEYMAP[e.key]; if (code === undefined && e.key.length === 1) code = e.key.charCodeAt(0);
+    if (code === undefined || code > 127) return;
+    e.preventDefault(); keyIn(code);
   }
   kbd.addEventListener("keydown", onKey);
-  // Typing anywhere on the page goes to the game, unless a button has focus.
-  document.addEventListener("keydown", e => {
-    if (e.target === kbd || (e.target.closest && e.target.closest("button, a, input, textarea"))) return;
-    if (e.key === "Enter" || e.key === "Backspace" || e.key.length === 1) { onKey(e); }
-  });
-  screenEl.addEventListener("click", () => kbd.focus({ preventScroll: true }));
-  document.getElementById("keys").addEventListener("click", e => {
-    const k = e.target.closest("button")?.dataset.k; if (!k) return;
-    if (k === "CR") enter(); else if (k === "BS") backspace(); else typeChar(k);
-  });
+  kbd.addEventListener("input", () => { const v = kbd.value; kbd.value = ""; for (const ch of v) keyIn(ch.charCodeAt(0)); });
+  document.addEventListener("keydown", e => { if (e.target === kbd || (e.target.closest && e.target.closest("button, a, input, textarea, select"))) return; onKey(e); });
+  screenEl.addEventListener("click", () => { audio(); kbd.focus({ preventScroll: true }); });
+  document.getElementById("keys").addEventListener("click", e => { const b = e.target.closest("button"); if (b) keyIn(+b.dataset.k); });
 
   async function directMode() {
     for (;;) {
-      scr.put(13); scr.print("READY."); scr.put(13);
-      for (;;) {
-        const cmd = (await io.readLine()).trim();
-        if (!cmd) continue;
-        if (cmd === "RUN") { await boot(); break; }
-        const m = /^LIST\s*(\d*)\s*(-?)\s*(\d*)$/.exec(cmd);
-        if (m) { const a = m[1] ? +m[1] : 0, b = m[3] ? +m[3] : (m[2] ? 99999 : (m[1] ? a : 99999));
-          for (const ln of PROGRAM) if (ln.num >= a && ln.num <= b) { scr.print(ln.num + " " + detok(ln.b)); scr.put(13); }
-          scr.print("READY."); scr.put(13); continue; }
-        scr.print("?SYNTAX  ERROR"); scr.put(13); scr.print("READY."); scr.put(13);
-      }
-      return;
+      mc.cout(13); mc.print("]");
+      const cmd = (await io.readLine()).trim().toUpperCase();
+      if (!cmd) continue;
+      if (cmd === "RUN") { start(); return; }
+      if (cmd === "TEXT") { mc.textMode = true; mc.wt = 0; mc.wb = 24; continue; }
+      if (cmd === "HOME") { mc.home(); continue; }
+      const m = /^LIST\s*(\d*)\s*([-,]?)\s*(\d*)$/.exec(cmd);
+      if (m) { const a = m[1] ? +m[1] : 0, b = m[3] ? +m[3] : (m[2] ? 99999 : (m[1] ? a : 99999));
+        for (const ln of PROGRAM) if (ln.num >= a && ln.num <= b) { mc.cout(13); mc.print(ln.num + " " + detok(ln.b)); } continue; }
+      mc.cout(13); mc.print("?SYNTAX ERROR"); mc.cout(7);
     }
   }
-  async function boot() {
-    await interp.run();
-    await directMode();
+  let gen = 0;
+  function start() {
+    const my = ++gen;
+    if (basic) basic.running = false;
+    waiter = null; lineBuf = null;
+    mc = new Machine(); wire(mc);
+    basic = new Applesoft(mc, io); basic.load(PROGRAM); base = performance.now();
+    basic.run().then(() => { if (my === gen) directMode(); });
   }
-  function restart() {
-    interp.running = false; pending = null;
-    scr.fg = 14; scr.clear(); io.setBorder(14); io.setBg(6);
-    interp = new Interp(scr, io); interp.load(PROGRAM);
-    const me = interp;
-    me.run().then(() => { if (me === interp) directMode(); });
-  }
-  document.getElementById("restart").addEventListener("click", () => { restart(); kbd.focus({ preventScroll: true }); });
+  document.getElementById("restart").addEventListener("click", () => { start(); kbd.focus({ preventScroll: true }); });
   document.getElementById("copy").addEventListener("click", () => {
     const out = document.getElementById("copied");
-    navigator.clipboard.writeText(SRC).then(() => { out.textContent = "Listing copied."; },
-      () => { out.textContent = "Copy failed. Type LIST at the READY prompt to read it."; });
+    navigator.clipboard.writeText(SRC).then(() => { out.textContent = "Listing copied."; }, () => { out.textContent = "Copy failed. Type LIST at the ] prompt to read it."; });
   });
-
-  // Offer the emulator files when they are published next to this page.
   const dl = document.getElementById("dl");
-  [["irad-trail.d64", "Disk image (.d64)"], ["irad-trail.prg", "Program file (.prg)"]].forEach(([f, label]) => {
-    fetch(f, { method: "HEAD" }).then(r => { if (!r.ok) return;
-      const a = document.createElement("a"); a.href = f; a.className = "btn"; a.textContent = label; a.target = "_blank"; a.rel = "noopener"; dl.appendChild(a); }).catch(() => {});
+  [["irad-trail.dsk", "Download irad-trail.dsk"]].forEach(([f, label]) => {
+    fetch(f, { method: "HEAD" }).then(r => { if (!r.ok) return; const a = document.createElement("a"); a.href = f; a.className = "btn"; a.textContent = label; a.setAttribute("download", f); dl.appendChild(a); }).catch(() => {});
   });
-
-  requestAnimationFrame(render);
-  // Power-on banner, then the program starts as if typed RUN.
-  scr.print("    **** IRAD 64 BASIC V2 ****"); scr.put(13); scr.put(13);
-  scr.print(" 64K RAM SYSTEM  38911 BASIC BYTES FREE"); scr.put(13); scr.put(13);
-  scr.print("READY."); scr.put(13); scr.print("LOAD\"IRAD TRAIL\",8"); scr.put(13); scr.put(13);
-  scr.print("SEARCHING FOR IRAD TRAIL"); scr.put(13); scr.print("LOADING"); scr.put(13); scr.print("READY."); scr.put(13); scr.print("RUN"); scr.put(13);
-  if (!window.__NO_AUTORUN) setTimeout(() => { interp.run().then(directMode); }, 1400);
+  requestAnimationFrame(frame);
+  if (!window.__NO_AUTORUN) start();
 })();
 </script>
