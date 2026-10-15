@@ -2,15 +2,15 @@
 
 Spring 1877. Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead your family 690 versts by horse caravan, over the Kök-Bel, Otmek and Ala-Bel passes, to the Church of St. Janyl at Iyık Janyl.
 
-**Play in the browser:** https://spisio.github.io/irad-trail/
+**Play in the browser:** https://kublesoft.net/
 
 There are three editions, each in the style of a different era:
 
 | Edition | Style | Browser | File for an emulator |
 |---|---|---|---|
-| **MS-DOS** (main) | 1990 style: 16-color EGA scenes, eagle hunting on foot, rafting the Naryn, Top Ten and graves | [play](https://spisio.github.io/irad-trail/) | [`KOCH.BAS`](KOCH.BAS) (GW-BASIC) |
-| **Apple II** | 1985 style: hi-res pictures, named family, eagle hunting | [play](https://spisio.github.io/irad-trail/apple2/) | [`apple2/koch.dsk`](apple2/koch.dsk) |
-| **Commodore 64** | 1978 style: text game | [play](https://spisio.github.io/irad-trail/c64/) | [`c64/koch.d64`](c64/koch.d64) |
+| **MS-DOS** (main) | 1990 style: 16-color EGA scenes, eagle hunting on foot, rafting the Naryn, Top Ten and graves | [play](https://kublesoft.net/) | [`KOCH.BAS`](KOCH.BAS) (GW-BASIC) |
+| **Apple II** | 1985 style: hi-res pictures, named family, eagle hunting | [play](https://kublesoft.net/apple2/) | [`apple2/koch.dsk`](apple2/koch.dsk) |
+| **Commodore 64** | 1978 style: text game | [play](https://kublesoft.net/c64/) | [`c64/koch.d64`](c64/koch.d64) |
 
 ## MS-DOS edition
 
