@@ -57,6 +57,8 @@ The shared stylesheet, header, sidebar and footer are in `site/`. Each game page
 | `dos/test-bot.js` | Simulated player used to test the MS-DOS edition |
 | `apple2/` | Apple II edition: Applesoft listing, page, bootable disk builder |
 | `c64/` | Commodore 64 edition: BASIC listing, page, `.prg` and `.d64` builder |
+| `site/meta.json` | Page titles, descriptions, share images and structured data |
+| `site/img/` | Share images (1200x630) and favicons |
 | `serve.ps1` | Minimal local web server for testing |
 
 ### How the Apple II disk boots

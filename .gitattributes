@@ -2,4 +2,6 @@
 *.prg binary
 *.dsk binary
 *.bin binary
-IRAD.BAS -text
+*.png binary
+*.ico binary
+KOCH.BAS -text

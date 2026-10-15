@@ -1,0 +1,105 @@
+{
+  "site": "https://kublesoft.net/",
+  "pages": [
+    {
+      "file": "index.html",
+      "path": "",
+      "title": "Köch: The Road to Iyık Janyl · Kuble Soft",
+      "ogTitle": "Köch: The Road to Iyık Janyl (MS-DOS, 1990)",
+      "description": "Kuble Soft's 1990 caravan game for MS-DOS. Lead your family from the Chu to Iyık Janyl in 1877, hunt with your eagle and raft the Naryn. Free to play.",
+      "image": "site/img/og-dos.png",
+      "imageAlt": "Title screen of Köch for MS-DOS: snow-capped mountains, a horse caravan and the Pole Star in 16-colour EGA.",
+      "ld": {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Köch: The Road to Iyık Janyl",
+        "alternateName": "Köch",
+        "description": "A caravan game set in 1877. Lead a family of five 690 versts by horse caravan from the Chu to Iyık Janyl.",
+        "url": "https://kublesoft.net/",
+        "image": "https://kublesoft.net/site/img/og-dos.png",
+        "gamePlatform": "MS-DOS",
+        "applicationCategory": "Game",
+        "genre": ["Simulation", "Educational", "Adventure"],
+        "playMode": "SinglePlayer",
+        "inLanguage": "en",
+        "datePublished": "1990",
+        "author": { "@type": "Person", "name": "Mederbek Esenov" },
+        "publisher": { "@type": "Organization", "name": "Kuble Soft", "url": "https://kublesoft.net/about.html" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+      }
+    },
+    {
+      "file": "apple2/index.html",
+      "path": "apple2/",
+      "title": "Köch for the Apple II (1985) · Kuble Soft",
+      "ogTitle": "Köch for the Apple II (1985)",
+      "description": "Köch for the Apple II, published in Chicago in 1985 by the Iradi American Association. Hi-res pictures, eagle hunting and a self-booting disk. Freeware.",
+      "image": "site/img/og-apple2.png",
+      "imageAlt": "Title screen of Köch for the Apple II in hi-res colour, with mountains, the Pole Star and a horse caravan.",
+      "ld": {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Köch: The Road to Iyık Janyl (Apple II edition)",
+        "alternateName": "Köch",
+        "url": "https://kublesoft.net/apple2/",
+        "image": "https://kublesoft.net/site/img/og-apple2.png",
+        "gamePlatform": "Apple II",
+        "applicationCategory": "Game",
+        "genre": ["Simulation", "Educational", "Adventure"],
+        "playMode": "SinglePlayer",
+        "inLanguage": "en",
+        "datePublished": "1985",
+        "author": { "@type": "Person", "name": "Mederbek Esenov" },
+        "publisher": { "@type": "Organization", "name": "Iradi American Association" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+      }
+    },
+    {
+      "file": "c64/index.html",
+      "path": "c64/",
+      "title": "Köch for the Commodore 64 (1983) · Kuble Soft",
+      "ogTitle": "Köch for the Commodore 64 (1983)",
+      "description": "The first Köch sold to the public: the Iradi American Association's 1983 mail-order disk for the Commodore 64, typed in from the 1979 listing. Freeware.",
+      "image": "site/img/og-c64.png",
+      "imageAlt": "Title screen of Köch for the Commodore 64: yellow and white text on a black screen.",
+      "ld": {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Köch: The Road to Iyık Janyl (Commodore 64 edition)",
+        "alternateName": "Köch",
+        "url": "https://kublesoft.net/c64/",
+        "image": "https://kublesoft.net/site/img/og-c64.png",
+        "gamePlatform": "Commodore 64",
+        "applicationCategory": "Game",
+        "genre": ["Simulation", "Educational", "Text adventure"],
+        "playMode": "SinglePlayer",
+        "inLanguage": "en",
+        "datePublished": "1983",
+        "author": { "@type": "Person", "name": "Mederbek Esenov" },
+        "publisher": { "@type": "Organization", "name": "Iradi American Association" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+      }
+    },
+    {
+      "file": "about.html",
+      "path": "about.html",
+      "title": "About Kuble Soft · Talas, 1988–2007",
+      "ogTitle": "Kuble Soft, Talas, 1988–2007",
+      "description": "Kuble Soft of Talas made games and school programs from 1988 to 2007. Our history, our games, the founder's letter and free downloads of Köch.",
+      "image": "site/img/og-about.png",
+      "imageAlt": "The Kuble Soft logo, a white star in a gold ring, beside the title screen of Köch.",
+      "ld": {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Kuble Soft",
+        "url": "https://kublesoft.net/",
+        "logo": "https://kublesoft.net/site/img/icon-512.png",
+        "description": "Software company in Talas that made computer games and school programs from 1988 to 2007.",
+        "foundingDate": "1988",
+        "dissolutionDate": "2007-12-31",
+        "foundingLocation": { "@type": "Place", "name": "Talas" },
+        "founder": [ { "@type": "Person", "name": "Mederbek Esenov" }, { "@type": "Person", "name": "Gulzat Kalmatova" } ]
+      }
+    }
+  ]
+}
