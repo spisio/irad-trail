@@ -1,5 +1,5 @@
-# Builds the Apple II edition of the Irad Trail from apple2/irad.bas:
-#   ../irad-trail.dsk   self-booting 140K disk image (no DOS needed)
+# Builds the Apple II edition of Köch from apple2/koch.bas:
+#   ../koch.dsk   self-booting 140K disk image (no DOS needed)
 #   ../index.html       browser version (page.template.html + embedded listing)
 #
 # The disk: track 0 sector 0 holds a small loader. The Disk II boot ROM loads it to $0800.
@@ -61,7 +61,7 @@ function Crunch([string]$s) {
   return ,$out.ToArray()
 }
 
-$src = Get-Content -Raw -Path (Join-Path $here 'irad.bas')
+$src = Get-Content -Raw -Path (Join-Path $here 'koch.bas')
 $lines = $src -split "`r?`n" | Where-Object { $_.Trim() -ne '' }
 
 # --- Program image at $4000 ($4000 must be 0; the program starts at $4001) ---
@@ -131,8 +131,8 @@ for ($pg = 0; $pg -lt $pages; $pg++) {
   $n = [math]::Min(256, $prog.Length - $pg * 256)
   [Array]::Copy($prog, $pg * 256, $dsk, $off, $n)
 }
-[IO.File]::WriteAllBytes((Join-Path $here 'irad-trail.dsk'), $dsk)
-[IO.File]::WriteAllBytes((Join-Path $here 'irad.bin'), $prog)
+[IO.File]::WriteAllBytes((Join-Path $here 'koch.dsk'), $dsk)
+[IO.File]::WriteAllBytes((Join-Path $here 'koch.bin'), $prog)
 
 # --- HTML ---
 $tpl = Get-Content -Raw -Encoding UTF8 -Path (Join-Path $here 'page.template.html')

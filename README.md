@@ -1,4 +1,4 @@
-# The Irad Trail
+# Köch: The Road to Iyık Janyl
 
 Spring 1877. Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead your family 690 versts by horse caravan, over the Kök-Bel, Otmek and Ala-Bel passes, to the Church of St. Janyl at Iyık Janyl.
 
@@ -8,9 +8,9 @@ There are three editions, each in the style of a different era:
 
 | Edition | Style | Browser | File for an emulator |
 |---|---|---|---|
-| **MS-DOS** (main) | 1990 style: 16-color EGA scenes, eagle hunting on foot, rafting the Naryn, Top Ten and graves | [play](https://spisio.github.io/irad-trail/) | [`IRAD.BAS`](IRAD.BAS) (GW-BASIC) |
-| **Apple II** | 1985 style: hi-res pictures, named family, eagle hunting | [play](https://spisio.github.io/irad-trail/apple2/) | [`apple2/irad-trail.dsk`](apple2/irad-trail.dsk) |
-| **Commodore 64** | 1978 style: text game | [play](https://spisio.github.io/irad-trail/c64/) | [`c64/irad-trail.d64`](c64/irad-trail.d64) |
+| **MS-DOS** (main) | 1990 style: 16-color EGA scenes, eagle hunting on foot, rafting the Naryn, Top Ten and graves | [play](https://spisio.github.io/irad-trail/) | [`KOCH.BAS`](KOCH.BAS) (GW-BASIC) |
+| **Apple II** | 1985 style: hi-res pictures, named family, eagle hunting | [play](https://spisio.github.io/irad-trail/apple2/) | [`apple2/koch.dsk`](apple2/koch.dsk) |
+| **Commodore 64** | 1978 style: text game | [play](https://spisio.github.io/irad-trail/c64/) | [`c64/koch.d64`](c64/koch.d64) |
 
 ## MS-DOS edition
 
@@ -19,30 +19,30 @@ Choose who you are (a biy's son, a felt merchant or a herder), name your family 
 - **Hunting:** walk the field with the arrow keys (Home, PgUp, End and PgDn for diagonals) and loose your golden eagle with the space bar. Each flight costs her a meal of eagle food, bought at the shops; she will not fly hungry. Hares, marmots, roe deer and arkhar. You can carry only 100 funt back.
 - **Rivers:** ford, float the packs on a goatskin raft, pay the rivermen, or wait a day.
 - **The Naryn gorge:** raft the last 70 versts to Iyık Janyl and steer around the rocks, or pay the herders for the mountain road.
-- **Top Ten and graves:** the best scores are saved in `IRADTOP.DAT`. When a caravan leader dies, the grave and its epitaph are saved in `IRADGRV.DAT` and appear beside the road for the next player.
+- **Top Ten and graves:** the best scores are saved in `KOCHTOP.DAT`. When a caravan leader dies, the grave and its epitaph are saved in `KOCHGRV.DAT` and appear beside the road for the next player.
 
 ### Running it in DOS
 
-`IRAD.BAS` is a plain GW-BASIC program for an EGA or VGA PC (SCREEN 7).
+`KOCH.BAS` is a plain GW-BASIC program for an EGA or VGA PC (SCREEN 7).
 
-- **PC-BASIC** (free GW-BASIC emulator, [robhagemans.github.io/pcbasic](https://robhagemans.github.io/pcbasic/)): `pcbasic IRAD.BAS`
-- **DOSBox** with your own `GWBASIC.EXE`: `GWBASIC IRAD.BAS`
+- **PC-BASIC** (free GW-BASIC emulator, [robhagemans.github.io/pcbasic](https://robhagemans.github.io/pcbasic/)): `pcbasic KOCH.BAS`
+- **DOSBox** with your own `GWBASIC.EXE`: `GWBASIC KOCH.BAS`
 
-The readable source is [`dos/IRAD.BAS`](dos/IRAD.BAS). The build makes the compact `IRAD.BAS` from it by dropping spaces next to punctuation and REM text, so the program fits in GW-BASIC's 60K together with its sprites.
+The readable source is [`dos/KOCH.BAS`](dos/KOCH.BAS). The build makes the compact `KOCH.BAS` from it by dropping spaces next to punctuation and REM text, so the program fits in GW-BASIC's 60K together with its sprites.
 
 ## Apple II edition
 
-[`apple2/irad-trail.dsk`](apple2/irad-trail.dsk) boots by itself on an Apple II+, IIe or IIc with 48K and needs no DOS. Put it in drive 1 of [AppleWin](https://github.com/AppleWin/AppleWin) or another emulator and reboot.
+[`apple2/koch.dsk`](apple2/koch.dsk) boots by itself on an Apple II+, IIe or IIc with 48K and needs no DOS. Put it in drive 1 of [AppleWin](https://github.com/AppleWin/AppleWin) or another emulator and reboot.
 
-To paste the listing instead: at the `]` prompt type `POKE 103,1:POKE 104,64:POKE 16384,0:NEW`, paste [`apple2/irad.bas`](apple2/irad.bas), then type `RUN`.
+To paste the listing instead: at the `]` prompt type `POKE 103,1:POKE 104,64:POKE 16384,0:NEW`, paste [`apple2/koch.bas`](apple2/koch.bas), then type `RUN`.
 
 ## Commodore 64 edition
 
-In [VICE](https://vice-emu.sourceforge.io/), choose File → Smart attach and pick `c64/irad-trail.d64`, or type `LOAD"*",8` and `RUN`.
+In [VICE](https://vice-emu.sourceforge.io/), choose File → Smart attach and pick `c64/koch.d64`, or type `LOAD"*",8` and `RUN`.
 
 ## Building
 
-The site is presented as the archived website of Kuble Soft, the fictional Talas company that made the game (1988 to 2007). One script builds every page and emulator file:
+The site is presented as the archived website of Kuble Soft, the fictional Talas company that made the game (1988 to 2007). The game's name is the Iradi word for the seasonal move of a herding family. One script builds every page and emulator file:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File build-site.ps1
@@ -52,7 +52,7 @@ The shared stylesheet, header, sidebar and footer are in `site/`. Each game page
 
 | Path | What it is |
 |---|---|
-| `dos/IRAD.BAS` | MS-DOS edition source, GW-BASIC |
+| `dos/KOCH.BAS` | MS-DOS edition source, GW-BASIC |
 | `dos/page.template.html` | Source for `index.html`: GW-BASIC interpreter and EGA display |
 | `dos/test-bot.js` | Simulated player used to test the MS-DOS edition |
 | `apple2/` | Apple II edition: Applesoft listing, page, bootable disk builder |

@@ -1,4 +1,4 @@
-<title>The Irad Trail</title>
+<title>Köch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
@@ -6,7 +6,7 @@
 <!--#header-->
 <main class="cols">
   <div class="main">
-    <h1>The Irad Trail<small>MS-DOS edition &middot; 1990 &middot; now freeware</small></h1>
+    <h1>Köch<small>The Road to Iyık Janyl &middot; MS-DOS edition &middot; 1990 &middot; now freeware</small></h1>
     <p class="lead"><b>Spring 1877.</b> Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead your family 690 versts by horse caravan to the Church of St. Janyl at Iyık Janyl. Ford the rivers, cross the high passes, hunt with your golden eagle and raft the Naryn gorge. The best scores go on the Top Ten, and your grave stays on the road for the next caravan.</p>
     <div class="monitor pc">
       <div class="bezel">
@@ -53,9 +53,9 @@
 
     <h2>Play it on your own PC</h2>
     <ol class="steps">
-      <li>Download <code>IRAD.BAS</code>.</li>
-      <li>On a DOS computer: <code>GWBASIC IRAD.BAS</code>. The Top Ten and graves are saved next to it.</li>
-      <li>On a computer of today: install <a href="https://robhagemans.github.io/pcbasic/" target="_blank" rel="noopener">PC-BASIC</a> and run <code>pcbasic IRAD.BAS</code>.</li>
+      <li>Download <code>KOCH.BAS</code>.</li>
+      <li>On a DOS computer: <code>GWBASIC KOCH.BAS</code>. The Top Ten and graves are saved next to it.</li>
+      <li>On a computer of today: install <a href="https://robhagemans.github.io/pcbasic/" target="_blank" rel="noopener">PC-BASIC</a> and run <code>pcbasic KOCH.BAS</code>.</li>
     </ol>
     <div class="row" id="dl"></div>
     <p class="note">In this browser, your Top Ten and graves are kept on this computer only.</p>
@@ -120,13 +120,15 @@ const EGA = ["#000000","#0000aa","#00aa00","#00aaaa","#aa0000","#aa00aa","#aa550
 const GLYPHS = new Array(256).fill(null);
 function buildFont() {
   const c = document.createElement("canvas"); c.width = 16; c.height = 16; const x = c.getContext("2d", { willReadFrequently: true });
-  for (let ch = 32; ch < 127; ch++) {
-    x.clearRect(0, 0, 16, 16); x.fillStyle = "#fff"; x.font = '8px "Press Start 2P", monospace'; x.textBaseline = "top"; x.fillText(String.fromCharCode(ch), 0, 0);
+  const raster = s => { x.clearRect(0, 0, 16, 16); x.fillStyle = "#fff"; x.font = '8px "Press Start 2P", monospace'; x.textBaseline = "top"; x.fillText(s, 0, 0);
     const d = x.getImageData(0, 0, 8, 8).data; const rows = [];
     for (let y = 0; y < 8; y++) { let r = 0; for (let xx = 0; xx < 8; xx++) if (d[(y * 8 + xx) * 4 + 3] > 110) r |= 0x80 >> xx; rows.push(r); }
-    GLYPHS[ch] = rows;
-  }
+    return rows; };
+  for (let ch = 32; ch < 127; ch++) GLYPHS[ch] = raster(String.fromCharCode(ch));
   GLYPHS[32] = [0,0,0,0,0,0,0,0];
+  // Code page 437 letters with marks: lower case from the font, capitals as the plain letter with two dots on top.
+  for (const [code, ch] of [[129, "ü"], [148, "ö"], [164, "ñ"]]) GLYPHS[code] = raster(ch);
+  for (const [code, ch] of [[153, "O"], [154, "U"]]) { const g = GLYPHS[ch.charCodeAt(0)]; GLYPHS[code] = [0x44, g[0], g[1], g[3], g[4], g[5], g[6], 0]; }
   const box = (h, v) => { const r = []; for (let y = 0; y < 8; y++) { let b = 0; if (h && (y === 3 || y === 4)) b |= h === 2 ? 0 : 0xff; if (v && 1) b |= 0x18; r.push(b); } return r; };
   GLYPHS[196] = [0,0,0,0xff,0xff,0,0,0]; GLYPHS[205] = [0,0,0xff,0,0xff,0,0,0]; GLYPHS[179] = [24,24,24,24,24,24,24,24];
   for (let i = 127; i < 256; i++) if (!GLYPHS[i]) GLYPHS[i] = [0,0x3c,0x3c,0x3c,0x3c,0x3c,0x3c,0];
@@ -590,7 +592,10 @@ window.IradDos = { lexLine, parseProgram, EgaPC, GWBasic, PROGRAM, SRC, fmtNum, 
   let pc = new EgaPC(), basic = null, lineBuf = null, base = performance.now(), gen = 0;
   const FSKEY = "irad-trail-dos-files";
   let fsCache = null;
-  const fs = () => { if (!fsCache) { try { fsCache = JSON.parse(localStorage.getItem(FSKEY) || "{}"); } catch (e) { fsCache = {}; } } return fsCache; };
+  const fs = () => { if (!fsCache) { try { fsCache = JSON.parse(localStorage.getItem(FSKEY) || "{}"); } catch (e) { fsCache = {}; }
+      // Saves made before the game was renamed keep working.
+      for (const [o, n] of [["IRADTOP.DAT", "KOCHTOP.DAT"], ["IRADGRV.DAT", "KOCHGRV.DAT"]]) if (fsCache[o] && !fsCache[n]) fsCache[n] = fsCache[o]; }
+    return fsCache; };
   const saveFs = () => { try { localStorage.setItem(FSKEY, JSON.stringify(fsCache || {})); } catch (e) {} };
 
   let actx = null, audioEnd = 0;
@@ -660,7 +665,7 @@ window.IradDos = { lexLine, parseProgram, EgaPC, GWBasic, PROGRAM, SRC, fmtNum, 
   }
   document.getElementById("restart").addEventListener("click", () => { start(); kbd.focus({ preventScroll: true }); });
   const dl = document.getElementById("dl");
-  fetch("IRAD.BAS", { method: "HEAD" }).then(r => { if (!r.ok) return; const a = document.createElement("a"); a.href = "IRAD.BAS"; a.className = "btn"; a.textContent = "Download IRAD.BAS"; a.setAttribute("download", "IRAD.BAS"); dl.appendChild(a); }).catch(() => {});
+  fetch("KOCH.BAS", { method: "HEAD" }).then(r => { if (!r.ok) return; const a = document.createElement("a"); a.href = "KOCH.BAS"; a.className = "btn"; a.textContent = "Download KOCH.BAS"; a.setAttribute("download", "KOCH.BAS"); dl.appendChild(a); }).catch(() => {});
   requestAnimationFrame(frame);
   const go = () => { buildFont(); if (!window.__NO_AUTORUN) start(); };
   (document.fonts && document.fonts.load ? Promise.race([document.fonts.load('8px "Press Start 2P"'), new Promise(r => setTimeout(r, 2500))]) : Promise.resolve()).then(go, go);

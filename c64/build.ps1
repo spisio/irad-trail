@@ -1,6 +1,6 @@
-# Builds the Irad Trail from irad-trail.bas:
-#   irad-trail.prg   Commodore 64 tokenized BASIC program
-#   irad-trail.d64   1541 disk image holding the program as "IRAD TRAIL"
+# Builds the Commodore 64 edition of Köch from koch.bas:
+#   koch.prg   Commodore 64 tokenized BASIC program
+#   koch.d64   1541 disk image holding the program as "KOCH"
 #   index.html       browser version (template + embedded listing)
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -36,7 +36,7 @@ function Crunch([string]$s) {
   return ,$out.ToArray()
 }
 
-$src = Get-Content -Raw -Path (Join-Path $here 'irad-trail.bas')
+$src = Get-Content -Raw -Path (Join-Path $here 'koch.bas')
 $lines = $src -split "`r?`n" | Where-Object { $_.Trim() -ne '' }
 
 # --- PRG ---
@@ -55,7 +55,7 @@ foreach ($ln in $lines) {
 }
 $prg.Add(0); $prg.Add(0)
 $prgBytes = $prg.ToArray()
-[IO.File]::WriteAllBytes((Join-Path $here 'irad-trail.prg'), $prgBytes)
+[IO.File]::WriteAllBytes((Join-Path $here 'koch.prg'), $prgBytes)
 
 # --- D64 (35 tracks, 683 sectors) ---
 function SecPerTrack($t) { if ($t -le 17) { 21 } elseif ($t -le 24) { 19 } elseif ($t -le 30) { 18 } else { 17 } }
@@ -93,7 +93,7 @@ for ($tr = 1; $tr -le 35; $tr++) {
 function PutName($offset, [string]$name, $len) {
   for ($i = 0; $i -lt $len; $i++) { $d64[$offset + $i] = if ($i -lt $name.Length) { [byte][char]$name[$i] } else { 0xA0 } }
 }
-PutName ($b + 0x90) 'IRAD TRAIL 1877' 16
+PutName ($b + 0x90) 'KOCH 1877' 16
 $d64[$b + 0xA0] = 0xA0; $d64[$b + 0xA1] = 0xA0
 $d64[$b + 0xA2] = [byte][char]'I'; $d64[$b + 0xA3] = [byte][char]'R'; $d64[$b + 0xA4] = 0xA0
 $d64[$b + 0xA5] = [byte][char]'2'; $d64[$b + 0xA6] = [byte][char]'A'
@@ -104,7 +104,7 @@ $d64[$dir] = 0; $d64[$dir + 1] = 0xFF
 $d64[$dir + 2] = 0x82; $d64[$dir + 3] = $chain[0][0]; $d64[$dir + 4] = $chain[0][1]
 PutName ($dir + 5) 'IRAD TRAIL' 16
 $d64[$dir + 30] = $nSec -band 0xFF; $d64[$dir + 31] = $nSec -shr 8
-[IO.File]::WriteAllBytes((Join-Path $here 'irad-trail.d64'), $d64)
+[IO.File]::WriteAllBytes((Join-Path $here 'koch.d64'), $d64)
 
 # --- HTML ---
 $tpl = Get-Content -Raw -Encoding UTF8 -Path (Join-Path $here 'game.template.html')

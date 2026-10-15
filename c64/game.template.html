@@ -1,4 +1,4 @@
-<title>The Irad Trail</title>
+<title>Köch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
@@ -14,7 +14,7 @@
 <!--#header-->
 <main class="cols">
   <div class="main">
-    <h1>The Irad Trail<small>Commodore 64 edition &middot; 1983 &middot; now freeware</small></h1>
+    <h1>Köch<small>The Road to Iyık Janyl &middot; Commodore 64 edition &middot; 1983 &middot; now freeware</small></h1>
     <p class="lead">The first edition sold to the public. The Iradi American Association's computer club typed in Mederbek Esenov's 1979 university listing and sold it on disk by mail order. Text only, as it was on the university terminal.</p>
     <div class="monitor c64">
       <div class="bezel">
@@ -51,7 +51,7 @@
 
     <h2>Play it on a Commodore 64</h2>
     <ol class="steps">
-      <li>Download <code>irad-trail.d64</code> or <code>irad-trail.prg</code>.</li>
+      <li>Download <code>koch.d64</code> or <code>koch.prg</code>.</li>
       <li>In <a href="https://vice-emu.sourceforge.io/" target="_blank" rel="noopener">VICE</a>, choose File &rarr; Smart attach and pick the file. On a real 64, type <code>LOAD"*",8</code>, then <code>RUN</code>.</li>
     </ol>
     <div class="row" id="dl"></div>
@@ -513,7 +513,7 @@ window.IradBasic = { KW, crunch, parseProgram, detok, Screen, Interp, PROGRAM, S
 
   // Offer the emulator files when they are published next to this page.
   const dl = document.getElementById("dl");
-  [["irad-trail.d64", "Disk image (.d64)"], ["irad-trail.prg", "Program file (.prg)"]].forEach(([f, label]) => {
+  [["koch.d64", "Disk image (.d64)"], ["koch.prg", "Program file (.prg)"]].forEach(([f, label]) => {
     fetch(f, { method: "HEAD" }).then(r => { if (!r.ok) return;
       const a = document.createElement("a"); a.href = f; a.className = "btn"; a.textContent = label; a.target = "_blank"; a.rel = "noopener"; dl.appendChild(a); }).catch(() => {});
   });
@@ -522,8 +522,8 @@ window.IradBasic = { KW, crunch, parseProgram, detok, Screen, Interp, PROGRAM, S
   // Power-on banner, then the program starts as if typed RUN.
   scr.print("    **** IRAD 64 BASIC V2 ****"); scr.put(13); scr.put(13);
   scr.print(" 64K RAM SYSTEM  38911 BASIC BYTES FREE"); scr.put(13); scr.put(13);
-  scr.print("READY."); scr.put(13); scr.print("LOAD\"IRAD TRAIL\",8"); scr.put(13); scr.put(13);
-  scr.print("SEARCHING FOR IRAD TRAIL"); scr.put(13); scr.print("LOADING"); scr.put(13); scr.print("READY."); scr.put(13); scr.print("RUN"); scr.put(13);
+  scr.print("READY."); scr.put(13); scr.print("LOAD\"KOCH\",8"); scr.put(13); scr.put(13);
+  scr.print("SEARCHING FOR KOCH"); scr.put(13); scr.print("LOADING"); scr.put(13); scr.print("READY."); scr.put(13); scr.print("RUN"); scr.put(13);
   if (!window.__NO_AUTORUN) setTimeout(() => { interp.run().then(directMode); }, 1400);
 })();
 </script>
