@@ -1,0 +1,65 @@
+<title>The Irad Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="site/site.css">
+<!--#header-->
+<main class="cols">
+  <div class="main">
+    <h1>The Irad Trail<small>MS-DOS edition &middot; 1990 &middot; now freeware</small></h1>
+    <p class="lead"><b>Spring 1877.</b> Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead your family 690 versts by horse caravan to the Church of St. Janyl at Iyık Janyl. Ford the rivers, cross the high passes, hunt with your golden eagle and raft the Naryn gorge. The best scores go on the Top Ten, and your grave stays on the road for the next caravan.</p>
+    <div class="monitor pc">
+      <div class="bezel">
+        <div class="screen ratio" id="screen" role="application" aria-label="Game screen. Click or tap, then use the keyboard.">
+          <canvas id="crt" width="640" height="400"></canvas>
+          <input id="kbd" type="text" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Keyboard input">
+        </div>
+      </div>
+      <div class="badge"><span>Kuble PC &middot; EGA</span><span class="led" aria-hidden="true"></span></div>
+    </div>
+    <div class="controls">
+      <p class="hint">Click the screen and use your keyboard. On the road, press Enter to size up the situation. Hunting: arrow keys walk and aim, Space looses your eagle. Rafting: left and right arrows steer. On a phone, use these keys:</p>
+      <div class="keys" id="keys">
+        <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+        <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
+        <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
+        <button type="button" data-k="Y">Y</button><button type="button" data-k="N">N</button>
+        <button type="button" data-k="UP" aria-label="Up arrow">&uarr;</button><button type="button" data-k="DOWN" aria-label="Down arrow">&darr;</button>
+        <button type="button" data-k="LEFT" aria-label="Left arrow">&larr;</button><button type="button" data-k="RIGHT" aria-label="Right arrow">&rarr;</button>
+        <button type="button" data-k="SPACE" class="wide">SPACE</button><button type="button" data-k="ESC">ESC</button><button type="button" data-k="BS">DEL</button>
+        <button type="button" data-k="ENTER" class="wide">ENTER</button>
+      </div>
+      <div class="row">
+        <label class="toggle"><input type="checkbox" id="fast"> Faster than a 1990 PC</label>
+        <label class="toggle"><input type="checkbox" id="sound" checked> Sound</label>
+        <button type="button" class="btn" id="restart">Restart</button>
+      </div>
+    </div>
+
+    <h2>About this game</h2>
+    <div class="tablewrap"><table class="sheet">
+      <tr><th>Released</th><td>September 1990, Talas</td></tr>
+      <tr><th>Computer</th><td>IBM PC/AT or compatible with EGA or VGA colour graphics</td></tr>
+      <tr><th>Requires</th><td>GW-BASIC 3.2 or later, 360K floppy drive</td></tr>
+      <tr><th>Price in 1990</th><td>18 rubles in Irad &middot; US $24.95 from the Iradi American Association, Chicago</td></tr>
+      <tr><th>Price now</th><td class="free">Free</td></tr>
+    </table></div>
+    <ul class="plain">
+      <li><b>Sixteen-colour pictures</b> of every landmark, from Osmon's shop on the Chu to Cathedral Hill.</li>
+      <li><b>Hunting with a berkut.</b> Walk the field, aim in eight directions and loose your golden eagle. Every flight costs a meal of eagle food.</li>
+      <li><b>Rafting the Naryn.</b> Steer around the rocks for the last 70 versts, or pay the herders for the mountain road.</li>
+      <li><b>The Top Ten and graves.</b> Your best scores are saved, and fallen leaders rest beside the road with their epitaphs.</li>
+    </ul>
+
+    <h2>Play it on your own PC</h2>
+    <ol class="steps">
+      <li>Download <code>IRAD.BAS</code>.</li>
+      <li>On a DOS computer: <code>GWBASIC IRAD.BAS</code>. The Top Ten and graves are saved next to it.</li>
+      <li>On a computer of today: install <a href="https://robhagemans.github.io/pcbasic/" target="_blank" rel="noopener">PC-BASIC</a> and run <code>pcbasic IRAD.BAS</code>.</li>
+    </ol>
+    <div class="row" id="dl"></div>
+    <p class="note">In this browser, your Top Ten and graves are kept on this computer only.</p>
+  </div>
+<!--#sidebar-->
+</main>
+<!--#footer-->

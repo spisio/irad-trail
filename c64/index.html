@@ -5,152 +5,119 @@
 <title>The Irad Trail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="../site/site.css">
 <style>
-/* Layout: one column. A Commodore monitor on a dark felt desk, the road told underneath. Single dark look by design. */
-:root {
-  --desk: #16130f;
-  --felt: #221d17;
-  --ink: #eee6d2;
-  --dim: #a89d86;
-  --amber: #e0a845;
-  --rule: #3a3227;
-  --case: #cfc6b0;
-  --case-shade: #a79e88;
-  --display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
-  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-  --pixel: "Press Start 2P", "Courier New", monospace;
-  color-scheme: dark;
-}
-html { background: var(--desk); }
-* { box-sizing: border-box; }
-body { margin: 0; }
-body {
-  background: var(--desk);
-  color: var(--ink);
-  font-family: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.55;
-  padding-inline: 16px;
-  padding-block: 28px 56px;
-}
-.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 40px; }
-header { display: grid; gap: 10px; }
-.kicker { font-family: var(--pixel); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--amber); text-transform: uppercase; line-height: 1.8; }
-h1 { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 11vw, 5.6rem); line-height: 0.88; letter-spacing: 0.01em; margin: 0; text-transform: uppercase; text-wrap: balance; }
-.lede { margin: 0; max-width: 60ch; color: var(--dim); }
-.lede strong { color: var(--ink); font-weight: 700; }
-
-/* Monitor */
-.monitor { background: linear-gradient(180deg, var(--case), var(--case-shade)); border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 30px 60px -30px #000, inset 0 2px 0 #f3ecd9; }
-.bezel { background: #0d0d0d; border-radius: 10px; padding: 10px; }
-.screen { container-type: inline-size; position: relative; border-radius: 6px; overflow: hidden; cursor: text; outline: none; }
-.screen:focus-within { box-shadow: 0 0 0 2px var(--amber); }
+.screen.c64 { container-type: inline-size; }
 .border { padding: 5.5cqw 4.5cqw; transition: background-color .2s; }
-.grid { font-family: var(--pixel); font-size: calc(91cqw / 40); line-height: 1; white-space: pre; letter-spacing: 0; font-variant-ligatures: none; }
+.grid { font-family: "Press Start 2P", "Courier New", monospace; font-size: calc(91cqw / 40); line-height: 1; white-space: pre; letter-spacing: 0; font-variant-ligatures: none; }
 .grid div { height: 1em; overflow: hidden; }
 .grid .cur { animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { background: transparent !important; color: inherit !important; } }
-@media (prefers-reduced-motion: reduce) { .grid .cur { animation: none; } }
-.screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.13) 2px 3px); }
-#kbd { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0; font-size: 16px; }
-.badge { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-family: var(--display); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4b4537; }
-.led { width: 10px; height: 10px; border-radius: 50%; background: #c0392b; box-shadow: 0 0 8px #e74c3c; }
-
-.keys { display: flex; flex-wrap: wrap; gap: 8px; }
-.keys button, .btn {
-  font-family: var(--pixel); font-size: 0.7rem; color: var(--ink); background: var(--felt);
-  border: 1px solid var(--rule); border-bottom-width: 3px; border-radius: 6px; padding: 11px 13px; cursor: pointer; line-height: 1;
-}
-.keys button:active, .btn:active { transform: translateY(2px); border-bottom-width: 1px; }
-.keys button:focus-visible, .btn:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
-.keys .wide { flex: 1 1 auto; }
-.hint { font-size: 0.85rem; color: var(--dim); margin: 6px 0 0; }
-
-h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; font-size: 2rem; line-height: 1; margin: 0 0 14px; }
-section p { margin: 0 0 12px; max-width: 62ch; }
-
-/* The road: a real sequence measured in versts */
-.road { list-style: none; margin: 0; padding: 0; display: grid; }
-.road li { display: grid; grid-template-columns: 4.2rem 1fr; gap: 14px; padding: 9px 0; border-top: 1px solid var(--rule); align-items: baseline; }
-.road li:last-child { border-bottom: 1px solid var(--rule); }
-.road .v { font-family: var(--pixel); font-size: 0.66rem; color: var(--amber); font-variant-numeric: tabular-nums; text-align: right; }
-.road .n { font-weight: 700; }
-.road .k { color: var(--dim); font-size: 0.92rem; }
-
-.steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 8px; max-width: 62ch; }
-code, .mono { font-family: var(--pixel); font-size: 0.68rem; color: var(--amber); background: var(--felt); padding: 3px 5px; border-radius: 3px; white-space: nowrap; }
-.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
-.btn { text-decoration: none; display: inline-block; }
-.note { color: var(--dim); font-size: 0.9rem; }
-a { color: var(--amber); }
-footer { color: var(--dim); font-size: 0.85rem; border-top: 1px solid var(--rule); padding-top: 16px; }
 </style>
+<div id="page">
+<header class="masthead">
+  <a class="logo" href="../index.html" aria-label="Kuble Soft, home page">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="29" fill="#13235e" stroke="#e8b52e" stroke-width="3"/>
+      <circle cx="32" cy="32" r="21" fill="none" stroke="#e8b52e" stroke-width="2"/>
+      <path d="M11 32h42M32 11v42M17 17l30 30M47 17L17 47" stroke="#e8b52e" stroke-width="1.5" opacity=".55"/>
+      <path d="M32 9l4 19 19 4-19 4-4 19-4-19-19-4 19-4z" fill="#ffffff"/>
+      <circle cx="32" cy="32" r="3" fill="#a3262b"/>
+    </svg>
+    <span class="word"><b>KUBLE</b><i>SOFT</i><small>Talas &middot; since 1988</small></span>
+  </a>
+  <p class="tagline"><em>Zhulduz eli üchün programmalar</em><br>Programs for the people of the star</p>
+</header>
+<div class="shyrdak" aria-hidden="true"></div>
+<nav class="menu" aria-label="Site">
+  <a href="../index.html" aria-current="page"><span>Bashkı bet</span>The Irad Trail</a>
+  <a href="../about.html#games"><span>Oyundar</span>Our games</a>
+  <a href="../about.html#history"><span>Tarıh</span>History</a>
+  <a href="../about.html#downloads"><span>Jüktöö</span>Downloads</a>
+  <a href="../about.html#letter"><span>Kat</span>Letter</a>
+</nav>
+<div class="closed" role="note"><b>Kuble Soft has closed.</b> We stopped trading on 31-12-2007 after nineteen years. Former staff keep this site online so the games are not lost, and The Irad Trail is now free. <a href="../about.html#letter">Read Mederbek Esenov's letter</a>.</div>
 
-<div class="wrap">
-  <header>
-    <div class="kicker">Commodore 64 &middot; BASIC V2 &middot; Chicago 1983</div>
-    <h1>The Irad Trail</h1>
-    <p class="lede"><strong>Spring 1877.</strong> Kokand has fallen and settlers hold your clan's pastures on the Chu. Lead the family 690 versts by horse caravan, over three high passes and four rivers, to the Church of St. Janyl at Iyık Janyl. Get there before the snow closes the Ala-Bel.</p>
-  </header>
-
-  <div>
-    <div class="monitor">
+<main class="cols">
+  <div class="main">
+    <h1>The Irad Trail<small>Commodore 64 edition &middot; 1983 &middot; now freeware</small></h1>
+    <p class="lead">The first edition sold to the public. The Iradi American Association's computer club typed in Mederbek Esenov's 1979 university listing and sold it on disk by mail order. Text only, as it was on the university terminal.</p>
+    <div class="monitor c64">
       <div class="bezel">
-        <div class="screen" id="screen" aria-label="Game screen. Click or tap, then type." role="application">
+        <div class="screen c64" id="screen" aria-label="Game screen. Click or tap, then type." role="application">
           <div class="border" id="border"><div class="grid" id="grid" aria-live="polite"></div></div>
           <input id="kbd" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-label="Keyboard input">
         </div>
       </div>
-      <div class="badge"><span>Irad&nbsp;64</span><span class="led" aria-hidden="true"></span></div>
+      <div class="badge"><span>64K &middot; 1541</span><span class="led" aria-hidden="true"></span></div>
     </div>
-    <p class="hint">Click the screen and type. Answer with a number or Y/N, then press Return. On a phone, use the keys below or tap the screen for the keyboard.</p>
-    <div class="keys" id="keys">
-      <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button>
-      <button type="button" data-k="Y">Y</button><button type="button" data-k="N">N</button>
-      <button type="button" data-k="BS">DEL</button>
-      <button type="button" data-k="CR" class="wide">RETURN</button>
+    <div class="controls">
+      <p class="hint">Click the screen and type. Answer with a number or Y/N, then press Return. On a phone, use these keys:</p>
+      <div class="keys" id="keys">
+        <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button>
+        <button type="button" data-k="Y">Y</button><button type="button" data-k="N">N</button>
+        <button type="button" data-k="BS">DEL</button>
+        <button type="button" data-k="CR" class="wide">RETURN</button>
+      </div>
+      <div class="row">
+        <button type="button" class="btn" id="restart">Restart</button>
+        <button type="button" class="btn" id="copy">Copy the BASIC listing</button>
+        <span class="note" id="copied" role="status"></span>
+      </div>
     </div>
-  </div>
 
-  <section>
-    <h2>The road</h2>
-    <ol class="road">
-      <li><span class="v">0</span><span><span class="n">The lower Chu</span><br><span class="k">Set out on St. Gewargis's day, 23 April</span></span></li>
-      <li><span class="v">25</span><span><span class="n">The Chu River</span><br><span class="k">River crossing, swollen with snowmelt</span></span></li>
-      <li><span class="v">140</span><span><span class="n">Kök-Bel Pass</span><br><span class="k">First high pass, over the Kyrgyz Range</span></span></li>
-      <li><span class="v">215</span><span><span class="n">Rabat-i-Safed</span><br><span class="k">Sogdian caravanserai. Fair trading</span></span></li>
-      <li><span class="v">240</span><span><span class="n">The Talas fort</span><br><span class="k">Old Kokand citadel, Russian garrison. Fair trading</span></span></li>
-      <li><span class="v">255</span><span><span class="n">The Talas River</span><br><span class="k">River crossing</span></span></li>
-      <li><span class="v">330</span><span><span class="n">Otmek Pass</span><br><span class="k">Second high pass</span></span></li>
-      <li><span class="v">400</span><span><span class="n">Suusamyr</span><br><span class="k">Summer pastures, kinsmen on the zhayloo</span></span></li>
-      <li><span class="v">450</span><span><span class="n">Ala-Bel Pass, 3,184 m</span><br><span class="k">The roof of the road. Deadly after mid-September</span></span></li>
-      <li><span class="v">500</span><span><span class="n">The Chychkan</span><br><span class="k">River crossing in a steep gorge</span></span></li>
-      <li><span class="v">570</span><span><span class="n">Ketmen-Töbö</span><br><span class="k">Bazaar in the great basin. Fair trading</span></span></li>
-      <li><span class="v">620</span><span><span class="n">The Naryn gorge</span><br><span class="k">Rockfall country</span></span></li>
-      <li><span class="v">690</span><span><span class="n">Iyık Janyl</span><br><span class="k">Cross the Naryn to Cathedral Hill. Arrive by 24 August for the Feast of St. Janyl</span></span></li>
-    </ol>
-  </section>
+    <h2>About this edition</h2>
+    <div class="tablewrap"><table class="sheet">
+      <tr><th>Released</th><td>1983, Chicago</td></tr>
+      <tr><th>Published by</th><td>Iradi American Association, under licence from Mederbek Esenov</td></tr>
+      <tr><th>Computer</th><td>Commodore 64 with a 1541 disk drive</td></tr>
+      <tr><th>Price in 1983</th><td>US $14.95 by mail order</td></tr>
+      <tr><th>Price now</th><td class="free">Free</td></tr>
+    </table></div>
 
-  <section>
-    <h2>Play it on an emulator</h2>
-    <p>The same BASIC listing that runs above also runs on a Commodore 64. Use the disk image (<code>irad-trail.d64</code>) or the program file (<code>irad-trail.prg</code>) with an emulator such as <a href="https://vice-emu.sourceforge.io/" target="_blank" rel="noopener">VICE</a>.</p>
+    <h2>Play it on a Commodore 64</h2>
     <ol class="steps">
-      <li>Start VICE's C64 emulator (x64sc).</li>
-      <li>Choose File &rarr; Smart attach, then pick <code>irad-trail.d64</code>. Most emulators also run the file if you drag it onto the window.</li>
-      <li>If it does not start by itself, type <code>LOAD"*",8</code>, press Return, then type <code>RUN</code>.</li>
+      <li>Download <code>irad-trail.d64</code> or <code>irad-trail.prg</code>.</li>
+      <li>In <a href="https://vice-emu.sourceforge.io/" target="_blank" rel="noopener">VICE</a>, choose File &rarr; Smart attach and pick the file. On a real 64, type <code>LOAD"*",8</code>, then <code>RUN</code>.</li>
     </ol>
     <div class="row" id="dl"></div>
-    <p class="note" style="margin-top:12px">No disk image to hand? Copy the listing below and paste it into VICE (Edit &rarr; Paste) at the READY prompt, then type <code>RUN</code>. It is the same program.</p>
-    <div class="row">
-      <button type="button" class="btn" id="copy">Copy BASIC listing</button>
-      <button type="button" class="btn" id="restart">Restart game</button>
-      <span class="note" id="copied" role="status"></span>
-    </div>
-  </section>
+  </div>
+  <aside class="side">
+    <section class="box"><h3>Other editions <span>&middot; Baska nuskalar</span></h3>
+      <div class="in"><ul class="news">
+        <li><time>1990 &middot; MS-DOS</time><a href="../index.html">The Irad Trail for EGA PCs</a></li>
+        <li><time>1985 &middot; Apple II</time><a href="../apple2/">The Irad Trail for the Apple II</a></li>
+        <li><time>1983 &middot; Commodore 64</time><a href="../c64/">The Irad Trail for the Commodore 64</a></li>
+      </ul></div>
+    </section>
+    <section class="box"><h3>Jañylyktar <span>&middot; News</span></h3>
+      <div class="in"><ul class="news">
+        <li><time datetime="2016-05-21">21-05-2016</time>All three editions of The Irad Trail now play in your browser.</li>
+        <li><time datetime="2008-01-14">14-01-2008</time>Former staff will keep this site online.</li>
+        <li><time datetime="2007-12-31">31-12-2007</time>Kuble Soft closes. <a href="../about.html#letter">A letter to our players.</a></li>
+        <li><time datetime="2001-03-11">11-03-2001</time>The Irad Trail II: The Sky Road announced.</li>
+      </ul></div>
+    </section>
+    <section class="box counter"><h3>Visitors</h3>
+      <div class="in">You are visitor<br><span class="digits"><b>0</b><b>4</b><b>8</b><b>2</b><b>1</b><b>7</b></span><br>since 12-11-1996</div>
+    </section>
+  </aside>
 
-  <footer>A new game in the spirit of the 1971 MECC classic, written for Commodore 64 BASIC V2. The page runs the original listing in a small BASIC interpreter. When the game ends you get the READY prompt: type <span class="mono">RUN</span> to play again or <span class="mono">LIST</span> to read the code. Want pictures? Play the <a href="../">MS-DOS edition</a> or the <a href="../apple2/">Apple II edition</a>.</footer>
+</main>
+<footer class="foot">
+  <div class="webbadges" aria-hidden="true">
+    <span class="wb a">GW-BASIC<br>INSIDE</span>
+    <span class="wb b">Hosted by<br>ATTELKOM</span>
+    <span class="wb c">Best viewed<br>at 800&times;600</span>
+    <span class="wb d">Iradi Software<br>Guild member</span>
+  </div>
+  <p>&copy; 1988&ndash;2007 Kuble Soft, Talas. The Irad Trail &copy; 1979&ndash;1990 Mederbek Esenov. Commodore 64 and Apple II editions published by the Iradi American Association, Chicago. All Kuble Soft games are now freeware.</p>
+  <p>www.kuble.ir.ad &middot; site first opened 12-11-1996 &middot; this copy kept by former staff, last updated 14-10-2026</p>
+  <p class="fiction">Kuble Soft, Irad and The Irad Trail are part of a fictional world.</p>
+</footer>
 </div>
+
 
 <script type="text/plain" id="bas">10 REM *** THE IRAD TRAIL ***
 20 REM FROM THE CHU TO IYIK JANYL, 1877

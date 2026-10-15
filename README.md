@@ -42,13 +42,13 @@ In [VICE](https://vice-emu.sourceforge.io/), choose File → Smart attach and pi
 
 ## Building
 
-Each edition has a PowerShell build script that writes its page and emulator files:
+The site is presented as the archived website of Kuble Soft, the fictional Talas company that made the game (1988 to 2007). One script builds every page and emulator file:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File dos/build.ps1
-powershell -ExecutionPolicy Bypass -File apple2/build.ps1
-powershell -ExecutionPolicy Bypass -File c64/build.ps1
+powershell -ExecutionPolicy Bypass -File build-site.ps1
 ```
+
+The shared stylesheet, header, sidebar and footer are in `site/`. Each game page starts from `site/tops/*.html`, and the history page from `site/about.template.html`.
 
 | Path | What it is |
 |---|---|

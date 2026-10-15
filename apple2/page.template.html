@@ -1,90 +1,21 @@
 <title>The Irad Trail</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
-<style>
-/* Layout: one column. A dark 1980s monitor holds the hi-res screen; the road and emulator notes sit below. Single dark look by design. */
-:root {
-  --bg: #111014;
-  --panel: #1c1a21;
-  --ink: #ece8df;
-  --dim: #a29d93;
-  --orange: #ff8a4c;
-  --violet: #c98bff;
-  --rule: #34303c;
-  --case: #2a2830;
-  --display: "Bungee", "Arial Black", Impact, sans-serif;
-  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html { background: var(--bg); }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.55; padding-inline: 16px; padding-block: 28px 56px; }
-.wrap { max-width: 800px; margin: 0 auto; display: grid; gap: 40px; }
-header { display: grid; gap: 12px; }
-.kicker { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
-h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 10vw, 5rem); line-height: 0.92; margin: 0; text-wrap: balance; background: linear-gradient(180deg, var(--orange) 0 50%, var(--violet) 50% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.lede { margin: 0; max-width: 62ch; color: var(--dim); }
-.lede strong { color: var(--ink); }
-
-.monitor { background: var(--case); border-radius: 16px; padding: 20px 20px 14px; box-shadow: 0 30px 70px -30px #000, inset 0 1px 0 #48444f; }
-.bezel { background: #050506; border-radius: 12px; padding: 12px; }
-.screen { position: relative; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 8px; overflow: hidden; background: #000; cursor: text; }
-.screen:focus-within { box-shadow: 0 0 0 2px var(--orange); }
-#crt { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; }
-.screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.18) 2px 3px); box-shadow: inset 0 0 60px rgba(0,0,0,.6); }
-#kbd { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0; font-size: 16px; }
-.badge { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: #77727f; }
-.led { width: 9px; height: 9px; border-radius: 50%; background: #3ddc64; box-shadow: 0 0 8px #3ddc64; }
-
-.controls { display: grid; gap: 10px; margin-top: 14px; }
-.keys { display: flex; flex-wrap: wrap; gap: 6px; }
-.keys button, .btn {
-  font-family: var(--mono); font-size: 0.85rem; color: var(--ink); background: var(--panel);
-  border: 1px solid var(--rule); border-bottom-width: 3px; border-radius: 6px; padding: 9px 12px; cursor: pointer; line-height: 1; min-width: 40px;
-}
-.keys button:active, .btn:active { transform: translateY(2px); border-bottom-width: 1px; }
-.keys button:focus-visible, .btn:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
-.keys .wide { flex: 1 1 90px; }
-.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.toggle { font-family: var(--mono); font-size: 0.85rem; color: var(--dim); display: inline-flex; gap: 8px; align-items: center; }
-.hint { font-size: 0.88rem; color: var(--dim); margin: 0; }
-
-h2 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; line-height: 1; margin: 0 0 14px; color: var(--ink); }
-section p { margin: 0 0 12px; max-width: 64ch; }
-.road { list-style: none; margin: 0; padding: 0; display: grid; }
-.road li { display: grid; grid-template-columns: 3.6rem 1fr; gap: 14px; padding: 8px 0; border-top: 1px solid var(--rule); align-items: baseline; }
-.road li:last-child { border-bottom: 1px solid var(--rule); }
-.road .v { font-family: var(--mono); color: var(--orange); font-variant-numeric: tabular-nums; text-align: right; font-size: 0.9rem; }
-.road .n { font-weight: 600; }
-.road .k { color: var(--dim); font-size: 0.92rem; }
-.steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 8px; max-width: 64ch; }
-code { font-family: var(--mono); font-size: 0.88em; color: var(--orange); background: var(--panel); padding: 2px 5px; border-radius: 3px; }
-.note { color: var(--dim); font-size: 0.92rem; }
-a { color: var(--orange); }
-footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule); padding-top: 16px; }
-</style>
-
-<div class="wrap">
-  <header>
-    <div class="kicker">Apple II edition &middot; Applesoft BASIC &middot; 1985</div>
-    <h1>The Irad Trail</h1>
-    <p class="lede"><strong>Spring 1877.</strong> Lead your family 690 versts by horse caravan from the Chu to Iyık Janyl. Buy supplies at Osmon's shop, ford four rivers, cross three high passes, hunt with your eagle, and keep all five of your family alive.</p>
-  </header>
-
-  <div>
-    <div class="monitor">
+<link rel="stylesheet" href="../site/site.css">
+<!--#header-->
+<main class="cols">
+  <div class="main">
+    <h1>The Irad Trail<small>Apple II edition &middot; 1985 &middot; now freeware</small></h1>
+    <p class="lead">The Iradi American Association's computer club made this edition in Chicago, with hi-res pictures of every landmark, a family of five who can fall ill and die, river crossings and hunting with the eagle.</p>
+    <div class="monitor apple">
       <div class="bezel">
-        <div class="screen" id="screen" role="application" aria-label="Game screen. Click or tap, then use the keyboard.">
+        <div class="screen ratio" id="screen" role="application" aria-label="Game screen. Click or tap, then use the keyboard.">
           <canvas id="crt" width="560" height="384"></canvas>
           <input id="kbd" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-label="Keyboard input">
         </div>
       </div>
-      <div class="badge"><span>Irad Trail &middot; 48K</span><span class="led" aria-hidden="true"></span></div>
+      <div class="badge"><span>48K &middot; Disk II</span><span class="led" aria-hidden="true"></span></div>
     </div>
     <div class="controls">
-      <p class="hint">Click the screen and use your keyboard. Press Return to stop while travelling. When hunting, J and L turn, the space bar looses the eagle. On a phone, use the keys below.</p>
+      <p class="hint">Click the screen and use your keyboard. Press Return to stop while travelling. When hunting, J and L turn and the space bar looses the eagle. On a phone, use these keys:</p>
       <div class="keys" id="keys">
         <button type="button" data-k="49">1</button><button type="button" data-k="50">2</button><button type="button" data-k="51">3</button>
         <button type="button" data-k="52">4</button><button type="button" data-k="53">5</button><button type="button" data-k="54">6</button>
@@ -96,50 +27,37 @@ footer { color: var(--dim); font-size: 0.88rem; border-top: 1px solid var(--rule
         <button type="button" data-k="13" class="wide">RETURN</button>
       </div>
       <div class="row">
-        <label class="toggle"><input type="checkbox" id="fast"> Run faster than a real Apple II</label>
+        <label class="toggle"><input type="checkbox" id="fast"> Faster than a real Apple II</label>
         <label class="toggle"><input type="checkbox" id="sound" checked> Sound</label>
         <button type="button" class="btn" id="restart">Restart</button>
       </div>
     </div>
-  </div>
 
-  <section>
-    <h2>The road</h2>
-    <ol class="road">
-      <li><span class="v">0</span><span><span class="n">The lower Chu</span><br><span class="k">Osmon's shop at the Chu ford</span></span></li>
-      <li><span class="v">25</span><span><span class="n">The Chu River</span><br><span class="k">River crossing</span></span></li>
-      <li><span class="v">140</span><span><span class="n">Kök-Bel Pass</span><br><span class="k">Over the Kyrgyz Range</span></span></li>
-      <li><span class="v">215</span><span><span class="n">Rabat-i-Safed</span><br><span class="k">Sogdian caravanserai. Supplies</span></span></li>
-      <li><span class="v">240</span><span><span class="n">The Talas fort</span><br><span class="k">Russian garrison. Supplies</span></span></li>
-      <li><span class="v">255</span><span><span class="n">The Talas River</span><br><span class="k">River crossing</span></span></li>
-      <li><span class="v">330</span><span><span class="n">Otmek Pass</span><br><span class="k">Second high pass</span></span></li>
-      <li><span class="v">400</span><span><span class="n">Suusamyr</span><br><span class="k">Kinsmen on the summer pastures</span></span></li>
-      <li><span class="v">450</span><span><span class="n">Ala-Bel Pass, 3,184 m</span><br><span class="k">Snowbound early and late in the year</span></span></li>
-      <li><span class="v">500</span><span><span class="n">The Chychkan</span><br><span class="k">River crossing</span></span></li>
-      <li><span class="v">570</span><span><span class="n">Ketmen-Töbö</span><br><span class="k">Bazaar. Supplies, at a price</span></span></li>
-      <li><span class="v">620</span><span><span class="n">The Naryn gorge</span><br><span class="k">Rockfall country</span></span></li>
-      <li><span class="v">690</span><span><span class="n">Iyık Janyl</span><br><span class="k">Cathedral Hill. Arrive by 24 August for the Feast of St. Janyl</span></span></li>
-    </ol>
-  </section>
+    <h2>About this edition</h2>
+    <div class="tablewrap"><table class="sheet">
+      <tr><th>Released</th><td>1985, Chicago</td></tr>
+      <tr><th>Published by</th><td>Iradi American Association, under licence from Mederbek Esenov</td></tr>
+      <tr><th>Computer</th><td>Apple II+, IIe or IIc with 48K and one Disk II drive</td></tr>
+      <tr><th>Price in 1985</th><td>US $19.95 by mail order</td></tr>
+      <tr><th>Price now</th><td class="free">Free</td></tr>
+    </table></div>
 
-  <section>
-    <h2>Play it on an Apple II emulator</h2>
-    <p>The disk boots by itself on an Apple II+, IIe or IIc with 48K, real or emulated. It needs no DOS.</p>
+    <h2>Play it on an Apple II</h2>
     <ol class="steps">
-      <li>Download the disk image <code>irad-trail.dsk</code>.</li>
-      <li>In <a href="https://github.com/AppleWin/AppleWin" target="_blank" rel="noopener">AppleWin</a>, put it in drive 1 and press the reboot button. Other emulators work the same way.</li>
+      <li>Download <code>irad-trail.dsk</code>. The disk boots by itself and needs no DOS.</li>
+      <li>Put it in drive 1 of an Apple II, or of <a href="https://github.com/AppleWin/AppleWin" target="_blank" rel="noopener">AppleWin</a>, and switch on.</li>
       <li>Loading takes about 20 seconds at normal disk speed.</li>
     </ol>
-    <div class="row" id="dl" style="margin-top:14px"></div>
-    <p class="note" style="margin-top:12px">You can also paste the listing into an emulator. The program is too big to share memory with the hi-res screen, so at the <code>]</code> prompt first type <code>POKE 103,1:POKE 104,64:POKE 16384,0:NEW</code>, then paste the listing and type <code>RUN</code>.</p>
+    <div class="row" id="dl"></div>
+    <p class="note">To type the listing in instead, first enter <code>POKE 103,1:POKE 104,64:POKE 16384,0:NEW</code> so the program sits above the hi-res screen, then paste it and type <code>RUN</code>.</p>
     <div class="row">
-      <button type="button" class="btn" id="copy">Copy Applesoft listing</button>
+      <button type="button" class="btn" id="copy">Copy the Applesoft listing</button>
       <span class="note" id="copied" role="status"></span>
     </div>
-  </section>
-
-  <footer>A new game in the spirit of the 1985 MECC classic, written in Applesoft BASIC with hi-res graphics. This page runs the same listing that is on the disk, in a small Applesoft interpreter that draws an Apple II screen. Other editions: <a href="../">MS-DOS (1990 style)</a> and <a href="../c64/">Commodore 64 (1978 style)</a>.</footer>
-</div>
+  </div>
+<!--#sidebar-->
+</main>
+<!--#footer-->
 
 <script type="text/plain" id="bas">%%BASIC_SOURCE%%</script>
 <script>

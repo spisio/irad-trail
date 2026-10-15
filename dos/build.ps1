@@ -9,7 +9,7 @@ $root = Split-Path -Parent $here
 $src = (Get-Content -Raw -Path (Join-Path $here 'IRAD.BAS')) -replace "`r`n", "`n"
 $punct = ':,;=+-*/()<>^\'
 function Compact([string]$body) {
-  if ($body -match '^REM\b') { if ($body -match '^REM (THE IRAD TRAIL|IRADI)') { return $body } else { return 'REM' } }
+  if ($body -match '^REM\b') { if ($body -match '^REM (THE IRAD TRAIL|IRADI|KUBLE)') { return $body } else { return 'REM' } }
   $sb = New-Object System.Text.StringBuilder; $q = $false; $data = $false
   for ($i = 0; $i -lt $body.Length; $i++) {
     $c = $body[$i]
